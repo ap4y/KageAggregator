@@ -1,0 +1,270 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		956CC3DE140F73A4002510D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3DD140F73A4002510D6 /* UIKit.framework */; };
+		956CC3E0140F73A4002510D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3DF140F73A4002510D6 /* Foundation.framework */; };
+		956CC3E2140F73A4002510D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3E1140F73A4002510D6 /* CoreGraphics.framework */; };
+		956CC3E8140F73A4002510D6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 956CC3E6140F73A4002510D6 /* InfoPlist.strings */; };
+		956CC3EA140F73A4002510D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 956CC3E9140F73A4002510D6 /* main.m */; };
+		956CC3EE140F73A4002510D6 /* KageClientAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 956CC3ED140F73A4002510D6 /* KageClientAppDelegate.m */; };
+		956CC3F1140F73A4002510D6 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 956CC3EF140F73A4002510D6 /* MainWindow.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		956CC3D9140F73A4002510D6 /* KageClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KageClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		956CC3DD140F73A4002510D6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		956CC3DF140F73A4002510D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		956CC3E1140F73A4002510D6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		956CC3E5140F73A4002510D6 /* KageClient-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KageClient-Info.plist"; sourceTree = "<group>"; };
+		956CC3E7140F73A4002510D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		956CC3E9140F73A4002510D6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		956CC3EB140F73A4002510D6 /* KageClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KageClient-Prefix.pch"; sourceTree = "<group>"; };
+		956CC3EC140F73A4002510D6 /* KageClientAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KageClientAppDelegate.h; sourceTree = "<group>"; };
+		956CC3ED140F73A4002510D6 /* KageClientAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KageClientAppDelegate.m; sourceTree = "<group>"; };
+		956CC3F0140F73A4002510D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		956CC3D6140F73A4002510D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				956CC3DE140F73A4002510D6 /* UIKit.framework in Frameworks */,
+				956CC3E0140F73A4002510D6 /* Foundation.framework in Frameworks */,
+				956CC3E2140F73A4002510D6 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		956CC3CE140F73A4002510D6 = {
+			isa = PBXGroup;
+			children = (
+				956CC3E3140F73A4002510D6 /* KageClient */,
+				956CC3DC140F73A4002510D6 /* Frameworks */,
+				956CC3DA140F73A4002510D6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		956CC3DA140F73A4002510D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				956CC3D9140F73A4002510D6 /* KageClient.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		956CC3DC140F73A4002510D6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				956CC3DD140F73A4002510D6 /* UIKit.framework */,
+				956CC3DF140F73A4002510D6 /* Foundation.framework */,
+				956CC3E1140F73A4002510D6 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		956CC3E3140F73A4002510D6 /* KageClient */ = {
+			isa = PBXGroup;
+			children = (
+				956CC3EC140F73A4002510D6 /* KageClientAppDelegate.h */,
+				956CC3ED140F73A4002510D6 /* KageClientAppDelegate.m */,
+				956CC3EF140F73A4002510D6 /* MainWindow.xib */,
+				956CC3E4140F73A4002510D6 /* Supporting Files */,
+			);
+			path = KageClient;
+			sourceTree = "<group>";
+		};
+		956CC3E4140F73A4002510D6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				956CC3E5140F73A4002510D6 /* KageClient-Info.plist */,
+				956CC3E6140F73A4002510D6 /* InfoPlist.strings */,
+				956CC3E9140F73A4002510D6 /* main.m */,
+				956CC3EB140F73A4002510D6 /* KageClient-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		956CC3D8140F73A4002510D6 /* KageClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 956CC3F4140F73A4002510D6 /* Build configuration list for PBXNativeTarget "KageClient" */;
+			buildPhases = (
+				956CC3D5140F73A4002510D6 /* Sources */,
+				956CC3D6140F73A4002510D6 /* Frameworks */,
+				956CC3D7140F73A4002510D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KageClient;
+			productName = KageClient;
+			productReference = 956CC3D9140F73A4002510D6 /* KageClient.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		956CC3D0140F73A4002510D6 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 956CC3D3140F73A4002510D6 /* Build configuration list for PBXProject "KageClient" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 956CC3CE140F73A4002510D6;
+			productRefGroup = 956CC3DA140F73A4002510D6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				956CC3D8140F73A4002510D6 /* KageClient */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		956CC3D7140F73A4002510D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				956CC3E8140F73A4002510D6 /* InfoPlist.strings in Resources */,
+				956CC3F1140F73A4002510D6 /* MainWindow.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		956CC3D5140F73A4002510D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				956CC3EA140F73A4002510D6 /* main.m in Sources */,
+				956CC3EE140F73A4002510D6 /* KageClientAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		956CC3E6140F73A4002510D6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				956CC3E7140F73A4002510D6 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		956CC3EF140F73A4002510D6 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				956CC3F0140F73A4002510D6 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		956CC3F2140F73A4002510D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		956CC3F3140F73A4002510D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		956CC3F5140F73A4002510D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KageClient/KageClient-Prefix.pch";
+				INFOPLIST_FILE = "KageClient/KageClient-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		956CC3F6140F73A4002510D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KageClient/KageClient-Prefix.pch";
+				INFOPLIST_FILE = "KageClient/KageClient-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		956CC3D3140F73A4002510D6 /* Build configuration list for PBXProject "KageClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				956CC3F2140F73A4002510D6 /* Debug */,
+				956CC3F3140F73A4002510D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		956CC3F4140F73A4002510D6 /* Build configuration list for PBXNativeTarget "KageClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				956CC3F5140F73A4002510D6 /* Debug */,
+				956CC3F6140F73A4002510D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 956CC3D0140F73A4002510D6 /* Project object */;
+}
