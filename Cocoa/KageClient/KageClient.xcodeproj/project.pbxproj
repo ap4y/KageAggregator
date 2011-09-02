@@ -16,6 +16,7 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
+		953A32A4140F79AE0072549D /* KageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 953A32A3140F79AE0072549D /* KageParser.m */; };
 		956CC3DE140F73A4002510D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3DD140F73A4002510D6 /* UIKit.framework */; };
 		956CC3E0140F73A4002510D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3DF140F73A4002510D6 /* Foundation.framework */; };
 		956CC3E2140F73A4002510D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3E1140F73A4002510D6 /* CoreGraphics.framework */; };
@@ -23,6 +24,11 @@
 		956CC3EA140F73A4002510D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 956CC3E9140F73A4002510D6 /* main.m */; };
 		956CC3EE140F73A4002510D6 /* KageClientAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 956CC3ED140F73A4002510D6 /* KageClientAppDelegate.m */; };
 		956CC3F1140F73A4002510D6 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 956CC3EF140F73A4002510D6 /* MainWindow.xib */; };
+		95C6601C1411387900A02855 /* RegexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C6601B1411387900A02855 /* RegexHelper.m */; };
+		95C660D61411458C00A02855 /* KageData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95C660D41411458C00A02855 /* KageData.xcdatamodeld */; };
+		95C660D9141146AA00A02855 /* Anime.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C660D8141146AA00A02855 /* Anime.m */; };
+		95C660DC141146AB00A02855 /* Subtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C660DB141146AB00A02855 /* Subtitle.m */; };
+		95EF30D3140FF6A4007155E8 /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 95EF30D2140FF6A4007155E8 /* test.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +205,8 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = ../../../three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../../../three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../../../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
+		953A32A2140F79AE0072549D /* KageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KageParser.h; path = Common/KageParser.h; sourceTree = "<group>"; };
+		953A32A3140F79AE0072549D /* KageParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KageParser.m; path = Common/KageParser.m; sourceTree = "<group>"; };
 		956CC3D9140F73A4002510D6 /* KageClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KageClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		956CC3DD140F73A4002510D6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		956CC3DF140F73A4002510D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -210,6 +218,14 @@
 		956CC3EC140F73A4002510D6 /* KageClientAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KageClientAppDelegate.h; sourceTree = "<group>"; };
 		956CC3ED140F73A4002510D6 /* KageClientAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KageClientAppDelegate.m; sourceTree = "<group>"; };
 		956CC3F0140F73A4002510D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		95C6601A1411387900A02855 /* RegexHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexHelper.h; path = Common/RegexHelper.h; sourceTree = "<group>"; };
+		95C6601B1411387900A02855 /* RegexHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexHelper.m; path = Common/RegexHelper.m; sourceTree = "<group>"; };
+		95C660D51411458C00A02855 /* KageData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KageData.xcdatamodel; sourceTree = "<group>"; };
+		95C660D7141146AA00A02855 /* Anime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Anime.h; path = Models/Anime.h; sourceTree = "<group>"; };
+		95C660D8141146AA00A02855 /* Anime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Anime.m; path = Models/Anime.m; sourceTree = "<group>"; };
+		95C660DA141146AB00A02855 /* Subtitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Subtitle.h; path = Models/Subtitle.h; sourceTree = "<group>"; };
+		95C660DB141146AB00A02855 /* Subtitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Subtitle.m; path = Models/Subtitle.m; sourceTree = "<group>"; };
+		95EF30D2140FF6A4007155E8 /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = test.html; path = ../../../test.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +315,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		953A32A1140F798C0072549D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				953A32A2140F79AE0072549D /* KageParser.h */,
+				953A32A3140F79AE0072549D /* KageParser.m */,
+				95C6601A1411387900A02855 /* RegexHelper.h */,
+				95C6601B1411387900A02855 /* RegexHelper.m */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		956CC3CE140F73A4002510D6 = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +364,8 @@
 		956CC3E3140F73A4002510D6 /* KageClient */ = {
 			isa = PBXGroup;
 			children = (
+				95C660D31411457000A02855 /* Models */,
+				953A32A1140F798C0072549D /* Common */,
 				956CC3EC140F73A4002510D6 /* KageClientAppDelegate.h */,
 				956CC3ED140F73A4002510D6 /* KageClientAppDelegate.m */,
 				956CC3EF140F73A4002510D6 /* MainWindow.xib */,
@@ -348,6 +377,7 @@
 		956CC3E4140F73A4002510D6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				95EF30D2140FF6A4007155E8 /* test.html */,
 				320B6C86F11D9990244A9730 /* Three20.bundle */,
 				956CC3E5140F73A4002510D6 /* KageClient-Info.plist */,
 				956CC3E6140F73A4002510D6 /* InfoPlist.strings */,
@@ -355,6 +385,18 @@
 				956CC3EB140F73A4002510D6 /* KageClient-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		95C660D31411457000A02855 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				95C660D41411458C00A02855 /* KageData.xcdatamodeld */,
+				95C660DA141146AB00A02855 /* Subtitle.h */,
+				95C660DB141146AB00A02855 /* Subtitle.m */,
+				95C660D7141146AA00A02855 /* Anime.h */,
+				95C660D8141146AA00A02855 /* Anime.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -559,6 +601,7 @@
 				320B6C86F11D9990244A9731 /* Three20.bundle in Resources */,
 				956CC3E8140F73A4002510D6 /* InfoPlist.strings in Resources */,
 				956CC3F1140F73A4002510D6 /* MainWindow.xib in Resources */,
+				95EF30D3140FF6A4007155E8 /* test.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,6 +614,11 @@
 			files = (
 				956CC3EA140F73A4002510D6 /* main.m in Sources */,
 				956CC3EE140F73A4002510D6 /* KageClientAppDelegate.m in Sources */,
+				953A32A4140F79AE0072549D /* KageParser.m in Sources */,
+				95C6601C1411387900A02855 /* RegexHelper.m in Sources */,
+				95C660D61411458C00A02855 /* KageData.xcdatamodeld in Sources */,
+				95C660D9141146AA00A02855 /* Anime.m in Sources */,
+				95C660DC141146AB00A02855 /* Subtitle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,6 +781,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		95C660D41411458C00A02855 /* KageData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				95C660D51411458C00A02855 /* KageData.xcdatamodel */,
+			);
+			currentVersion = 95C660D51411458C00A02855 /* KageData.xcdatamodel */;
+			name = KageData.xcdatamodeld;
+			path = Models/KageData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 956CC3D0140F73A4002510D6 /* Project object */;
 }

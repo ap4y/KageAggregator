@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="562" systemVersion="11B26" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Anime">
+        <attribute name="baseId" optional="YES" attributeType="Integer 32" defaultValueString="0"/>
+        <relationship name="subtitles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subtitle" inverseName="anime" inverseEntity="Subtitle"/>
+    </entity>
+    <entity name="Subtitle">
+        <attribute name="seriesCount" optional="YES" attributeType="Integer 16" defaultValueString="0"/>
+        <attribute name="srtId" optional="YES" attributeType="Integer 32" defaultValueString="0"/>
+        <relationship name="anime" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Anime" inverseName="subtitles" inverseEntity="Anime"/>
+    </entity>
+    <elements>
+        <element name="Subtitle" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="Anime" positionX="-56" positionY="207" width="128" height="75"/>
+    </elements>
+</model>
