@@ -7,17 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Anime.h"
 
 @interface KageParser : NSObject {
     NSString* _htmlBody;
-    NSString* _fansubGroup;
+    Anime* _anime;
 }
 
-//+ (void)parseHtml:(NSString*)html;
+@property(nonatomic, retain) Anime* anime;
 
-- (id)initWithContent:(NSString*)page fansubGroup:(NSString*)group;
-- (id)initWithContent:(NSString*)page;
-- (id)initWithURL:(NSURL*)page fansubGroup:(NSString*)group;
-- (id)initWithURL:(NSURL*)page;
+- (id)initWithAnime:(Anime*)anime;
 
 @end

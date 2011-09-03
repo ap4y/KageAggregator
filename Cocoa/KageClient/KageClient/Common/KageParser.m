@@ -10,6 +10,9 @@
 #import "RegexHelper.h"
 
 @implementation KageParser
+@synthesize anime = _anime;
+
+static NSString* hostName = @"http://fansubs.ru/";
 
 - (void)parseHtmlString:(NSString*)htmlString {
     //get srt objId
@@ -33,48 +36,68 @@
     }      
 }
 
-- (void)parseHtml {
-    NSString* cleanedHtml = [_htmlBody stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
-    NSArray* htmlArray = [RegexHelper arrayWithHtmlMatchesPattern:cleanedHtml pattern:@"<table width=\"750\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">.*?</table>"];    
+- (void)parseHtmlBody {
+    if (_htmlBody) {
+        NSArray* htmlArray = [RegexHelper arrayWithHtmlMatchesPattern:_htmlBody pattern:@"<table width=\"750\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">.*?</table>"];    
     
-    for (NSString* htmlString in htmlArray) {        
-        if (_fansubGroup) {
-            if ([htmlString rangeOfString:_fansubGroup].location != NSNotFound) {
-                [self parseHtmlString:htmlString];
-                return;
-            }
-        }
-        else
+        for (NSString* htmlString in htmlArray) {                
             [self parseHtmlString:htmlString];
-    }    
+        } 
+    }
 }
 
-- (id)initWithContent:(NSString*)page fansubGroup:(NSString*)group {
+- (void)parseHtmlHeader {    
+    if (_htmlBody) {
+        _anime.name = [RegexHelper stringWithHtmlTagContent:_htmlBody tag:@"title"];
+        NSLog(@"anime name %@", _anime.name);
+        NSString* imageTag = [RegexHelper stringWithHtmlMatchesPattern:_htmlBody pattern:@"<img.*?width=140.*?>"];
+        NSString* imagePath = [RegexHelper stringWithHtmlMatchesPattern:imageTag pattern:@"src=.*width"];
+        imagePath = [imagePath stringByReplacingOccurrencesOfString:@"src=" withString:@""];
+        imagePath = [imagePath stringByReplacingOccurrencesOfString:@" width" withString:@""];    
+        
+        NSURL* imageUrl = [NSURL URLWithString:[hostName stringByAppendingPathComponent:imagePath]];
+        _anime.image = [NSData dataWithContentsOfURL:imageUrl];
+        NSLog(@"anime image size %i", _anime.image.length);
+    }           
+}
+
+- (void)requestHtmlBody {
+    _htmlBody = nil;
+    NSError* err = nil;    
+    //NSString* html = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fansubs.ru/base.php?id=%i", _anime.baseId.integerValue]] encoding:NSWindowsCP1251StringEncoding error:&err];
+    NSString* fileUrl = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"test.html"];
+    NSString* html = [NSString stringWithContentsOfFile:fileUrl encoding:NSWindowsCP1251StringEncoding error:&err];
+    
+    if (err) {
+        NSLog(@"getting string error %@", err.localizedDescription);     
+        return;
+    }
+    else
+        _htmlBody = [html stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
+}
+
+- (id)initWithAnime:(Anime*)anime {
     self = [super init];
     if (self) {
-        _htmlBody = page;
-        _fansubGroup = group;
-        [self parseHtml];
+                
+        if (!anime.objectID) {
+            return nil;
+        }
+        
+        _anime = anime;
+        
+        if (_anime.name == nil || anime.name.length == 0) {
+                             
+            [self requestHtmlBody];
+            [self parseHtmlHeader];
+        }
     }
     return self;
 }
 
-- (id)initWithContent:(NSString*)page {
-    return [self initWithContent:page fansubGroup:nil];
-}
-
-- (id)initWithURL:(NSURL*)page fansubGroup:(NSString*)group {
-    NSError* err = nil;
-    NSString* html = [NSString stringWithContentsOfURL:page encoding:NSWindowsCP1251StringEncoding error:&err];
-    
-    if (err)
-        NSLog(@"getting url content error %@", err.localizedDescription);
-    
-    return [self initWithContent:html fansubGroup:group];
-}
-
-- (id)initWithURL:(NSURL*)page {
-    return [self initWithURL:page fansubGroup:nil];
+- (void)dealloc {
+    [_anime release];
+    [super dealloc];
 }
 
 @end

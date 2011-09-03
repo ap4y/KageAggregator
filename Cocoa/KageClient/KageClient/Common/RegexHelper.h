@@ -14,4 +14,6 @@
 
 + (NSString*)stringWithHtmlMatchesPattern:(NSString*)html pattern:(NSString*)pattern;
 
++ (NSString*)stringWithHtmlTagContent:(NSString*)html tag:(NSString*)tag;
+
 @end

@@ -1,20 +1,17 @@
 //
-//  Subtitle.m
+//  Group.m
 //  KageClient
 //
 //  Created by Arthur Evstifeev on 03.09.11.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "Subtitle.h"
-#import "Anime.h"
 #import "Group.h"
+#import "Subtitle.h"
 
 
-@implementation Subtitle
-@dynamic seriesCount;
-@dynamic srtId;
-@dynamic anime;
-@dynamic fansubGroup;
+@implementation Group
+@dynamic name;
+@dynamic subtitle;
 
 @end

@@ -10,27 +10,6 @@
 
 @implementation RegexHelper
 
-- (NSString*)parseXmlParam:(NSString*)paramName paramContent:(NSString*)paramContent {
-    NSError* err;
-    
-    NSString* pattern = [NSString stringWithFormat:@"<table width=\"750\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">.*?<%@", paramName, paramName];    
-    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern options:(NSRegularExpressionCaseInsensitive & NSRegularExpressionDotMatchesLineSeparators) error:&err];
-    
-    NSArray* paramArray = [regex matchesInString:paramContent options:NSMatchingCompleted range:NSMakeRange(0, paramContent.length)];
-    
-    NSString *result = @"";
-    if (paramArray.count > 0) {
-        NSTextCheckingResult* paramArrayResult = [paramArray objectAtIndex:0];
-        result = [paramContent substringWithRange:paramArrayResult.range];
-        //result = [result stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"<%@>", paramName] withString:@""];
-        //result = [result stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"</%@>", paramName] withString:@""];            
-    }    
-    else
-        return nil;
-    
-    return result;
-}
-
 + (NSArray*)arrayWithHtmlMatchesPattern:(NSString*)html pattern:(NSString*)pattern {
     NSError* err = nil;
     
@@ -69,6 +48,32 @@
     }
     else
         return nil;
+}
+
++ (NSString*)stringWithHtmlTagContent:(NSString*)html tag:(NSString*)tag {
+    NSError* err;
+    
+    NSString* pattern = [NSString stringWithFormat:@"<%@>.*?</%@>", tag, tag];
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern options:(NSRegularExpressionCaseInsensitive & NSRegularExpressionDotMatchesLineSeparators) error:&err];
+    
+    if (err) {
+        NSLog(@"regex error: %@", err.localizedDescription);
+        return nil;
+    }
+    
+    NSArray* paramArray = [regex matchesInString:html options:NSMatchingCompleted range:NSMakeRange(0, html.length)];
+    
+    NSString *result = @"";
+    if (paramArray.count > 0) {
+        NSTextCheckingResult* paramArrayResult = [paramArray objectAtIndex:0];
+        result = [html substringWithRange:paramArrayResult.range];
+        result = [result stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"<%@>", tag] withString:@""];
+        result = [result stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"</%@>", tag] withString:@""];            
+    }    
+    else
+        return nil;
+    
+    return result;
 }
 
 @end

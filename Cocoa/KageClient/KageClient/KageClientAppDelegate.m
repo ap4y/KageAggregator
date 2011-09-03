@@ -14,16 +14,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {        
-    NSError* err = nil;
-    NSString* fileUrl = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"test.html"];
-    //NSString* html = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://fansubs.ru/base.php?id=3302"] encoding:NSWindowsCP1251StringEncoding error:&err];
-    NSString* html = [NSString stringWithContentsOfFile:fileUrl encoding:NSWindowsCP1251StringEncoding error:&err];
-
-    if (err)
-        NSLog(@"getting string error %@", err.localizedDescription);
+    TTNavigator* navigator = [TTNavigator navigator];
+    navigator.persistenceMode = TTNavigatorPersistenceModeAll;
+    navigator.window = self.window;
+    TTURLMap* map = navigator.URLMap;
+    [map from:@"tt://animelist/" toSharedViewController:NSClassFromString(@"KageTableViewController")];
     
-    KageParser* kageParser = [[KageParser alloc] initWithContent:html];    
-    
+    [navigator openURLAction:[TTURLAction actionWithURLPath:@"tt://animelist/"]];    
+        
     [self.window makeKeyAndVisible];
     return YES;
 }
