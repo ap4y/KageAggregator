@@ -36,7 +36,7 @@
     if (result.count == 0 || err)
         return nil;
     
-    return [result objectAtIndex:1];
+    return [result objectAtIndex:0];
 }
 
 + (BOOL)addAnime:(NSNumber*)baseId {
@@ -48,12 +48,15 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Anime" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
     
     Anime* newAnime = [[Anime alloc] initWithEntity:entity insertIntoManagedObjectContext:[CoreDataHelper managedObjectContext]];  
+    newAnime.baseId = baseId;
     
     KageParser* kageParser = [[[KageParser alloc] initWithAnime:newAnime] autorelease];
     
     if (!kageParser) {
         return NO;
     }
+    
+    [kageParser reloadData];
     
     NSError *error = nil;
     if (![[CoreDataHelper managedObjectContext] save:&error]) {

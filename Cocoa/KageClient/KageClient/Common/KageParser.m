@@ -8,13 +8,15 @@
 
 #import "KageParser.h"
 #import "RegexHelper.h"
+#import "Subtitle.h"
+#import "Group.h"
 
 @implementation KageParser
 @synthesize anime = _anime;
 
 static NSString* hostName = @"http://fansubs.ru/";
 
-- (void)parseHtmlString:(NSString*)htmlString {
+- (void)parseHtmlString:(NSString*)htmlString groupString:(NSString*)groupString {
     //get srt objId
     NSString* srtIdString = [RegexHelper stringWithHtmlMatchesPattern:htmlString pattern:@"<input type=\"hidden\" name=\"srt\".*?>"];
     NSString* srtId = [RegexHelper stringWithHtmlMatchesPattern:srtIdString pattern:@"value=\"[0-9]*\""];
@@ -23,26 +25,84 @@ static NSString* hostName = @"http://fansubs.ru/";
     NSLog(@"srtId:%@", srtId);
     
     //split table to cell
+    NSString* count = @"0";
     NSArray* cellArray = [RegexHelper arrayWithHtmlMatchesPattern:htmlString pattern:@"<td.*?>.*?</td>"];
     
     if (cellArray.count > 4 ) {
         
         NSString* countDescriptionCell = [RegexHelper stringWithHtmlMatchesPattern:[cellArray objectAtIndex:2] pattern:@"ТВ [0-9]*-[0-9]*"];
-        NSString* count = [RegexHelper stringWithHtmlMatchesPattern:countDescriptionCell pattern:@"-[0-9]*"];
+        count = [RegexHelper stringWithHtmlMatchesPattern:countDescriptionCell pattern:@"-[0-9]*"];
         NSLog(@"series translated %@", [count stringByReplacingOccurrencesOfString:@"-" withString:@""]);
         
         //NSString* formatCell = [cellArray objectAtIndex:3];
         //NSLog(@"%@", formatCell);
-    }      
+    }
+
+    NSNumberFormatter* numFormat = [[[NSNumberFormatter alloc] init] autorelease];
+    NSNumber* countNum = [numFormat numberFromString:count];
+    NSNumber* srtIdNum = [numFormat numberFromString:srtId];
+    
+    Subtitle* curSub = [_anime subtitleWithSrtId:srtIdNum];
+    if (!curSub) {
+        //new subtitle group
+        Subtitle* newSub = [[[Subtitle alloc] init] autorelease];        
+        newSub.srtId = srtIdNum;
+        newSub.seriesCount = countNum;    
+        newSub.updated = [NSNumber numberWithBool:YES];
+        
+        //parse group information
+        Group* fansubGroup = [[[Group alloc] init] autorelease];
+        
+        NSArray* groupTables = [RegexHelper arrayWithHtmlMatchesPattern:groupString pattern:@"<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"row1\">.*?</table>"];
+        
+        fansubGroup.name = @"";
+        for (NSString* nameStr in groupTables) {
+            NSString* memberName = [RegexHelper stringWithHtmlTagContent:nameStr tag:@"b"];
+            NSString* groupName = [RegexHelper stringWithHtmlMatchesPattern:nameStr pattern:@"web>.*?</a>]</td>"];
+            groupName = [groupName stringByReplacingOccurrencesOfString:@"web>" withString:@""];
+            groupName = [groupName stringByReplacingOccurrencesOfString:@"</a>]</td>" withString:@""];
+            if (groupName && groupName.length > 0)
+                groupName = [NSString stringWithFormat:@"[%@]", groupName];
+            else
+                groupName = @"";
+            fansubGroup.name = [fansubGroup.name stringByAppendingString:[NSString stringWithFormat:@"%@%@ ", memberName, groupName]];
+        }                    
+        
+        NSLog(@"fansubbers %@", fansubGroup.name);
+        newSub.fansubGroup = fansubGroup;        
+        [_anime addSubtitlesObject:newSub];
+    }
+    else {
+        if (countNum > curSub.seriesCount) {
+            curSub.seriesCount = countNum;
+            curSub.updated = [NSNumber numberWithBool:YES];
+        }
+    }
 }
 
 - (void)parseHtmlBody {
     if (_htmlBody) {
-        NSArray* htmlArray = [RegexHelper arrayWithHtmlMatchesPattern:_htmlBody pattern:@"<table width=\"750\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">.*?</table>"];    
+        NSArray* htmlArray = [RegexHelper arrayWithRangesMatchesPattern:_htmlBody pattern:@"<table width=\"750\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">.*?</table>"];    
     
-        for (NSString* htmlString in htmlArray) {                
-            [self parseHtmlString:htmlString];
-        } 
+        for (int i = 0; i < htmlArray.count; i++) {
+            NSTextCheckingResult* curResult = [htmlArray objectAtIndex:i];
+            NSTextCheckingResult* nextResult = nil;
+            if (i < htmlArray.count - 1) {
+                nextResult = [htmlArray objectAtIndex:i + 1];
+            }
+            NSString* mainHtml = [_htmlBody substringWithRange: curResult.range];
+            NSString* groupHtml = @"";
+            
+            if (nextResult) {
+                groupHtml = [_htmlBody substringWithRange: NSMakeRange(curResult.range.location + curResult.range.length, nextResult.range.location - curResult.range.location - curResult.range.length)];
+            }
+            else {
+                NSLog(@"range start %i, length %i, total length %i", curResult.range.location + curResult.range.length, _htmlBody.length - curResult.range.location - curResult.range.length, _htmlBody.length);
+                groupHtml = [_htmlBody substringWithRange: NSMakeRange(curResult.range.location + curResult.range.length, _htmlBody.length - curResult.range.location - curResult.range.length)];
+            }        
+            
+            [self parseHtmlString:mainHtml groupString:groupHtml];
+        }
     }
 }
 
@@ -76,11 +136,15 @@ static NSString* hostName = @"http://fansubs.ru/";
         _htmlBody = [html stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
 }
 
+- (void)reloadData {
+    [self parseHtmlBody];
+}
+
 - (id)initWithAnime:(Anime*)anime {
     self = [super init];
     if (self) {
                 
-        if (!anime.objectID) {
+        if (!anime.baseId) {
             return nil;
         }
         

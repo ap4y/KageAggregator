@@ -31,6 +31,19 @@
     return result;
 }
 
++ (NSArray*)arrayWithRangesMatchesPattern:(NSString*)html pattern:(NSString*)pattern {
+    NSError* err = nil;
+    
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern options:(NSRegularExpressionCaseInsensitive & NSRegularExpressionDotMatchesLineSeparators) error:&err];
+    
+    if (err) {
+        NSLog(@"regex error: %@", err.localizedDescription);
+        return nil;
+    }
+    
+    return [regex matchesInString:html options:NSMatchingCompleted range:NSMakeRange(0, html.length)];
+}
+
 + (NSString*)stringWithHtmlMatchesPattern:(NSString*)html pattern:(NSString*)pattern {
     NSError* err = nil;
     
@@ -51,7 +64,7 @@
 }
 
 + (NSString*)stringWithHtmlTagContent:(NSString*)html tag:(NSString*)tag {
-    NSError* err;
+    NSError* err = nil;
     
     NSString* pattern = [NSString stringWithFormat:@"<%@>.*?</%@>", tag, tag];
     NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern options:(NSRegularExpressionCaseInsensitive & NSRegularExpressionDotMatchesLineSeparators) error:&err];

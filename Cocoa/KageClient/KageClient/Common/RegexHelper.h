@@ -12,6 +12,8 @@
 
 + (NSArray*)arrayWithHtmlMatchesPattern:(NSString*)html pattern:(NSString*)pattern;
 
++ (NSArray*)arrayWithRangesMatchesPattern:(NSString*)html pattern:(NSString*)pattern;
+
 + (NSString*)stringWithHtmlMatchesPattern:(NSString*)html pattern:(NSString*)pattern;
 
 + (NSString*)stringWithHtmlTagContent:(NSString*)html tag:(NSString*)tag;

@@ -16,6 +16,7 @@
 }
 @property (nonatomic, retain) NSNumber * seriesCount;
 @property (nonatomic, retain) NSNumber * srtId;
+@property (nonatomic, retain) NSNumber * updated;
 @property (nonatomic, retain) Anime *anime;
 @property (nonatomic, retain) Group *fansubGroup;
 

@@ -17,5 +17,6 @@
 @property(nonatomic, retain) Anime* anime;
 
 - (id)initWithAnime:(Anime*)anime;
+- (void)reloadData;
 
 @end

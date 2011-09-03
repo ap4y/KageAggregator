@@ -8,10 +8,20 @@
 
 #import "Group.h"
 #import "Subtitle.h"
-
+#import "CoreDataHelper.h"
 
 @implementation Group
 @dynamic name;
 @dynamic subtitle;
+
+- (id)init {
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Group" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
+    
+    self = [super initWithEntity:entity insertIntoManagedObjectContext:[CoreDataHelper managedObjectContext]];
+    if (self) {
+        
+    }
+    return self;
+}
 
 @end

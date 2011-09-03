@@ -18,6 +18,10 @@
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		953A32A4140F79AE0072549D /* KageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 953A32A3140F79AE0072549D /* KageParser.m */; };
 		954C6CF4141269660082EBAD /* TableAnimeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF3141269660082EBAD /* TableAnimeItem.m */; };
+		954C6CF7141272350082EBAD /* Subtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF6141272350082EBAD /* Subtitle.m */; };
+		954C6CFA141272370082EBAD /* Anime.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF9141272360082EBAD /* Anime.m */; };
+		954C6CFD141272370082EBAD /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CFC141272370082EBAD /* Group.m */; };
+		954C6D00141283E70082EBAD /* AnimeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CFF141283E70082EBAD /* AnimeDetailViewController.m */; };
 		956CC3DE140F73A4002510D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3DD140F73A4002510D6 /* UIKit.framework */; };
 		956CC3E0140F73A4002510D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3DF140F73A4002510D6 /* Foundation.framework */; };
 		956CC3E2140F73A4002510D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3E1140F73A4002510D6 /* CoreGraphics.framework */; };
@@ -25,9 +29,6 @@
 		956CC3EA140F73A4002510D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 956CC3E9140F73A4002510D6 /* main.m */; };
 		956CC3EE140F73A4002510D6 /* KageClientAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 956CC3ED140F73A4002510D6 /* KageClientAppDelegate.m */; };
 		956CC3F1140F73A4002510D6 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 956CC3EF140F73A4002510D6 /* MainWindow.xib */; };
-		959BD443141234CD00C2CBC8 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 959BD442141234CD00C2CBC8 /* Group.m */; };
-		959BD446141234CE00C2CBC8 /* Anime.m in Sources */ = {isa = PBXBuildFile; fileRef = 959BD445141234CE00C2CBC8 /* Anime.m */; };
-		959BD449141234CF00C2CBC8 /* Subtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 959BD448141234CF00C2CBC8 /* Subtitle.m */; };
 		959BD44C1412392F00C2CBC8 /* KageTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 959BD44B1412392F00C2CBC8 /* KageTableDataSource.m */; };
 		95C6601C1411387900A02855 /* RegexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C6601B1411387900A02855 /* RegexHelper.m */; };
 		95C660D61411458C00A02855 /* KageData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95C660D41411458C00A02855 /* KageData.xcdatamodeld */; };
@@ -216,6 +217,14 @@
 		953A32A3140F79AE0072549D /* KageParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KageParser.m; path = Common/KageParser.m; sourceTree = "<group>"; };
 		954C6CF2141269660082EBAD /* TableAnimeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableAnimeItem.h; path = Views/TableAnimeItem.h; sourceTree = "<group>"; };
 		954C6CF3141269660082EBAD /* TableAnimeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableAnimeItem.m; path = Views/TableAnimeItem.m; sourceTree = "<group>"; };
+		954C6CF5141272350082EBAD /* Subtitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Subtitle.h; path = Models/Subtitle.h; sourceTree = "<group>"; };
+		954C6CF6141272350082EBAD /* Subtitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Subtitle.m; path = Models/Subtitle.m; sourceTree = "<group>"; };
+		954C6CF8141272360082EBAD /* Anime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Anime.h; path = Models/Anime.h; sourceTree = "<group>"; };
+		954C6CF9141272360082EBAD /* Anime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Anime.m; path = Models/Anime.m; sourceTree = "<group>"; };
+		954C6CFB141272370082EBAD /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Group.h; path = Models/Group.h; sourceTree = "<group>"; };
+		954C6CFC141272370082EBAD /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Group.m; path = Models/Group.m; sourceTree = "<group>"; };
+		954C6CFE141283E70082EBAD /* AnimeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimeDetailViewController.h; path = Controllers/AnimeDetailViewController.h; sourceTree = "<group>"; };
+		954C6CFF141283E70082EBAD /* AnimeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimeDetailViewController.m; path = Controllers/AnimeDetailViewController.m; sourceTree = "<group>"; };
 		956CC3D9140F73A4002510D6 /* KageClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KageClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		956CC3DD140F73A4002510D6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		956CC3DF140F73A4002510D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -227,12 +236,6 @@
 		956CC3EC140F73A4002510D6 /* KageClientAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KageClientAppDelegate.h; sourceTree = "<group>"; };
 		956CC3ED140F73A4002510D6 /* KageClientAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KageClientAppDelegate.m; sourceTree = "<group>"; };
 		956CC3F0140F73A4002510D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		959BD441141234CD00C2CBC8 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Group.h; path = Models/Group.h; sourceTree = "<group>"; };
-		959BD442141234CD00C2CBC8 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Group.m; path = Models/Group.m; sourceTree = "<group>"; };
-		959BD444141234CE00C2CBC8 /* Anime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Anime.h; path = Models/Anime.h; sourceTree = "<group>"; };
-		959BD445141234CE00C2CBC8 /* Anime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Anime.m; path = Models/Anime.m; sourceTree = "<group>"; };
-		959BD447141234CF00C2CBC8 /* Subtitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Subtitle.h; path = Models/Subtitle.h; sourceTree = "<group>"; };
-		959BD448141234CF00C2CBC8 /* Subtitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Subtitle.m; path = Models/Subtitle.m; sourceTree = "<group>"; };
 		959BD44A1412392F00C2CBC8 /* KageTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KageTableDataSource.h; path = Models/KageTableDataSource.h; sourceTree = "<group>"; };
 		959BD44B1412392F00C2CBC8 /* KageTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KageTableDataSource.m; path = Models/KageTableDataSource.m; sourceTree = "<group>"; };
 		95C6601A1411387900A02855 /* RegexHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexHelper.h; path = Common/RegexHelper.h; sourceTree = "<group>"; };
@@ -428,14 +431,14 @@
 				95C660D41411458C00A02855 /* KageData.xcdatamodeld */,
 				95C6617C14114C7900A02855 /* CommonData.h */,
 				95C6617D14114C7900A02855 /* CommonData.m */,
-				959BD444141234CE00C2CBC8 /* Anime.h */,
-				959BD445141234CE00C2CBC8 /* Anime.m */,
-				959BD447141234CF00C2CBC8 /* Subtitle.h */,
-				959BD448141234CF00C2CBC8 /* Subtitle.m */,
-				959BD441141234CD00C2CBC8 /* Group.h */,
-				959BD442141234CD00C2CBC8 /* Group.m */,
 				959BD44A1412392F00C2CBC8 /* KageTableDataSource.h */,
 				959BD44B1412392F00C2CBC8 /* KageTableDataSource.m */,
+				954C6CF5141272350082EBAD /* Subtitle.h */,
+				954C6CF6141272350082EBAD /* Subtitle.m */,
+				954C6CF8141272360082EBAD /* Anime.h */,
+				954C6CF9141272360082EBAD /* Anime.m */,
+				954C6CFB141272370082EBAD /* Group.h */,
+				954C6CFC141272370082EBAD /* Group.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -445,6 +448,8 @@
 			children = (
 				95C660DE141148E400A02855 /* KageTableViewController.h */,
 				95C660DF141148E400A02855 /* KageTableViewController.m */,
+				954C6CFE141283E70082EBAD /* AnimeDetailViewController.h */,
+				954C6CFF141283E70082EBAD /* AnimeDetailViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -670,11 +675,12 @@
 				95C660E0141148E400A02855 /* KageTableViewController.m in Sources */,
 				95C6612014114ACC00A02855 /* CoreDataHelper.m in Sources */,
 				95C6617E14114C7900A02855 /* CommonData.m in Sources */,
-				959BD443141234CD00C2CBC8 /* Group.m in Sources */,
-				959BD446141234CE00C2CBC8 /* Anime.m in Sources */,
-				959BD449141234CF00C2CBC8 /* Subtitle.m in Sources */,
 				959BD44C1412392F00C2CBC8 /* KageTableDataSource.m in Sources */,
 				954C6CF4141269660082EBAD /* TableAnimeItem.m in Sources */,
+				954C6CF7141272350082EBAD /* Subtitle.m in Sources */,
+				954C6CFA141272370082EBAD /* Anime.m in Sources */,
+				954C6CFD141272370082EBAD /* Group.m in Sources */,
+				954C6D00141283E70082EBAD /* AnimeDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

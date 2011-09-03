@@ -13,12 +13,13 @@
     <entity name="Subtitle" representedClassName="Subtitle">
         <attribute name="seriesCount" optional="YES" attributeType="Integer 16" defaultValueString="0"/>
         <attribute name="srtId" optional="YES" attributeType="Integer 32" defaultValueString="0"/>
+        <attribute name="updated" optional="YES" attributeType="Boolean"/>
         <relationship name="anime" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Anime" inverseName="subtitles" inverseEntity="Anime"/>
         <relationship name="fansubGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="subtitle" inverseEntity="Group"/>
     </entity>
     <elements>
         <element name="Anime" positionX="387" positionY="207" width="128" height="75"/>
-        <element name="Subtitle" positionX="160" positionY="192" width="128" height="90"/>
         <element name="Group" positionX="-9" positionY="438" width="128" height="75"/>
+        <element name="Subtitle" positionX="160" positionY="192" width="128" height="120"/>
     </elements>
 </model>

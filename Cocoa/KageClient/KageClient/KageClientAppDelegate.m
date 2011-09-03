@@ -19,6 +19,7 @@
     navigator.window = self.window;
     TTURLMap* map = navigator.URLMap;
     [map from:@"tt://animelist/" toSharedViewController:NSClassFromString(@"KageTableViewController")];
+    [map from:@"tt://details/(init)" toViewController:NSClassFromString(@"AnimeDetailViewController")];
     
     [navigator openURLAction:[TTURLAction actionWithURLPath:@"tt://animelist/"]];    
         
