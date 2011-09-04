@@ -9,10 +9,23 @@
 #import <Foundation/Foundation.h>
 #import "Three20/Three20.h"
 
+@interface KageModel : NSObject <TTModel> {
+    NSMutableArray* _delegates;
+    NSMutableArray* _animeList;
+    BOOL _shouldReload;
+    BOOL _loading;
+}
+
+@property(nonatomic, retain)NSMutableArray* animeList;
+@property(nonatomic, readwrite)BOOL shouldReload;
+
+@end
+
 @protocol KageTableSourceDelegate;
 
 @interface KageTableDataSource : TTListDataSource {
 
+    KageModel* _kageModel;
     id<KageTableSourceDelegate> _delegate;    
 }
 

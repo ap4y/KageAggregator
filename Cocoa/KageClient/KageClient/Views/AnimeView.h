@@ -1,8 +1,8 @@
 //
-//  AnimeDetailViewController.h
+//  AnimeView.h
 //  KageClient
 //
-//  Created by Arthur Evstifeev on 03.09.11.
+//  Created by Arthur Evstifeev on 04.09.11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
@@ -10,11 +10,13 @@
 #import "Three20/Three20.h"
 #import "Anime.h"
 
-@interface AnimeDetailViewController : TTTableViewController {
+@interface AnimeView : UIView {
     
     Anime* _anime;
 }
 
-- (id)initWithAnimeId:(int)baseId;
+@property(nonatomic, retain)Anime* anime;
+
+- (id)initWithAnime:(Anime*)anime;
 
 @end

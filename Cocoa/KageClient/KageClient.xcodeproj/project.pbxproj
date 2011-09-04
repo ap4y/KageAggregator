@@ -16,6 +16,7 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
+		9514DDC71413CF8C0022461A /* CustomTableFlushViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514DDC61413CF8C0022461A /* CustomTableFlushViewCell.m */; };
 		953A32A4140F79AE0072549D /* KageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 953A32A3140F79AE0072549D /* KageParser.m */; };
 		954C6CF4141269660082EBAD /* TableAnimeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF3141269660082EBAD /* TableAnimeItem.m */; };
 		954C6CF7141272350082EBAD /* Subtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF6141272350082EBAD /* Subtitle.m */; };
@@ -29,7 +30,7 @@
 		954C6D4C141296980082EBAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 954C6D4A141296980082EBAD /* InfoPlist.strings */; };
 		954C6D4E141296980082EBAD /* KageParserUnitTest.h in Resources */ = {isa = PBXBuildFile; fileRef = 954C6D4D141296980082EBAD /* KageParserUnitTest.h */; };
 		954C6D50141296980082EBAD /* KageParserUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6D4F141296980082EBAD /* KageParserUnitTest.m */; };
-		956CC3DE140F73A4002510D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3DD140F73A4002510D6 /* UIKit.framework */; };
+		956CC3DE140F73A4002510D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3DD140F73A4002510D6 /* UIKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		956CC3E0140F73A4002510D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3DF140F73A4002510D6 /* Foundation.framework */; };
 		956CC3E2140F73A4002510D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3E1140F73A4002510D6 /* CoreGraphics.framework */; };
 		956CC3E8140F73A4002510D6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 956CC3E6140F73A4002510D6 /* InfoPlist.strings */; };
@@ -38,20 +39,23 @@
 		956CC3F1140F73A4002510D6 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 956CC3EF140F73A4002510D6 /* MainWindow.xib */; };
 		95823B151413904700135CBE /* Anime.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF9141272360082EBAD /* Anime.m */; };
 		95823B171413904700135CBE /* KageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 953A32A3140F79AE0072549D /* KageParser.m */; };
-		95823B181413907400135CBE /* CommonData.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C6617D14114C7900A02855 /* CommonData.m */; };
 		95823B191413907400135CBE /* Subtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF6141272350082EBAD /* Subtitle.m */; };
 		95823B1A1413907400135CBE /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CFC141272370082EBAD /* Group.m */; };
 		95823B1B1413907400135CBE /* RegexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C6601B1411387900A02855 /* RegexHelper.m */; };
 		95823B1E1413907E00135CBE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95823B1D1413907E00135CBE /* CoreData.framework */; };
 		95823B221413935100135CBE /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95823B201413931B00135CBE /* CoreDataHelper.m */; };
 		95823B231413935700135CBE /* KageData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95C660D41411458C00A02855 /* KageData.xcdatamodeld */; };
+		95823BE71413ACA700135CBE /* AnimeDetailsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 95823BE61413ACA700135CBE /* AnimeDetailsDataSource.m */; };
+		958EEADA1413BE820042D54D /* AnimeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 95910B981413B53D002C9362 /* AnimeCategory.m */; };
+		958EEADD1413C4540042D54D /* AnimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 958EEADC1413C4540042D54D /* AnimeView.m */; };
+		95910B961413B1F1002C9362 /* StyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 95910B951413B1F1002C9362 /* StyleSheet.m */; };
+		95910B991413B53D002C9362 /* AnimeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 95910B981413B53D002C9362 /* AnimeCategory.m */; };
 		959BD44C1412392F00C2CBC8 /* KageTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 959BD44B1412392F00C2CBC8 /* KageTableDataSource.m */; };
 		95C6601C1411387900A02855 /* RegexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C6601B1411387900A02855 /* RegexHelper.m */; };
 		95C660D61411458C00A02855 /* KageData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95C660D41411458C00A02855 /* KageData.xcdatamodeld */; };
 		95C660E0141148E400A02855 /* KageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C660DF141148E400A02855 /* KageTableViewController.m */; };
 		95C660E2141149DB00A02855 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C660E1141149DB00A02855 /* CoreData.framework */; };
 		95C6612014114ACC00A02855 /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C6611F14114ACC00A02855 /* CoreDataHelper.m */; };
-		95C6617E14114C7900A02855 /* CommonData.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C6617D14114C7900A02855 /* CommonData.m */; };
 		95EF30D3140FF6A4007155E8 /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 95EF30D2140FF6A4007155E8 /* test.html */; };
 /* End PBXBuildFile section */
 
@@ -236,6 +240,8 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = ../../../three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../../../three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../../../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
+		9514DDC51413CF8C0022461A /* CustomTableFlushViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableFlushViewCell.h; sourceTree = "<group>"; };
+		9514DDC61413CF8C0022461A /* CustomTableFlushViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableFlushViewCell.m; sourceTree = "<group>"; };
 		953A32A2140F79AE0072549D /* KageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KageParser.h; path = Common/KageParser.h; sourceTree = "<group>"; };
 		953A32A3140F79AE0072549D /* KageParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KageParser.m; path = Common/KageParser.m; sourceTree = "<group>"; };
 		954C6CF2141269660082EBAD /* TableAnimeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableAnimeItem.h; path = Views/TableAnimeItem.h; sourceTree = "<group>"; };
@@ -269,6 +275,14 @@
 		95823B1D1413907E00135CBE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		95823B1F1413931B00135CBE /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		95823B201413931B00135CBE /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
+		95823BE51413ACA700135CBE /* AnimeDetailsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimeDetailsDataSource.h; path = Models/AnimeDetailsDataSource.h; sourceTree = "<group>"; };
+		95823BE61413ACA700135CBE /* AnimeDetailsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimeDetailsDataSource.m; path = Models/AnimeDetailsDataSource.m; sourceTree = "<group>"; };
+		958EEADB1413C4540042D54D /* AnimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimeView.h; path = Views/AnimeView.h; sourceTree = "<group>"; };
+		958EEADC1413C4540042D54D /* AnimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimeView.m; path = Views/AnimeView.m; sourceTree = "<group>"; };
+		95910B941413B1F1002C9362 /* StyleSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StyleSheet.h; path = Views/StyleSheet.h; sourceTree = "<group>"; };
+		95910B951413B1F1002C9362 /* StyleSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StyleSheet.m; path = Views/StyleSheet.m; sourceTree = "<group>"; };
+		95910B971413B53D002C9362 /* AnimeCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimeCategory.h; path = Models/AnimeCategory.h; sourceTree = "<group>"; };
+		95910B981413B53D002C9362 /* AnimeCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimeCategory.m; path = Models/AnimeCategory.m; sourceTree = "<group>"; };
 		959BD44A1412392F00C2CBC8 /* KageTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KageTableDataSource.h; path = Models/KageTableDataSource.h; sourceTree = "<group>"; };
 		959BD44B1412392F00C2CBC8 /* KageTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KageTableDataSource.m; path = Models/KageTableDataSource.m; sourceTree = "<group>"; };
 		95C6601A1411387900A02855 /* RegexHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexHelper.h; path = Common/RegexHelper.h; sourceTree = "<group>"; };
@@ -279,8 +293,6 @@
 		95C660E1141149DB00A02855 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		95C6611E14114ACC00A02855 /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataHelper.h; path = Common/CoreDataHelper.h; sourceTree = "<group>"; };
 		95C6611F14114ACC00A02855 /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataHelper.m; path = Common/CoreDataHelper.m; sourceTree = "<group>"; };
-		95C6617C14114C7900A02855 /* CommonData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommonData.h; path = Models/CommonData.h; sourceTree = "<group>"; };
-		95C6617D14114C7900A02855 /* CommonData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommonData.m; path = Models/CommonData.m; sourceTree = "<group>"; };
 		95EF30D2140FF6A4007155E8 /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = test.html; path = ../../../test.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -387,6 +399,8 @@
 		953A32A1140F798C0072549D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9514DDC51413CF8C0022461A /* CustomTableFlushViewCell.h */,
+				9514DDC61413CF8C0022461A /* CustomTableFlushViewCell.m */,
 				953A32A2140F79AE0072549D /* KageParser.h */,
 				953A32A3140F79AE0072549D /* KageParser.m */,
 				95C6601A1411387900A02855 /* RegexHelper.h */,
@@ -402,6 +416,10 @@
 			children = (
 				954C6CF2141269660082EBAD /* TableAnimeItem.h */,
 				954C6CF3141269660082EBAD /* TableAnimeItem.m */,
+				95910B941413B1F1002C9362 /* StyleSheet.h */,
+				95910B951413B1F1002C9362 /* StyleSheet.m */,
+				958EEADB1413C4540042D54D /* AnimeView.h */,
+				958EEADC1413C4540042D54D /* AnimeView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -500,8 +518,6 @@
 			isa = PBXGroup;
 			children = (
 				95C660D41411458C00A02855 /* KageData.xcdatamodeld */,
-				95C6617C14114C7900A02855 /* CommonData.h */,
-				95C6617D14114C7900A02855 /* CommonData.m */,
 				959BD44A1412392F00C2CBC8 /* KageTableDataSource.h */,
 				959BD44B1412392F00C2CBC8 /* KageTableDataSource.m */,
 				954C6CF5141272350082EBAD /* Subtitle.h */,
@@ -510,6 +526,10 @@
 				954C6CF9141272360082EBAD /* Anime.m */,
 				954C6CFB141272370082EBAD /* Group.h */,
 				954C6CFC141272370082EBAD /* Group.m */,
+				95823BE51413ACA700135CBE /* AnimeDetailsDataSource.h */,
+				95823BE61413ACA700135CBE /* AnimeDetailsDataSource.m */,
+				95910B971413B53D002C9362 /* AnimeCategory.h */,
+				95910B981413B53D002C9362 /* AnimeCategory.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -783,9 +803,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				958EEADA1413BE820042D54D /* AnimeCategory.m in Sources */,
 				95823B231413935700135CBE /* KageData.xcdatamodeld in Sources */,
 				95823B221413935100135CBE /* CoreDataHelper.m in Sources */,
-				95823B181413907400135CBE /* CommonData.m in Sources */,
 				95823B191413907400135CBE /* Subtitle.m in Sources */,
 				95823B1A1413907400135CBE /* Group.m in Sources */,
 				95823B1B1413907400135CBE /* RegexHelper.m in Sources */,
@@ -806,13 +826,17 @@
 				95C660D61411458C00A02855 /* KageData.xcdatamodeld in Sources */,
 				95C660E0141148E400A02855 /* KageTableViewController.m in Sources */,
 				95C6612014114ACC00A02855 /* CoreDataHelper.m in Sources */,
-				95C6617E14114C7900A02855 /* CommonData.m in Sources */,
 				959BD44C1412392F00C2CBC8 /* KageTableDataSource.m in Sources */,
 				954C6CF4141269660082EBAD /* TableAnimeItem.m in Sources */,
 				954C6CF7141272350082EBAD /* Subtitle.m in Sources */,
 				954C6CFA141272370082EBAD /* Anime.m in Sources */,
 				954C6CFD141272370082EBAD /* Group.m in Sources */,
 				954C6D00141283E70082EBAD /* AnimeDetailViewController.m in Sources */,
+				95823BE71413ACA700135CBE /* AnimeDetailsDataSource.m in Sources */,
+				95910B961413B1F1002C9362 /* StyleSheet.m in Sources */,
+				95910B991413B53D002C9362 /* AnimeCategory.m in Sources */,
+				958EEADD1413C4540042D54D /* AnimeView.m in Sources */,
+				9514DDC71413CF8C0022461A /* CustomTableFlushViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -943,7 +967,7 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					../../../three20/Build/Products/three20,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 			};
@@ -966,7 +990,7 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					../../../three20/Build/Products/three20,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -981,6 +1005,7 @@
 				GCC_PREFIX_HEADER = "KageClient/KageClient-Prefix.pch";
 				INFOPLIST_FILE = "KageClient/KageClient-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -992,6 +1017,7 @@
 				GCC_PREFIX_HEADER = "KageClient/KageClient-Prefix.pch";
 				INFOPLIST_FILE = "KageClient/KageClient-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

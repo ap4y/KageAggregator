@@ -14,4 +14,8 @@
 + (NSManagedObjectModel *)managedObjectModel;
 + (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
 + (NSManagedObjectContext *)managedObjectContext;
+
++ (NSArray*)requestResult:(NSFetchRequest*)request;
++ (id)requestFirstResult:(NSFetchRequest*)request;
++ (BOOL)save;
 @end

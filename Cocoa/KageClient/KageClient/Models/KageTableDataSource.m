@@ -7,27 +7,108 @@
 //
 
 #import "KageTableDataSource.h"
-#import "CommonData.h"
 #import "Anime.h"
-#import "TableAnimeItem.h"
+#import "AnimeCategory.h"
+//#import "TableAnimeItem.h"
+#import "AnimeView.h"
+#import "CustomTableFlushViewCell.h"
+#import "Three20Core/NSArrayAdditions.h"
+
+@implementation KageModel
+@synthesize animeList = _animeList, shouldReload = _shouldReload;
+
+- (void)invalidate:(BOOL)erase {
+    
+}
+
+- (void)cancel {
+    
+}
+
+- (BOOL)isOutdated {
+    return _shouldReload;
+}
+
+- (BOOL)isLoading {
+    return _loading;
+}
+
+- (BOOL)isLoadingMore {
+    return NO;
+}
+
+- (BOOL)isLoaded {
+    NSLog(@"model is %@ loaded", !!_animeList ? @"" : @"NOT");
+    return !!_animeList;
+}
+
+- (NSMutableArray *)delegates {
+    if (!_delegates) {
+        _delegates = TTCreateNonRetainingArray();
+    }
+    return _delegates;    
+}
+
+- (void)load:(TTURLRequestCachePolicy)cachePolicy more:(BOOL)more {
+    _loading = YES;
+    [_delegates perform:@selector(modelDidStartLoad:) withObject:self];
+    
+    if (!_animeList)
+        _animeList = [[NSMutableArray alloc] init];    
+    
+    [_animeList removeAllObjects];
+    [_animeList addObjectsFromArray:[Anime allAnime]];
+    for (Anime* anime in _animeList) {
+        [anime reloadAnime];
+    }
+    
+    [_delegates perform:@selector(modelDidFinishLoad:) withObject:self];
+    _loading = NO;
+}
+
+@end
 
 @implementation KageTableDataSource
 @synthesize delegate = _delegate;
 
-- (void)fillItems {
-    NSArray* allAnime = [CommonData allAnime];
-    
-    NSMutableArray* datasourceItems = [[[NSMutableArray alloc] init] autorelease];
-    [datasourceItems addObject:[TTTableTextItem itemWithText:@"Add new anime"]];
-    
-    for (Anime* anime in allAnime) {
-        TableAnimeItem* item = [TableAnimeItem itemWithText:anime.name imageURL:nil defaultImage:[UIImage imageWithData:anime.image] URL:nil];
-        item.anime = anime;
-        
-        [datasourceItems addObject:item];
+- (id)init {
+    self = [super init];
+    if (self) {
+        _kageModel = [[KageModel alloc] init];
+        self.model = _kageModel;
     }
+    return self;
+}
+
+- (id<TTModel>)model {
+    return _kageModel;
+}
+
+- (void)dealloc {
+    [_kageModel release];
+    [super dealloc];
+}
+
+- (void)tableViewDidLoadModel:(UITableView *)tableView {
+    if (!_items)
+        _items = [[NSMutableArray alloc] init];
+
+    [_items removeAllObjects];
+    [_items addObject:[TTTableTextItem itemWithText:@"Добавить"]];
         
-    self.items = datasourceItems;
+    for (Anime* anime in _kageModel.animeList) {
+        //TableAnimeItem* item = [TableAnimeItem itemWithText:anime.name imageURL:nil defaultImage:[UIImage imageWithData:anime.image] URL:[NSString stringWithFormat:@"tt://details/%i", anime.baseId.integerValue]];
+        //item.anime = anime;
+        AnimeView* view = [[AnimeView alloc] initWithAnime:anime];        
+        [_items addObject:view];
+    }
+}
+
+-(Class)tableView:(UITableView *)tableView cellClassForObject:(id)object {
+    if ([object isKindOfClass:[AnimeView class]])
+        return [CustomTableFlushViewCell class];
+    else
+        return [super tableView:tableView cellClassForObject:object];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -40,12 +121,12 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        UIView* cell = [self.items objectAtIndex:indexPath.row]; 
-        if ([cell isKindOfClass:[TableAnimeItem class]]) {
-            TableAnimeItem* item = (TableAnimeItem*)cell;
+        UIView* cell = [_items objectAtIndex:indexPath.row]; 
+        if ([cell isKindOfClass:[AnimeView class]]) {
+            AnimeView* item = (AnimeView*)cell;
             
-            if ([CommonData removeAnime: item.anime]) {
-                [self.items removeObject:item];
+            if ([Anime removeAnime: item.anime]) {
+                [_items removeObject:item];
                 [_delegate dataDidChanged:self];
             }                        
         }                      
@@ -53,15 +134,14 @@
 }
 
 - (void)addAnime:(NSNumber*)objId {
-    if ([CommonData addAnime:objId]) {
-        [self fillItems];
+    if ([Anime addAnime:objId]) {        
+        _kageModel.shouldReload = YES;
         [_delegate dataDidChanged:self];
     }        
 }
 
 + (id<TTTableViewDataSource>)dataSourceWithAnime {    
-    KageTableDataSource* datasource = [[KageTableDataSource alloc] init];
-    [datasource fillItems];
+    KageTableDataSource* datasource = [[[KageTableDataSource alloc] init] autorelease];
 
     return datasource;
 }

@@ -27,6 +27,5 @@
 - (void)addSubtitles:(NSSet *)values;
 - (void)removeSubtitles:(NSSet *)values;
 
-- (Subtitle*)subtitleWithSrtId:(NSNumber*)srtId;
 
 @end

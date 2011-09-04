@@ -64,5 +64,38 @@ static NSString* scheme = @"KageData";
     }
 }
 
++ (NSArray*)requestResult:(NSFetchRequest*)request {
+    NSError* err = nil;
+    NSArray* result = [[self managedObjectContext] executeFetchRequest:request error:&err];
+    
+    if (err) {
+        NSLog(@"error occeried %@", err.localizedDescription);
+        return nil;
+    }
+    
+    return result;
+}
+
++ (id)requestFirstResult:(NSFetchRequest*)request {
+    NSError* err = nil;
+    NSArray* result = [[self managedObjectContext] executeFetchRequest:request error:&err];
+    
+    if (err || result.count == 0) {
+        NSLog(@"error occeried %@", err.localizedDescription);
+        return nil;
+    }
+    
+    return [result objectAtIndex:0];
+}
+
++ (BOOL)save {
+    NSError *error = nil;
+    if (![[self managedObjectContext] save:&error]) {
+        NSLog(@"Unresolved error %@", error.localizedDescription);
+        return NO;
+    }
+    
+    return YES;
+}
 
 @end

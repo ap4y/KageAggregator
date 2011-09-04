@@ -11,6 +11,9 @@
 @implementation RegexHelper
 
 + (NSArray*)arrayWithHtmlMatchesPattern:(NSString*)html pattern:(NSString*)pattern {
+    if (!html || !pattern)
+        return nil;
+
     NSError* err = nil;
     
     NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern options:(NSRegularExpressionCaseInsensitive & NSRegularExpressionDotMatchesLineSeparators) error:&err];
@@ -32,6 +35,9 @@
 }
 
 + (NSArray*)arrayWithRangesMatchesPattern:(NSString*)html pattern:(NSString*)pattern {
+    if (!html || !pattern)
+        return nil;
+
     NSError* err = nil;
     
     NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern options:(NSRegularExpressionCaseInsensitive & NSRegularExpressionDotMatchesLineSeparators) error:&err];
@@ -45,6 +51,9 @@
 }
 
 + (NSString*)stringWithHtmlMatchesPattern:(NSString*)html pattern:(NSString*)pattern {
+    if (!html || !pattern)
+        return nil;
+    
     NSError* err = nil;
     
     NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern options:(NSRegularExpressionCaseInsensitive & NSRegularExpressionDotMatchesLineSeparators) error:&err];
@@ -64,6 +73,9 @@
 }
 
 + (NSString*)stringWithHtmlTagContent:(NSString*)html tag:(NSString*)tag {
+    if (!html || !tag)
+        return nil;
+
     NSError* err = nil;
     
     NSString* pattern = [NSString stringWithFormat:@"<%@>.*?</%@>", tag, tag];

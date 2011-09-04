@@ -18,7 +18,9 @@ static NSString* scheme = @"KageData";
     @synchronized(self)
     {
         if (!managedObjectModel) {
-            NSURL *modelURL = [[NSBundle mainBundle] URLForResource:scheme withExtension:@"momd"];
+            NSString* managedObjectModelPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.momd", scheme]];
+            //NSURL *modelURL = [[NSBundle mainBundle] URLForResource:scheme withExtension:@"momd"];
+            NSURL* modelURL = [NSURL fileURLWithPath:managedObjectModelPath isDirectory:NO];
             managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];    
         }
         
@@ -32,8 +34,11 @@ static NSString* scheme = @"KageData";
     @synchronized(self)
     {
         if (!persistentStoreCoordinator) {
-            NSURL* applicationDocumentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-            NSURL *storeURL = [applicationDocumentsDirectory URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", scheme]];            
+            //NSURL* applicationDocumentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+            NSString* appPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+            //NSURL* applicationDocumentsDirectory = [NSURL URLWithString: appPath];
+            appPath = [appPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", scheme]];
+            NSURL *storeURL = [NSURL fileURLWithPath:appPath isDirectory:NO];            
             NSError *error = nil;
             persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
             if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
@@ -64,5 +69,37 @@ static NSString* scheme = @"KageData";
     }
 }
 
++ (NSArray*)requestResult:(NSFetchRequest*)request {
+    NSError* err = nil;
+    NSArray* result = [[self managedObjectContext] executeFetchRequest:request error:&err];
+    
+    if (err) {
+        NSLog(@"error occuried %@", err.localizedDescription);
+        return nil;
+    }
+    
+    return result;
+}
 
++ (id)requestFirstResult:(NSFetchRequest*)request {
+    NSError* err = nil;
+    NSArray* result = [[self managedObjectContext] executeFetchRequest:request error:&err];
+    
+    if (err || result.count == 0) {
+        NSLog(@"error occuried %@ or empty result", err.localizedDescription);
+        return nil;
+    }
+    
+    return [result objectAtIndex:0];
+}
+
++ (BOOL)save {
+    NSError *error = nil;
+    if (![[self managedObjectContext] save:&error]) {
+        NSLog(@"Unresolved error %@", error.localizedDescription);
+        return NO;
+    }
+    
+    return YES;
+}
 @end

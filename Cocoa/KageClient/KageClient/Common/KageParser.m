@@ -10,6 +10,7 @@
 #import "RegexHelper.h"
 #import "Subtitle.h"
 #import "Group.h"
+#import "AnimeCategory.h"
 
 @implementation KageParser
 @synthesize anime = _anime;
@@ -32,7 +33,8 @@ static NSString* hostName = @"http://fansubs.ru/";
         
         NSString* countDescriptionCell = [RegexHelper stringWithHtmlMatchesPattern:[cellArray objectAtIndex:2] pattern:@"ТВ [0-9]*-[0-9]*"];
         count = [RegexHelper stringWithHtmlMatchesPattern:countDescriptionCell pattern:@"-[0-9]*"];
-        NSLog(@"series translated %@", [count stringByReplacingOccurrencesOfString:@"-" withString:@""]);
+        count = [count stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        //NSLog(@"series translated %@", [count stringByReplacingOccurrencesOfString:@"-" withString:@""]);
         
         //NSString* formatCell = [cellArray objectAtIndex:3];
         //NSLog(@"%@", formatCell);
@@ -40,6 +42,7 @@ static NSString* hostName = @"http://fansubs.ru/";
 
     NSNumberFormatter* numFormat = [[[NSNumberFormatter alloc] init] autorelease];
     NSNumber* countNum = [numFormat numberFromString:count];
+    NSLog(@"series count %@", countNum.stringValue);
     NSNumber* srtIdNum = [numFormat numberFromString:srtId];
     
     Subtitle* curSub = [_anime subtitleWithSrtId:srtIdNum];
@@ -65,7 +68,7 @@ static NSString* hostName = @"http://fansubs.ru/";
                 groupName = [NSString stringWithFormat:@"[%@]", groupName];
             else
                 groupName = @"";
-            fansubGroup.name = [fansubGroup.name stringByAppendingString:[NSString stringWithFormat:@"%@%@ ", memberName, groupName]];
+            fansubGroup.name = [fansubGroup.name stringByAppendingString:[NSString stringWithFormat:@"%@%@\r\n", memberName, groupName]];
         }                    
         
         NSLog(@"fansubbers %@", fansubGroup.name);
@@ -73,7 +76,7 @@ static NSString* hostName = @"http://fansubs.ru/";
         [_anime addSubtitlesObject:newSub];
     }
     else {
-        if (countNum > curSub.seriesCount) {
+        if (countNum.integerValue > curSub.seriesCount.integerValue) {
             curSub.seriesCount = countNum;
             curSub.updated = [NSNumber numberWithBool:YES];
         }
@@ -124,9 +127,9 @@ static NSString* hostName = @"http://fansubs.ru/";
 - (void)requestHtmlBody {
     _htmlBody = nil;
     NSError* err = nil;    
-    //NSString* html = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fansubs.ru/base.php?id=%i", _anime.baseId.integerValue]] encoding:NSWindowsCP1251StringEncoding error:&err];
-    NSString* fileUrl = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"test.html"];
-    NSString* html = [NSString stringWithContentsOfFile:fileUrl encoding:NSWindowsCP1251StringEncoding error:&err];
+    NSString* html = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fansubs.ru/base.php?id=%i", _anime.baseId.integerValue]] encoding:NSWindowsCP1251StringEncoding error:&err];
+    //NSString* fileUrl = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:@"test.html"];
+    //NSString* html = [NSString stringWithContentsOfFile:fileUrl encoding:NSWindowsCP1251StringEncoding error:&err];
     
     if (err) {
         NSLog(@"getting string error %@", err.localizedDescription);     
@@ -149,12 +152,10 @@ static NSString* hostName = @"http://fansubs.ru/";
         }
         
         _anime = anime;
+        [self requestHtmlBody];
         
-        if (_anime.name == nil || anime.name.length == 0) {
-                             
-            [self requestHtmlBody];
+        if (_anime.name == nil || anime.name.length == 0)                                      
             [self parseHtmlHeader];
-        }
     }
     return self;
 }
