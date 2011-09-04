@@ -16,6 +16,15 @@
 @dynamic name;
 @dynamic subtitles;
 
+- (id)init {
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Anime" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
+    self = [super initWithEntity:entity insertIntoManagedObjectContext:[CoreDataHelper managedObjectContext]];
+    if (self) {
+        
+    }   
+    return self;
+}
+
 - (Subtitle*)subtitleWithSrtId:(NSNumber*)srtId {
     NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subtitle" inManagedObjectContext:[CoreDataHelper managedObjectContext]];

@@ -22,6 +22,13 @@
 		954C6CFA141272370082EBAD /* Anime.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF9141272360082EBAD /* Anime.m */; };
 		954C6CFD141272370082EBAD /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CFC141272370082EBAD /* Group.m */; };
 		954C6D00141283E70082EBAD /* AnimeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CFF141283E70082EBAD /* AnimeDetailViewController.m */; };
+		954C6D43141296980082EBAD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 954C6D42141296980082EBAD /* SenTestingKit.framework */; };
+		954C6D44141296980082EBAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3DD140F73A4002510D6 /* UIKit.framework */; };
+		954C6D45141296980082EBAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3DF140F73A4002510D6 /* Foundation.framework */; };
+		954C6D46141296980082EBAD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3E1140F73A4002510D6 /* CoreGraphics.framework */; };
+		954C6D4C141296980082EBAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 954C6D4A141296980082EBAD /* InfoPlist.strings */; };
+		954C6D4E141296980082EBAD /* KageParserUnitTest.h in Resources */ = {isa = PBXBuildFile; fileRef = 954C6D4D141296980082EBAD /* KageParserUnitTest.h */; };
+		954C6D50141296980082EBAD /* KageParserUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6D4F141296980082EBAD /* KageParserUnitTest.m */; };
 		956CC3DE140F73A4002510D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3DD140F73A4002510D6 /* UIKit.framework */; };
 		956CC3E0140F73A4002510D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3DF140F73A4002510D6 /* Foundation.framework */; };
 		956CC3E2140F73A4002510D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956CC3E1140F73A4002510D6 /* CoreGraphics.framework */; };
@@ -29,6 +36,15 @@
 		956CC3EA140F73A4002510D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 956CC3E9140F73A4002510D6 /* main.m */; };
 		956CC3EE140F73A4002510D6 /* KageClientAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 956CC3ED140F73A4002510D6 /* KageClientAppDelegate.m */; };
 		956CC3F1140F73A4002510D6 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 956CC3EF140F73A4002510D6 /* MainWindow.xib */; };
+		95823B151413904700135CBE /* Anime.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF9141272360082EBAD /* Anime.m */; };
+		95823B171413904700135CBE /* KageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 953A32A3140F79AE0072549D /* KageParser.m */; };
+		95823B181413907400135CBE /* CommonData.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C6617D14114C7900A02855 /* CommonData.m */; };
+		95823B191413907400135CBE /* Subtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF6141272350082EBAD /* Subtitle.m */; };
+		95823B1A1413907400135CBE /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CFC141272370082EBAD /* Group.m */; };
+		95823B1B1413907400135CBE /* RegexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C6601B1411387900A02855 /* RegexHelper.m */; };
+		95823B1E1413907E00135CBE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95823B1D1413907E00135CBE /* CoreData.framework */; };
+		95823B221413935100135CBE /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95823B201413931B00135CBE /* CoreDataHelper.m */; };
+		95823B231413935700135CBE /* KageData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95C660D41411458C00A02855 /* KageData.xcdatamodeld */; };
 		959BD44C1412392F00C2CBC8 /* KageTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 959BD44B1412392F00C2CBC8 /* KageTableDataSource.m */; };
 		95C6601C1411387900A02855 /* RegexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C6601B1411387900A02855 /* RegexHelper.m */; };
 		95C660D61411458C00A02855 /* KageData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95C660D41411458C00A02855 /* KageData.xcdatamodeld */; };
@@ -201,6 +217,13 @@
 			remoteGlobalIDString = EB9E6C6210B6A8F800DE563C;
 			remoteInfo = Three20UINavigatorUnitTests;
 		};
+		95823B1214138FFD00135CBE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 956CC3D0140F73A4002510D6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 956CC3D8140F73A4002510D6;
+			remoteInfo = KageClient;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -225,6 +248,13 @@
 		954C6CFC141272370082EBAD /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Group.m; path = Models/Group.m; sourceTree = "<group>"; };
 		954C6CFE141283E70082EBAD /* AnimeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimeDetailViewController.h; path = Controllers/AnimeDetailViewController.h; sourceTree = "<group>"; };
 		954C6CFF141283E70082EBAD /* AnimeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimeDetailViewController.m; path = Controllers/AnimeDetailViewController.m; sourceTree = "<group>"; };
+		954C6D41141296970082EBAD /* KageParserUnitTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KageParserUnitTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		954C6D42141296980082EBAD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		954C6D49141296980082EBAD /* KageParserUnitTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KageParserUnitTest-Info.plist"; sourceTree = "<group>"; };
+		954C6D4B141296980082EBAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		954C6D4D141296980082EBAD /* KageParserUnitTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KageParserUnitTest.h; sourceTree = "<group>"; };
+		954C6D4F141296980082EBAD /* KageParserUnitTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KageParserUnitTest.m; sourceTree = "<group>"; };
+		954C6D51141296980082EBAD /* KageParserUnitTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KageParserUnitTest-Prefix.pch"; sourceTree = "<group>"; };
 		956CC3D9140F73A4002510D6 /* KageClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KageClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		956CC3DD140F73A4002510D6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		956CC3DF140F73A4002510D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -236,6 +266,9 @@
 		956CC3EC140F73A4002510D6 /* KageClientAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KageClientAppDelegate.h; sourceTree = "<group>"; };
 		956CC3ED140F73A4002510D6 /* KageClientAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KageClientAppDelegate.m; sourceTree = "<group>"; };
 		956CC3F0140F73A4002510D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		95823B1D1413907E00135CBE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		95823B1F1413931B00135CBE /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
+		95823B201413931B00135CBE /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
 		959BD44A1412392F00C2CBC8 /* KageTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KageTableDataSource.h; path = Models/KageTableDataSource.h; sourceTree = "<group>"; };
 		959BD44B1412392F00C2CBC8 /* KageTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KageTableDataSource.m; path = Models/KageTableDataSource.m; sourceTree = "<group>"; };
 		95C6601A1411387900A02855 /* RegexHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexHelper.h; path = Common/RegexHelper.h; sourceTree = "<group>"; };
@@ -252,6 +285,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		954C6D3D141296970082EBAD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95823B1E1413907E00135CBE /* CoreData.framework in Frameworks */,
+				954C6D43141296980082EBAD /* SenTestingKit.framework in Frameworks */,
+				954C6D44141296980082EBAD /* UIKit.framework in Frameworks */,
+				954C6D45141296980082EBAD /* Foundation.framework in Frameworks */,
+				954C6D46141296980082EBAD /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		956CC3D6140F73A4002510D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -361,10 +406,34 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		954C6D47141296980082EBAD /* KageParserUnitTest */ = {
+			isa = PBXGroup;
+			children = (
+				954C6D4D141296980082EBAD /* KageParserUnitTest.h */,
+				954C6D4F141296980082EBAD /* KageParserUnitTest.m */,
+				95823B1F1413931B00135CBE /* CoreDataHelper.h */,
+				95823B201413931B00135CBE /* CoreDataHelper.m */,
+				954C6D48141296980082EBAD /* Supporting Files */,
+			);
+			path = KageParserUnitTest;
+			sourceTree = "<group>";
+		};
+		954C6D48141296980082EBAD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				95823B1D1413907E00135CBE /* CoreData.framework */,
+				954C6D49141296980082EBAD /* KageParserUnitTest-Info.plist */,
+				954C6D4A141296980082EBAD /* InfoPlist.strings */,
+				954C6D51141296980082EBAD /* KageParserUnitTest-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		956CC3CE140F73A4002510D6 = {
 			isa = PBXGroup;
 			children = (
 				956CC3E3140F73A4002510D6 /* KageClient */,
+				954C6D47141296980082EBAD /* KageParserUnitTest */,
 				956CC3DC140F73A4002510D6 /* Frameworks */,
 				956CC3DA140F73A4002510D6 /* Products */,
 			);
@@ -374,6 +443,7 @@
 			isa = PBXGroup;
 			children = (
 				956CC3D9140F73A4002510D6 /* KageClient.app */,
+				954C6D41141296970082EBAD /* KageParserUnitTest.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -393,6 +463,7 @@
 				95C660E1141149DB00A02855 /* CoreData.framework */,
 				956CC3DF140F73A4002510D6 /* Foundation.framework */,
 				956CC3E1140F73A4002510D6 /* CoreGraphics.framework */,
+				954C6D42141296980082EBAD /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -457,6 +528,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		954C6D40141296970082EBAD /* KageParserUnitTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 954C6D52141296980082EBAD /* Build configuration list for PBXNativeTarget "KageParserUnitTest" */;
+			buildPhases = (
+				954C6D3C141296970082EBAD /* Sources */,
+				954C6D3D141296970082EBAD /* Frameworks */,
+				954C6D3E141296970082EBAD /* Resources */,
+				954C6D3F141296970082EBAD /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				95823B1314138FFD00135CBE /* PBXTargetDependency */,
+			);
+			name = KageParserUnitTest;
+			productName = KageParserUnitTest;
+			productReference = 954C6D41141296970082EBAD /* KageParserUnitTest.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		956CC3D8140F73A4002510D6 /* KageClient */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 956CC3F4140F73A4002510D6 /* Build configuration list for PBXNativeTarget "KageClient" */;
@@ -529,6 +619,7 @@
 			projectRoot = "";
 			targets = (
 				956CC3D8140F73A4002510D6 /* KageClient */,
+				954C6D40141296970082EBAD /* KageParserUnitTest */,
 			);
 		};
 /* End PBXProject section */
@@ -649,6 +740,15 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		954C6D3E141296970082EBAD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				954C6D4C141296980082EBAD /* InfoPlist.strings in Resources */,
+				954C6D4E141296980082EBAD /* KageParserUnitTest.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		956CC3D7140F73A4002510D6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -662,7 +762,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		954C6D3F141296970082EBAD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		954C6D3C141296970082EBAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95823B231413935700135CBE /* KageData.xcdatamodeld in Sources */,
+				95823B221413935100135CBE /* CoreDataHelper.m in Sources */,
+				95823B181413907400135CBE /* CommonData.m in Sources */,
+				95823B191413907400135CBE /* Subtitle.m in Sources */,
+				95823B1A1413907400135CBE /* Group.m in Sources */,
+				95823B1B1413907400135CBE /* RegexHelper.m in Sources */,
+				95823B151413904700135CBE /* Anime.m in Sources */,
+				95823B171413904700135CBE /* KageParser.m in Sources */,
+				954C6D50141296980082EBAD /* KageParserUnitTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		956CC3D5140F73A4002510D6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -722,9 +854,22 @@
 			name = Three20UI;
 			targetProxy = 320F2C48872C2E2C4DF86202 /* PBXContainerItemProxy */;
 		};
+		95823B1314138FFD00135CBE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 956CC3D8140F73A4002510D6 /* KageClient */;
+			targetProxy = 95823B1214138FFD00135CBE /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		954C6D4A141296980082EBAD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				954C6D4B141296980082EBAD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		956CC3E6140F73A4002510D6 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -744,6 +889,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		954C6D53141296980082EBAD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KageParserUnitTest/KageParserUnitTest-Prefix.pch";
+				INFOPLIST_FILE = "KageParserUnitTest/KageParserUnitTest-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		954C6D54141296980082EBAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KageParserUnitTest/KageParserUnitTest-Prefix.pch";
+				INFOPLIST_FILE = "KageParserUnitTest/KageParserUnitTest-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 		956CC3F2140F73A4002510D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -824,6 +999,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		954C6D52141296980082EBAD /* Build configuration list for PBXNativeTarget "KageParserUnitTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				954C6D53141296980082EBAD /* Debug */,
+				954C6D54141296980082EBAD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		956CC3D3140F73A4002510D6 /* Build configuration list for PBXProject "KageClient" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
