@@ -9,7 +9,6 @@
 #import "KageTableDataSource.h"
 #import "Anime.h"
 #import "AnimeCategory.h"
-//#import "TableAnimeItem.h"
 #import "AnimeView.h"
 #import "CustomTableFlushViewCell.h"
 #import "Three20Core/NSArrayAdditions.h"
@@ -93,7 +92,7 @@
     if (!_items)
         _items = [[NSMutableArray alloc] init];
 
-    [_items removeAllObjects];
+    [_items removeAllObjects];    
     [_items addObject:[TTTableTextItem itemWithText:@"Добавить"]];
         
     for (Anime* anime in _kageModel.animeList) {
@@ -104,7 +103,14 @@
     }
 }
 
--(Class)tableView:(UITableView *)tableView cellClassForObject:(id)object {
+- (void)updateNewLabels {
+    for (int i = 1; i < _items.count; i++) {
+        AnimeView* view = [_items objectAtIndex:i];
+        [view updateNewItems];
+    }
+}
+
+- (Class)tableView:(UITableView *)tableView cellClassForObject:(id)object {
     if ([object isKindOfClass:[AnimeView class]])
         return [CustomTableFlushViewCell class];
     else
@@ -134,10 +140,12 @@
 }
 
 - (void)addAnime:(NSNumber*)objId {
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     if ([Anime addAnime:objId]) {        
         _kageModel.shouldReload = YES;
         [_delegate dataDidChanged:self];
     }        
+    [pool release];
 }
 
 + (id<TTTableViewDataSource>)dataSourceWithAnime {    

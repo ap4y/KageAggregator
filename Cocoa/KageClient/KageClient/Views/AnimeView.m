@@ -31,6 +31,7 @@
         nameLabel.textAlignment = UITextAlignmentCenter;
         nameLabel.font = (UIFont*)TTSTYLE(tableFont);
         [nameLabel adjustsFontSizeToFitWidth];
+        nameLabel.backgroundColor = (UIColor*)TTSTYLE(backgroundColor);
         [self addSubview:nameLabel];
                    
         NSNumber* maxSeries = [anime.subtitles valueForKeyPath:@"@max.seriesCount"];
@@ -39,16 +40,18 @@
         countLabel.frame= CGRectMake(10, 40, 320 - 150, 30);        
         countLabel.textAlignment = UITextAlignmentCenter;
         countLabel.font = (UIFont*)TTSTYLE(messageFont);
+        countLabel.backgroundColor = (UIColor*)TTSTYLE(backgroundColor);
         [self addSubview:countLabel];
         
         NSArray* updatedSubtitles = [anime subtitlesUpdated];         
-        UILabel* newLabel = [[UILabel alloc] init];        
+        newLabel = [[UILabel alloc] init];        
         newLabel.text = [NSString stringWithFormat:@"%i новых серий", updatedSubtitles.count];
         newLabel.frame= CGRectMake(10, 80, 320 - 150, 30);        
         newLabel.textAlignment = UITextAlignmentCenter;
         newLabel.font = (UIFont*)TTSTYLE(messageFont);
         newLabel.hidden = (updatedSubtitles.count == 0);
-        //[self addSubview:newLabel];        
+        newLabel.backgroundColor = (UIColor*)TTSTYLE(backgroundColor);
+        [self addSubview:newLabel];        
         
         UIButton* nextBtn = [[UIButton alloc] initWithFrame:self.frame];
         [nextBtn addTarget:self action:@selector(goToDetails:) forControlEvents:UIControlEventTouchUpInside];
@@ -63,6 +66,10 @@
         [imageView release];
     }
     return self;
+}
+
+- (void)updateNewItems {
+    newLabel.hidden = ([_anime subtitlesUpdated].count == 0);    
 }
 
 - (void)goToDetails:(id)sender {

@@ -34,6 +34,7 @@
 + (id<TTTableViewDataSource>)dataSourceWithAnime;
 
 - (void)addAnime:(NSNumber*)objId;
+- (void)updateNewLabels;
 
 @end
 

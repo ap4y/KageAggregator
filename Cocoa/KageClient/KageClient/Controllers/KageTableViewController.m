@@ -55,12 +55,15 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [self hideMenu:YES];
     if (textField.text.length > 0) {
-        NSNumberFormatter* numFormat = [[[NSNumberFormatter alloc] init] autorelease];        
-        [_animeDataSource addAnime: [numFormat numberFromString:textField.text]];
+        NSNumberFormatter* numFormat = [[[NSNumberFormatter alloc] init] autorelease];   
+        [_animeDataSource performSelectorInBackground:@selector(addAnime:) withObject:[numFormat numberFromString:textField.text]];
     }
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    if (_animeDataSource)
+        [_animeDataSource updateNewLabels];
+
     [self.navigationController setNavigationBarHidden:YES]; 
     [super viewWillAppear:animated];
 }
