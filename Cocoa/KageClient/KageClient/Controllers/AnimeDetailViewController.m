@@ -18,13 +18,14 @@
     }
 }
 
--( void)viewWillDisappear:(BOOL)animated {
+-( void)viewWillDisappear:(BOOL)animated {    
     [super viewWillDisappear:animated];
     [_anime setIsWatched];
+    //[self.navigationController setNavigationBarHidden:YES];  
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO]; 
+    //[self.navigationController setNavigationBarHidden:NO]; 
     [super viewWillAppear:animated];
 }
 

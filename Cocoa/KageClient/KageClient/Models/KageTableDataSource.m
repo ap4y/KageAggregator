@@ -37,8 +37,8 @@
 }
 
 - (BOOL)isLoaded {
-    NSLog(@"model is %@ loaded", !!_animeList ? @"" : @"NOT");
-    return !!_animeList;
+    NSLog(@"model is %@ loaded", (!!_animeList && !_loading) ? @"" : @"NOT");
+    return !!_animeList && _animeList.count > 0 && !_loading;
 }
 
 - (NSMutableArray *)delegates {
@@ -46,6 +46,17 @@
         _delegates = TTCreateNonRetainingArray();
     }
     return _delegates;    
+}
+
+- (void)loadData {
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    for (Anime* anime in _animeList) {
+        [anime reloadAnime];
+    }        
+    
+    _loading = NO;
+    [_delegates perform:@selector(modelDidFinishLoad:) withObject:self];    
+    [pool release];        
 }
 
 - (void)load:(TTURLRequestCachePolicy)cachePolicy more:(BOOL)more {
@@ -56,13 +67,9 @@
         _animeList = [[NSMutableArray alloc] init];    
     
     [_animeList removeAllObjects];
-    [_animeList addObjectsFromArray:[Anime allAnime]];
-    for (Anime* anime in _animeList) {
-        [anime reloadAnime];
-    }
+    [_animeList addObjectsFromArray:[Anime allAnime]];   
     
-    [_delegates perform:@selector(modelDidFinishLoad:) withObject:self];
-    _loading = NO;
+    [self performSelectorInBackground:@selector(loadData) withObject:nil];
 }
 
 @end
@@ -93,7 +100,7 @@
         _items = [[NSMutableArray alloc] init];
 
     [_items removeAllObjects];    
-    [_items addObject:[TTTableTextItem itemWithText:@"Добавить"]];
+    //[_items addObject:[TTTableTextItem itemWithText:@"Добавить"]];
         
     for (Anime* anime in _kageModel.animeList) {
         //TableAnimeItem* item = [TableAnimeItem itemWithText:anime.name imageURL:nil defaultImage:[UIImage imageWithData:anime.image] URL:[NSString stringWithFormat:@"tt://details/%i", anime.baseId.integerValue]];
