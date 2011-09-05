@@ -38,7 +38,7 @@
 
 - (BOOL)isLoaded {
     NSLog(@"model is %@ loaded", (!!_animeList && !_loading) ? @"" : @"NOT");
-    return !!_animeList && _animeList.count > 0 && !_loading;
+    return !!_animeList && !_loading;
 }
 
 - (NSMutableArray *)delegates {

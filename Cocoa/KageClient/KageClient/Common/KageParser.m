@@ -100,7 +100,6 @@ static NSString* hostName = @"http://fansubs.ru/";
                 groupHtml = [_htmlBody substringWithRange: NSMakeRange(curResult.range.location + curResult.range.length, nextResult.range.location - curResult.range.location - curResult.range.length)];
             }
             else {
-                NSLog(@"range start %i, length %i, total length %i", curResult.range.location + curResult.range.length, _htmlBody.length - curResult.range.location - curResult.range.length, _htmlBody.length);
                 groupHtml = [_htmlBody substringWithRange: NSMakeRange(curResult.range.location + curResult.range.length, _htmlBody.length - curResult.range.location - curResult.range.length)];
             }        
             
@@ -120,7 +119,6 @@ static NSString* hostName = @"http://fansubs.ru/";
         
         NSURL* imageUrl = [NSURL URLWithString:[hostName stringByAppendingPathComponent:imagePath]];
         _anime.image = [NSData dataWithContentsOfURL:imageUrl];
-        NSLog(@"anime image size %i", _anime.image.length);
     }           
 }
 

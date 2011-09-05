@@ -1,0 +1,373 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9514E03F1414BB3C0022461A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9514E03E1414BB3C0022461A /* Cocoa.framework */; };
+		9514E0491414BB3C0022461A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9514E0471414BB3C0022461A /* InfoPlist.strings */; };
+		9514E04B1414BB3C0022461A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E04A1414BB3C0022461A /* main.m */; };
+		9514E04F1414BB3C0022461A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9514E04D1414BB3C0022461A /* Credits.rtf */; };
+		9514E0521414BB3C0022461A /* KageOSXAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E0511414BB3C0022461A /* KageOSXAppDelegate.m */; };
+		9514E0551414BB3C0022461A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9514E0531414BB3C0022461A /* MainMenu.xib */; };
+		9514E0911414BC980022461A /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E08C1414BC980022461A /* CoreDataHelper.m */; };
+		9514E0921414BC980022461A /* KageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E08E1414BC980022461A /* KageParser.m */; };
+		9514E0931414BC980022461A /* RegexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E0901414BC980022461A /* RegexHelper.m */; };
+		9514E0A51414BCAE0022461A /* Anime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E0961414BCAE0022461A /* Anime.m */; };
+		9514E0A61414BCAE0022461A /* AnimeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E0981414BCAE0022461A /* AnimeCategory.m */; };
+		9514E0A81414BCAE0022461A /* CommonData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E09C1414BCAE0022461A /* CommonData.m */; };
+		9514E0A91414BCAF0022461A /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E09E1414BCAE0022461A /* Group.m */; };
+		9514E0AA1414BCAF0022461A /* KageData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9514E09F1414BCAE0022461A /* KageData.xcdatamodeld */; };
+		9514E0AC1414BCAF0022461A /* Subtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E0A41414BCAE0022461A /* Subtitle.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9514E03A1414BB3C0022461A /* KageOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KageOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9514E03E1414BB3C0022461A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		9514E0411414BB3C0022461A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		9514E0421414BB3C0022461A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		9514E0431414BB3C0022461A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9514E0461414BB3C0022461A /* KageOSX-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KageOSX-Info.plist"; sourceTree = "<group>"; };
+		9514E0481414BB3C0022461A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9514E04A1414BB3C0022461A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9514E04C1414BB3C0022461A /* KageOSX-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KageOSX-Prefix.pch"; sourceTree = "<group>"; };
+		9514E04E1414BB3C0022461A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		9514E0501414BB3C0022461A /* KageOSXAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KageOSXAppDelegate.h; sourceTree = "<group>"; };
+		9514E0511414BB3C0022461A /* KageOSXAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KageOSXAppDelegate.m; sourceTree = "<group>"; };
+		9514E0541414BB3C0022461A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		9514E08B1414BC980022461A /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
+		9514E08C1414BC980022461A /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
+		9514E08D1414BC980022461A /* KageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KageParser.h; sourceTree = "<group>"; };
+		9514E08E1414BC980022461A /* KageParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KageParser.m; sourceTree = "<group>"; };
+		9514E08F1414BC980022461A /* RegexHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexHelper.h; sourceTree = "<group>"; };
+		9514E0901414BC980022461A /* RegexHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexHelper.m; sourceTree = "<group>"; };
+		9514E0951414BCAE0022461A /* Anime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Anime.h; sourceTree = "<group>"; };
+		9514E0961414BCAE0022461A /* Anime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Anime.m; sourceTree = "<group>"; };
+		9514E0971414BCAE0022461A /* AnimeCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimeCategory.h; sourceTree = "<group>"; };
+		9514E0981414BCAE0022461A /* AnimeCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimeCategory.m; sourceTree = "<group>"; };
+		9514E09B1414BCAE0022461A /* CommonData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonData.h; sourceTree = "<group>"; };
+		9514E09C1414BCAE0022461A /* CommonData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonData.m; sourceTree = "<group>"; };
+		9514E09D1414BCAE0022461A /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		9514E09E1414BCAE0022461A /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
+		9514E0A01414BCAE0022461A /* KageData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KageData.xcdatamodel; sourceTree = "<group>"; };
+		9514E0A31414BCAE0022461A /* Subtitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subtitle.h; sourceTree = "<group>"; };
+		9514E0A41414BCAE0022461A /* Subtitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subtitle.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9514E0371414BB3B0022461A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9514E03F1414BB3C0022461A /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9514E02F1414BB3B0022461A = {
+			isa = PBXGroup;
+			children = (
+				9514E0941414BCAE0022461A /* Models */,
+				9514E08A1414BC980022461A /* Common */,
+				9514E0441414BB3C0022461A /* KageOSX */,
+				9514E03D1414BB3C0022461A /* Frameworks */,
+				9514E03B1414BB3C0022461A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9514E03B1414BB3C0022461A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9514E03A1414BB3C0022461A /* KageOSX.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9514E03D1414BB3C0022461A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9514E03E1414BB3C0022461A /* Cocoa.framework */,
+				9514E0401414BB3C0022461A /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9514E0401414BB3C0022461A /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9514E0411414BB3C0022461A /* AppKit.framework */,
+				9514E0421414BB3C0022461A /* CoreData.framework */,
+				9514E0431414BB3C0022461A /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		9514E0441414BB3C0022461A /* KageOSX */ = {
+			isa = PBXGroup;
+			children = (
+				9514E0501414BB3C0022461A /* KageOSXAppDelegate.h */,
+				9514E0511414BB3C0022461A /* KageOSXAppDelegate.m */,
+				9514E0531414BB3C0022461A /* MainMenu.xib */,
+				9514E0451414BB3C0022461A /* Supporting Files */,
+			);
+			path = KageOSX;
+			sourceTree = "<group>";
+		};
+		9514E0451414BB3C0022461A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9514E0461414BB3C0022461A /* KageOSX-Info.plist */,
+				9514E0471414BB3C0022461A /* InfoPlist.strings */,
+				9514E04A1414BB3C0022461A /* main.m */,
+				9514E04C1414BB3C0022461A /* KageOSX-Prefix.pch */,
+				9514E04D1414BB3C0022461A /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9514E08A1414BC980022461A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				9514E08B1414BC980022461A /* CoreDataHelper.h */,
+				9514E08C1414BC980022461A /* CoreDataHelper.m */,
+				9514E08D1414BC980022461A /* KageParser.h */,
+				9514E08E1414BC980022461A /* KageParser.m */,
+				9514E08F1414BC980022461A /* RegexHelper.h */,
+				9514E0901414BC980022461A /* RegexHelper.m */,
+			);
+			name = Common;
+			path = ../KageClient/KageClient/Common;
+			sourceTree = "<group>";
+		};
+		9514E0941414BCAE0022461A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9514E0951414BCAE0022461A /* Anime.h */,
+				9514E0961414BCAE0022461A /* Anime.m */,
+				9514E0971414BCAE0022461A /* AnimeCategory.h */,
+				9514E0981414BCAE0022461A /* AnimeCategory.m */,
+				9514E09B1414BCAE0022461A /* CommonData.h */,
+				9514E09C1414BCAE0022461A /* CommonData.m */,
+				9514E09D1414BCAE0022461A /* Group.h */,
+				9514E09E1414BCAE0022461A /* Group.m */,
+				9514E09F1414BCAE0022461A /* KageData.xcdatamodeld */,
+				9514E0A31414BCAE0022461A /* Subtitle.h */,
+				9514E0A41414BCAE0022461A /* Subtitle.m */,
+			);
+			name = Models;
+			path = ../KageClient/KageClient/Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9514E0391414BB3B0022461A /* KageOSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9514E0581414BB3C0022461A /* Build configuration list for PBXNativeTarget "KageOSX" */;
+			buildPhases = (
+				9514E0361414BB3B0022461A /* Sources */,
+				9514E0371414BB3B0022461A /* Frameworks */,
+				9514E0381414BB3B0022461A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KageOSX;
+			productName = KageOSX;
+			productReference = 9514E03A1414BB3C0022461A /* KageOSX.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9514E0311414BB3B0022461A /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 9514E0341414BB3B0022461A /* Build configuration list for PBXProject "KageOSX" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9514E02F1414BB3B0022461A;
+			productRefGroup = 9514E03B1414BB3C0022461A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9514E0391414BB3B0022461A /* KageOSX */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9514E0381414BB3B0022461A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9514E0491414BB3C0022461A /* InfoPlist.strings in Resources */,
+				9514E04F1414BB3C0022461A /* Credits.rtf in Resources */,
+				9514E0551414BB3C0022461A /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9514E0361414BB3B0022461A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9514E04B1414BB3C0022461A /* main.m in Sources */,
+				9514E0521414BB3C0022461A /* KageOSXAppDelegate.m in Sources */,
+				9514E0911414BC980022461A /* CoreDataHelper.m in Sources */,
+				9514E0921414BC980022461A /* KageParser.m in Sources */,
+				9514E0931414BC980022461A /* RegexHelper.m in Sources */,
+				9514E0A51414BCAE0022461A /* Anime.m in Sources */,
+				9514E0A61414BCAE0022461A /* AnimeCategory.m in Sources */,
+				9514E0A81414BCAE0022461A /* CommonData.m in Sources */,
+				9514E0A91414BCAF0022461A /* Group.m in Sources */,
+				9514E0AA1414BCAF0022461A /* KageData.xcdatamodeld in Sources */,
+				9514E0AC1414BCAF0022461A /* Subtitle.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9514E0471414BB3C0022461A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9514E0481414BB3C0022461A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		9514E04D1414BB3C0022461A /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9514E04E1414BB3C0022461A /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		9514E0531414BB3C0022461A /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9514E0541414BB3C0022461A /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9514E0561414BB3C0022461A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9514E0571414BB3C0022461A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9514E0591414BB3C0022461A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KageOSX/KageOSX-Prefix.pch";
+				INFOPLIST_FILE = "KageOSX/KageOSX-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		9514E05A1414BB3C0022461A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KageOSX/KageOSX-Prefix.pch";
+				INFOPLIST_FILE = "KageOSX/KageOSX-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9514E0341414BB3B0022461A /* Build configuration list for PBXProject "KageOSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9514E0561414BB3C0022461A /* Debug */,
+				9514E0571414BB3C0022461A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9514E0581414BB3C0022461A /* Build configuration list for PBXNativeTarget "KageOSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9514E0591414BB3C0022461A /* Debug */,
+				9514E05A1414BB3C0022461A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9514E09F1414BCAE0022461A /* KageData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9514E0A01414BCAE0022461A /* KageData.xcdatamodel */,
+			);
+			currentVersion = 9514E0A01414BCAE0022461A /* KageData.xcdatamodel */;
+			path = KageData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 9514E0311414BB3B0022461A /* Project object */;
+}
