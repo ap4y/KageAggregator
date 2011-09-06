@@ -27,5 +27,6 @@
 - (void)addSubtitles:(NSSet *)values;
 - (void)removeSubtitles:(NSSet *)values;
 
+- (NSArray*)allAnime;
 
 @end

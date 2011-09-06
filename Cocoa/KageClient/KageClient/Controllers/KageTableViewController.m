@@ -22,7 +22,8 @@
 
 - (void)dataDidChanged:(KageTableDataSource *)dataSource {
     [self.tableView reloadData];
-    [self reloadIfNeeded];
+    //[self reloadIfNeeded];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (void)addBtnTouched:(id)sender {
@@ -53,10 +54,7 @@
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAnime:)] autorelease];
 }
 
-- (void)addAnime:(id)sender {    
-    NSIndexPath* indexPath = [self.tableView indexPathForRowAtPoint:self.tableView.contentOffset];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    TTTableViewCell* cell = (TTTableViewCell*) [self.tableView cellForRowAtIndexPath:indexPath];    
+- (void)addMenuForCell:(TTTableViewCell*) cell {
     UIView* menuView = [[[UIView alloc] initWithFrame:cell.contentView.frame] autorelease];    
     
     _field = [[[UITextField alloc] initWithFrame:CGRectMake(10, 10, 250, 40)] autorelease];
@@ -67,12 +65,26 @@
     UIButton* btnAdd = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     btnAdd.frame = CGRectMake(270, 0, 40, 40);
     [btnAdd addTarget:self action:@selector(addBtnTouched:) forControlEvents:UIControlEventTouchUpInside];
-                  
+    
     [menuView addSubview:_field];            
     [menuView addSubview:btnAdd];
-        
+    
     [self showMenu:menuView forCell:cell animated:YES];        
     [_field becomeFirstResponder];
+}
+
+- (void)didSelectObject:(id)object atIndexPath:(NSIndexPath *)indexPath {
+    if ([object isKindOfClass:[TTTableTextItem class]]) {
+        TTTableViewCell* cell = (TTTableViewCell*) [self.tableView cellForRowAtIndexPath:indexPath];    
+        [self addMenuForCell:cell];
+    }
+}
+
+- (void)addAnime:(id)sender {    
+    NSIndexPath* indexPath = [self.tableView indexPathForRowAtPoint:self.tableView.contentOffset];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    TTTableViewCell* cell = (TTTableViewCell*) [self.tableView cellForRowAtIndexPath:indexPath];    
+    [self addMenuForCell:cell];
 }
 
 - (id<TTTableViewDelegate>) createDelegate {

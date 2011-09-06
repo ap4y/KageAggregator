@@ -32,5 +32,10 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>segoeui.TTF</string>
+		<string>seguibd.ttf</string>
+	</array>
 </dict>
 </plist>

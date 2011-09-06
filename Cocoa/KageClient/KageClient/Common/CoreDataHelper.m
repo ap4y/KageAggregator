@@ -18,9 +18,9 @@ static NSString* scheme = @"KageData";
     @synchronized(self)
     {
         if (!managedObjectModel) {
-            NSString* managedObjectModelPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.momd", scheme]];
-            //NSURL *modelURL = [[NSBundle mainBundle] URLForResource:scheme withExtension:@"momd"];
-            NSURL* modelURL = [NSURL fileURLWithPath:managedObjectModelPath isDirectory:NO];
+            //NSString* managedObjectModelPath = [[NSBundle mainBundle].bundlePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.momd", scheme]];
+            NSURL *modelURL = [[NSBundle mainBundle] URLForResource:scheme withExtension:@"momd"];
+            //NSURL* modelURL = [NSURL fileURLWithPath:managedObjectModelPath isDirectory:NO];
             managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];    
         }
         
@@ -28,6 +28,7 @@ static NSString* scheme = @"KageData";
     }
 }
 
+#ifdef TARGET_OS_IPHONE
 + (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     static NSPersistentStoreCoordinator *persistentStoreCoordinator;
     
@@ -44,12 +45,62 @@ static NSString* scheme = @"KageData";
             if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
             {
                 NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            }
-        }
-        
+            }            
+        }        
         return persistentStoreCoordinator;
     }
 }
+#else
++ (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+    static NSPersistentStoreCoordinator *persistentStoreCoordinator;
+    
+    @synchronized(self)
+    {
+        if (!persistentStoreCoordinator) {                        
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            NSURL *libraryURL = [[fileManager URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] lastObject];
+            NSURL *applicationFilesDirectory = [libraryURL URLByAppendingPathComponent:scheme];
+            NSError *error = nil;
+            
+            NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsDirectoryKey] error:&error];
+            
+            if (!properties) {
+                BOOL ok = NO;
+                if ([error code] == NSFileReadNoSuchFileError) {
+                    ok = [fileManager createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error];
+                }
+                if (!ok) {
+                    [[NSApplication sharedApplication] presentError:error];
+                    return nil;
+                }
+            }
+            else {
+                if ([[properties objectForKey:NSURLIsDirectoryKey] boolValue] != YES) {
+                    // Customize and localize this error.
+                    NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]]; 
+                    
+                    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+                    [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
+                    error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:101 userInfo:dict];
+                    
+                    [[NSApplication sharedApplication] presentError:error];
+                    return nil;
+                }
+            }
+            
+            NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.storedata", scheme]];
+            persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+            if (![persistentStoreCoordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
+                [[NSApplication sharedApplication] presentError:error];
+                [persistentStoreCoordinator release], persistentStoreCoordinator = nil;
+                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                return nil;
+            }
+        }        
+        return persistentStoreCoordinator;
+    }
+}
+#endif
 
 + (NSManagedObjectContext *)managedObjectContext {
     static NSManagedObjectContext *managedObjectContext;

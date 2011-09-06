@@ -20,7 +20,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView cell:(UITableViewCell *)cell willAppearAtIndexPath:(NSIndexPath *)indexPath {
-    
+            
     Subtitle* curSub = [_subtitlesArray objectAtIndex:indexPath.row];
     if (curSub.updated.boolValue) {
         UIView* backView = [[[UIView alloc] initWithFrame:cell.frame] autorelease];

@@ -14,6 +14,7 @@
     NSMutableArray* _animeList;
     BOOL _shouldReload;
     BOOL _loading;
+    NSMutableDictionary* _loadedFlags;
 }
 
 @property(nonatomic, retain)NSMutableArray* animeList;

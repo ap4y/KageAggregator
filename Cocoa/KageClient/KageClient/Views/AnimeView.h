@@ -13,10 +13,11 @@
 @interface AnimeView : UIView {
     
     Anime* _anime;
-    UILabel* newLabel;
+    TTLabel* newLabel;
 }
 
 @property(nonatomic, retain)Anime* anime;
+@property(nonatomic, readonly)BOOL haveNew;
 
 - (id)initWithAnime:(Anime*)anime;
 - (void)updateNewItems;

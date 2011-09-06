@@ -27,7 +27,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Anime" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
     [fetchRequest setEntity:entity];    
     //[fetchRequest setFetchBatchSize:20];
-    
+        
     NSPredicate* libraryPredicate = [NSPredicate predicateWithFormat:@"baseId == %i", baseId.integerValue];
     [fetchRequest setPredicate:libraryPredicate];
     
@@ -101,7 +101,7 @@
     NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subtitle" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
     [fetchRequest setEntity:entity];    
-    
+        
     NSPredicate* libraryPredicate = [NSPredicate predicateWithFormat:@"anime == %@ and updated = YES", self];
     [fetchRequest setPredicate:libraryPredicate];
     

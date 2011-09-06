@@ -37,6 +37,8 @@
 		956CC3EA140F73A4002510D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 956CC3E9140F73A4002510D6 /* main.m */; };
 		956CC3EE140F73A4002510D6 /* KageClientAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 956CC3ED140F73A4002510D6 /* KageClientAppDelegate.m */; };
 		956CC3F1140F73A4002510D6 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 956CC3EF140F73A4002510D6 /* MainWindow.xib */; };
+		9579AFB2141681820021CB01 /* segoeui.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 9579AFB1141681820021CB01 /* segoeui.TTF */; };
+		9579AFB4141682570021CB01 /* seguibd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9579AFB3141682570021CB01 /* seguibd.ttf */; };
 		95823B151413904700135CBE /* Anime.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF9141272360082EBAD /* Anime.m */; };
 		95823B171413904700135CBE /* KageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 953A32A3140F79AE0072549D /* KageParser.m */; };
 		95823B191413907400135CBE /* Subtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF6141272350082EBAD /* Subtitle.m */; };
@@ -272,6 +274,8 @@
 		956CC3EC140F73A4002510D6 /* KageClientAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KageClientAppDelegate.h; sourceTree = "<group>"; };
 		956CC3ED140F73A4002510D6 /* KageClientAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KageClientAppDelegate.m; sourceTree = "<group>"; };
 		956CC3F0140F73A4002510D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		9579AFB1141681820021CB01 /* segoeui.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = segoeui.TTF; sourceTree = "<group>"; };
+		9579AFB3141682570021CB01 /* seguibd.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = seguibd.ttf; sourceTree = "<group>"; };
 		95823B1D1413907E00135CBE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		95823B1F1413931B00135CBE /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		95823B201413931B00135CBE /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
@@ -504,6 +508,8 @@
 		956CC3E4140F73A4002510D6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9579AFB3141682570021CB01 /* seguibd.ttf */,
+				9579AFB1141681820021CB01 /* segoeui.TTF */,
 				95EF30D2140FF6A4007155E8 /* test.html */,
 				320B6C86F11D9990244A9730 /* Three20.bundle */,
 				956CC3E5140F73A4002510D6 /* KageClient-Info.plist */,
@@ -777,6 +783,8 @@
 				956CC3E8140F73A4002510D6 /* InfoPlist.strings in Resources */,
 				956CC3F1140F73A4002510D6 /* MainWindow.xib in Resources */,
 				95EF30D3140FF6A4007155E8 /* test.html in Resources */,
+				9579AFB2141681820021CB01 /* segoeui.TTF in Resources */,
+				9579AFB4141682570021CB01 /* seguibd.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -48,14 +48,28 @@
     return _delegates;    
 }
 
-- (void)loadData {
+- (void)loadData:(Anime*)anime {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    for (Anime* anime in _animeList) {
-        [anime reloadAnime];
-    }        
+        
+    [anime reloadAnime];    
+    [_loadedFlags setObject:[NSNumber numberWithBool:YES] forKey:anime.name];
     
-    _loading = NO;
-    [_delegates perform:@selector(modelDidFinishLoad:) withObject:self];    
+    //NSLog(@"%@, %@", anime.name, _loadedFlags.allValues);
+    
+    BOOL isLoadingCheck = NO;
+    for (NSNumber* num in _loadedFlags.allValues) {
+        if (!num.boolValue) {
+            isLoadingCheck = YES;
+            break;
+        }
+    }
+
+    _loading = isLoadingCheck;    
+    if (!_loading) {
+        [_delegates perform:@selector(modelDidFinishLoad:) withObject:self];   
+        _shouldReload = NO;
+    }
+    
     [pool release];        
 }
 
@@ -69,7 +83,19 @@
     [_animeList removeAllObjects];
     [_animeList addObjectsFromArray:[Anime allAnime]];   
     
-    [self performSelectorInBackground:@selector(loadData) withObject:nil];
+    if (!_loadedFlags) {
+        _loadedFlags = [[NSMutableDictionary alloc] init];
+    }
+    
+    for (Anime* anime in _animeList) {
+        [_loadedFlags setObject:[NSNumber numberWithBool:NO] forKey:anime.name];
+    }
+    
+    for (Anime* anime in _animeList) {
+        [self performSelectorInBackground:@selector(loadData:) withObject:[anime retain]];
+    }        
+    
+    //_loading = NO;            
 }
 
 @end
@@ -99,19 +125,30 @@
     if (!_items)
         _items = [[NSMutableArray alloc] init];
 
-    [_items removeAllObjects];    
-    //[_items addObject:[TTTableTextItem itemWithText:@"Добавить"]];
+    [_items removeAllObjects];        
         
+    NSMutableArray* viewsWithNew = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray* viewsWithOutNew = [[[NSMutableArray alloc] init] autorelease];
     for (Anime* anime in _kageModel.animeList) {
         //TableAnimeItem* item = [TableAnimeItem itemWithText:anime.name imageURL:nil defaultImage:[UIImage imageWithData:anime.image] URL:[NSString stringWithFormat:@"tt://details/%i", anime.baseId.integerValue]];
         //item.anime = anime;
         AnimeView* view = [[AnimeView alloc] initWithAnime:anime];        
-        [_items addObject:view];
+        if (view.haveNew) 
+            [viewsWithNew addObject:view];
+        else
+            [viewsWithOutNew addObject:view];
+    }
+    
+    [_items addObjectsFromArray:viewsWithNew];
+    [_items addObjectsFromArray:viewsWithOutNew];    
+    
+    if (_items.count == 0) {
+        [_items addObject:[TTTableTextItem itemWithText:@"Добавить"]];
     }
 }
 
 - (void)updateNewLabels {
-    for (int i = 1; i < _items.count; i++) {
+    for (int i = 0; i < _items.count; i++) {
         AnimeView* view = [_items objectAtIndex:i];
         [view updateNewItems];
     }
@@ -122,14 +159,6 @@
         return [CustomTableFlushViewCell class];
     else
         return [super tableView:tableView cellClassForObject:object];
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        return NO;
-    }
-    
-    return YES;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -149,7 +178,9 @@
 - (void)addAnime:(NSNumber*)objId {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     if ([Anime addAnime:objId]) {        
-        _kageModel.shouldReload = YES;
+        //_kageModel.shouldReload = YES;
+        AnimeView* view = [[AnimeView alloc] initWithAnime:[Anime getAnime:objId]];
+        [_items insertObject:view atIndex:0];
         [_delegate dataDidChanged:self];
     }        
     [pool release];
