@@ -48,13 +48,13 @@ static NSString* hostName = @"http://fansubs.ru/";
     Subtitle* curSub = [_anime subtitleWithSrtId:srtIdNum];
     if (!curSub) {
         //new subtitle group
-        Subtitle* newSub = [[[Subtitle alloc] init] autorelease];        
+        Subtitle* newSub = [[[Subtitle alloc] initWithmanagedObjectContext:_anime.managedObjectContext] autorelease];        
         newSub.srtId = srtIdNum;
         newSub.seriesCount = countNum;    
         newSub.updated = [NSNumber numberWithBool:YES];
         
         //parse group information
-        Group* fansubGroup = [[[Group alloc] init] autorelease];
+        Group* fansubGroup = [[[Group alloc] initWithmanagedObjectContext:_anime.managedObjectContext] autorelease];
         
         NSArray* groupTables = [RegexHelper arrayWithHtmlMatchesPattern:groupString pattern:@"<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"row1\">.*?</table>"];
         
@@ -125,9 +125,9 @@ static NSString* hostName = @"http://fansubs.ru/";
 - (void)requestHtmlBody {
     _htmlBody = nil;
     NSError* err = nil;    
-    NSString* html = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fansubs.ru/base.php?id=%i", _anime.baseId.integerValue]] encoding:NSWindowsCP1251StringEncoding error:&err];
-    //NSString* fileUrl = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"test.html"];
-    //NSString* html = [NSString stringWithContentsOfFile:fileUrl encoding:NSWindowsCP1251StringEncoding error:&err];
+    //NSString* html = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fansubs.ru/base.php?id=%i", _anime.baseId.integerValue]] encoding:NSWindowsCP1251StringEncoding error:&err];
+    NSString* fileUrl = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"test.html"];
+    NSString* html = [NSString stringWithContentsOfFile:fileUrl encoding:NSWindowsCP1251StringEncoding error:&err];
     
     if (err) {
         NSLog(@"getting string error %@", err.localizedDescription);     

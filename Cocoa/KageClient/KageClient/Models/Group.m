@@ -14,10 +14,10 @@
 @dynamic name;
 @dynamic subtitle;
 
-- (id)init {
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Group" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
+- (id)initWithmanagedObjectContext:(NSManagedObjectContext*)managedObjectContext {
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Group" inManagedObjectContext:managedObjectContext];
     
-    self = [super initWithEntity:entity insertIntoManagedObjectContext:[CoreDataHelper managedObjectContext]];
+    self = [super initWithEntity:entity insertIntoManagedObjectContext:managedObjectContext];
     if (self) {
         
     }

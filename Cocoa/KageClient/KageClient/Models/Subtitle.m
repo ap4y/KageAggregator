@@ -18,10 +18,10 @@
 @dynamic anime;
 @dynamic fansubGroup;
 
-- (id)init {
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subtitle" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
+- (id)initWithmanagedObjectContext:(NSManagedObjectContext*)managedObjectContext  {
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subtitle" inManagedObjectContext:managedObjectContext];
     
-    self = [super initWithEntity:entity insertIntoManagedObjectContext:[CoreDataHelper managedObjectContext]];
+    self = [super initWithEntity:entity insertIntoManagedObjectContext:managedObjectContext];
     if (self) {
 
     }

@@ -28,7 +28,7 @@ static NSString* scheme = @"KageData";
     }
 }
 
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 + (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     static NSPersistentStoreCoordinator *persistentStoreCoordinator;
     
@@ -89,6 +89,7 @@ static NSString* scheme = @"KageData";
             }
             
             NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.storedata", scheme]];
+            NSLog(@"store url %@", url.absoluteString);
             persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
             if (![persistentStoreCoordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
                 [[NSApplication sharedApplication] presentError:error];
@@ -120,9 +121,9 @@ static NSString* scheme = @"KageData";
     }
 }
 
-+ (NSArray*)requestResult:(NSFetchRequest*)request {
++ (NSArray*)requestResult:(NSFetchRequest*)request managedObjectContext:(NSManagedObjectContext*)managedObjectContext {
     NSError* err = nil;
-    NSArray* result = [[self managedObjectContext] executeFetchRequest:request error:&err];
+    NSArray* result = [managedObjectContext executeFetchRequest:request error:&err];
     
     if (err) {
         NSLog(@"error occuried %@", err.localizedDescription);
@@ -132,9 +133,10 @@ static NSString* scheme = @"KageData";
     return result;
 }
 
-+ (id)requestFirstResult:(NSFetchRequest*)request {
++ (id)requestFirstResult:(NSFetchRequest*)request managedObjectContext:(NSManagedObjectContext*)managedObjectContext {
     NSError* err = nil;
-    NSArray* result = [[self managedObjectContext] executeFetchRequest:request error:&err];
+    
+    NSArray* result = [managedObjectContext executeFetchRequest:request error:&err];
     
     if (err || result.count == 0) {
         NSLog(@"error occuried %@ or empty result", err.localizedDescription);
@@ -144,9 +146,9 @@ static NSString* scheme = @"KageData";
     return [result objectAtIndex:0];
 }
 
-+ (BOOL)save {
++ (BOOL)save:(NSManagedObjectContext*)managedObjectContext {
     NSError *error = nil;
-    if (![[self managedObjectContext] save:&error]) {
+    if (![managedObjectContext save:&error]) {
         NSLog(@"Unresolved error %@", error.localizedDescription);
         return NO;
     }

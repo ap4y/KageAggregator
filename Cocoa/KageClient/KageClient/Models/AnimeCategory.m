@@ -14,42 +14,42 @@
 
 @implementation Anime (AnimeCategory)
 
-+ (NSArray*)allAnime {
++ (NSArray*)allAnime:(NSManagedObjectContext*)managedObjectContext {
     NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Anime" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Anime" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];    
     
-    return [CoreDataHelper requestResult:fetchRequest];
+    return [CoreDataHelper requestResult:fetchRequest managedObjectContext:managedObjectContext];
 }
 
-+ (Anime*)getAnime:(NSNumber*)baseId {
++ (Anime*)getAnime:(NSNumber*)baseId managedObjectContext:(NSManagedObjectContext*)managedObjectContext {
     NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Anime" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Anime" inManagedObjectContext: managedObjectContext];
     [fetchRequest setEntity:entity];    
     //[fetchRequest setFetchBatchSize:20];
         
     NSPredicate* libraryPredicate = [NSPredicate predicateWithFormat:@"baseId == %i", baseId.integerValue];
     [fetchRequest setPredicate:libraryPredicate];
     
-    return [CoreDataHelper requestFirstResult:fetchRequest];
+    return [CoreDataHelper requestFirstResult:fetchRequest managedObjectContext:managedObjectContext];
 }
 
-+ (BOOL)addAnime:(NSNumber*)baseId {
++ (BOOL)addAnime:(NSNumber*)baseId managedObjectContext:(NSManagedObjectContext*)managedObjectContext {
     
-    if ([self getAnime:baseId]) {
+    if ([self getAnime:baseId managedObjectContext:managedObjectContext]) {
         return NO;
     }            
     
-    Anime* newAnime = [[Anime alloc] init];  
+    Anime* newAnime = [[Anime alloc] initWithmanagedObjectContext:managedObjectContext];  
     newAnime.baseId = baseId;
             
     return [newAnime reloadAnime];
 }
 
-+ (BOOL)removeAnime:(Anime*)anime {
-    [[CoreDataHelper managedObjectContext] deleteObject:anime];
++ (BOOL)removeAnime:(Anime*)anime managedObjectContext:(NSManagedObjectContext*)managedObjectContext {
+    [managedObjectContext deleteObject:anime];
     
-    return [CoreDataHelper save];
+    return [CoreDataHelper save:managedObjectContext];
 }
 
 - (BOOL)reloadAnime {
@@ -60,7 +60,7 @@
 
     [kageParser reloadData];
 
-    return [CoreDataHelper save];
+    return [CoreDataHelper save: self.managedObjectContext];
 }
 
 - (void)setIsWatched {
@@ -68,44 +68,37 @@
         subtitle.updated = [NSNumber numberWithBool:NO];
     }        
     
-    [CoreDataHelper save];
+    [CoreDataHelper save:self.managedObjectContext];
 }
 
 - (NSArray *)subtitlesBySeriesCount {
     NSSortDescriptor *sortDescriptorCount = [[[NSSortDescriptor alloc] initWithKey:@"seriesCount" ascending:YES] autorelease];
     
-    return [self.subtitles sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptorCount]];
-}
-
-- (id)init {
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Anime" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
-    self = [super initWithEntity:entity insertIntoManagedObjectContext:[CoreDataHelper managedObjectContext]];
-    if (self) {
-        
-    }   
-    return self;
+    NSArray* subtitles = [self.subtitles sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptorCount]];
+    
+    return subtitles;
 }
 
 - (Subtitle*)subtitleWithSrtId:(NSNumber*)srtId {
     NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subtitle" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subtitle" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];    
     
     NSPredicate* libraryPredicate = [NSPredicate predicateWithFormat:@"srtId == %i AND anime == %@", srtId.integerValue, self];
     [fetchRequest setPredicate:libraryPredicate];
     
-    return [CoreDataHelper requestFirstResult:fetchRequest];
+    return [CoreDataHelper requestFirstResult:fetchRequest managedObjectContext:self.managedObjectContext];
 }
 
 - (NSArray*)subtitlesUpdated {
     NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subtitle" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subtitle" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];    
         
     NSPredicate* libraryPredicate = [NSPredicate predicateWithFormat:@"anime == %@ and updated = YES", self];
     [fetchRequest setPredicate:libraryPredicate];
     
-    return [CoreDataHelper requestResult:fetchRequest];
+    return [CoreDataHelper requestResult:fetchRequest managedObjectContext:self.managedObjectContext];
 }
 
 @end

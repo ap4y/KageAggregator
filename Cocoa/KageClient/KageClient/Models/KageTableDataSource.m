@@ -12,6 +12,7 @@
 #import "AnimeView.h"
 #import "CustomTableFlushViewCell.h"
 #import "Three20Core/NSArrayAdditions.h"
+#import "CoreDataHelper.h"
 
 @implementation KageModel
 @synthesize animeList = _animeList, shouldReload = _shouldReload;
@@ -51,8 +52,12 @@
 - (void)loadData:(Anime*)anime {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
         
-    [anime reloadAnime];    
-    [_loadedFlags setObject:[NSNumber numberWithBool:YES] forKey:anime.name];
+    NSManagedObjectContext* moc = [[NSManagedObjectContext alloc] init];
+    [moc setPersistentStoreCoordinator:[CoreDataHelper persistentStoreCoordinator]];
+    
+    Anime* threadAnime = [Anime getAnime:anime.baseId managedObjectContext:moc];
+    [threadAnime reloadAnime];    
+    [_loadedFlags setObject:[NSNumber numberWithBool:YES] forKey:threadAnime.name];
     
     //NSLog(@"%@, %@", anime.name, _loadedFlags.allValues);
     
@@ -81,7 +86,7 @@
         _animeList = [[NSMutableArray alloc] init];    
     
     [_animeList removeAllObjects];
-    [_animeList addObjectsFromArray:[Anime allAnime]];   
+    [_animeList addObjectsFromArray:[Anime allAnime:[CoreDataHelper managedObjectContext]]];   
     
     if (!_loadedFlags) {
         _loadedFlags = [[NSMutableDictionary alloc] init];
@@ -91,11 +96,13 @@
         [_loadedFlags setObject:[NSNumber numberWithBool:NO] forKey:anime.name];
     }
     
+    _loading = _animeList.count > 0;
     for (Anime* anime in _animeList) {
         [self performSelectorInBackground:@selector(loadData:) withObject:[anime retain]];
-    }        
+    }     
     
-    //_loading = NO;            
+    if (!_loading)
+        [_delegates perform:@selector(modelDidFinishLoad:) withObject:self];   
 }
 
 @end
@@ -149,8 +156,10 @@
 
 - (void)updateNewLabels {
     for (int i = 0; i < _items.count; i++) {
-        AnimeView* view = [_items objectAtIndex:i];
-        [view updateNewItems];
+        if ([[_items objectAtIndex:i] isKindOfClass:[AnimeView class]]) {
+            AnimeView* view = [_items objectAtIndex:i];
+            [view updateNewItems];
+        }
     }
 }
 
@@ -167,8 +176,11 @@
         if ([cell isKindOfClass:[AnimeView class]]) {
             AnimeView* item = (AnimeView*)cell;
             
-            if ([Anime removeAnime: item.anime]) {
+            if ([Anime removeAnime: item.anime managedObjectContext:[CoreDataHelper managedObjectContext]]) {
                 [_items removeObject:item];
+                if (_items.count == 0) {
+                    [_items addObject:[TTTableTextItem itemWithText:@"Добавить"]];
+                }
                 [_delegate dataDidChanged:self];
             }                        
         }                      
@@ -177,9 +189,16 @@
 
 - (void)addAnime:(NSNumber*)objId {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    if ([Anime addAnime:objId]) {        
+    
+    NSManagedObjectContext* moc = [[NSManagedObjectContext alloc] init];
+    [moc setPersistentStoreCoordinator:[CoreDataHelper persistentStoreCoordinator]];
+    
+    if ([Anime addAnime:objId managedObjectContext:moc]) {        
         //_kageModel.shouldReload = YES;
-        AnimeView* view = [[AnimeView alloc] initWithAnime:[Anime getAnime:objId]];
+        AnimeView* view = [[AnimeView alloc] initWithAnime:[Anime getAnime:objId managedObjectContext:moc]];
+        if ([[_items objectAtIndex:0] isKindOfClass:[TTTableTextItem class]])
+            [_items removeObjectAtIndex:0];
+
         [_items insertObject:view atIndex:0];
         [_delegate dataDidChanged:self];
     }        

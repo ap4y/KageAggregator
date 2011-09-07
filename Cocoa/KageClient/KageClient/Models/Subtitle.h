@@ -20,4 +20,6 @@
 @property (nonatomic, retain) Anime *anime;
 @property (nonatomic, retain) Group *fansubGroup;
 
+- (id)initWithmanagedObjectContext:(NSManagedObjectContext*)managedObjectContext;
+
 @end

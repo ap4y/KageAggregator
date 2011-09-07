@@ -36,7 +36,7 @@
 //}
 
 - (UIFont *)tableFont {
-    NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
+    /*NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
     NSArray *fontNames;
     NSInteger indFamily, indFont;
     for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
@@ -51,7 +51,7 @@
         }
         [fontNames release];
     }
-    [familyNames release];
+    [familyNames release];*/
     return [UIFont fontWithName:@"SegoeUI-Bold" size:15];
 }
 

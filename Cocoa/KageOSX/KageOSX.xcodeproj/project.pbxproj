@@ -18,10 +18,15 @@
 		9514E0931414BC980022461A /* RegexHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E0901414BC980022461A /* RegexHelper.m */; };
 		9514E0A51414BCAE0022461A /* Anime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E0961414BCAE0022461A /* Anime.m */; };
 		9514E0A61414BCAE0022461A /* AnimeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E0981414BCAE0022461A /* AnimeCategory.m */; };
-		9514E0A81414BCAE0022461A /* CommonData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E09C1414BCAE0022461A /* CommonData.m */; };
 		9514E0A91414BCAF0022461A /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E09E1414BCAE0022461A /* Group.m */; };
 		9514E0AA1414BCAF0022461A /* KageData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9514E09F1414BCAE0022461A /* KageData.xcdatamodeld */; };
 		9514E0AC1414BCAF0022461A /* Subtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E0A41414BCAE0022461A /* Subtitle.m */; };
+		95657D661416B4B4008441CA /* AnimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95657D651416B4B4008441CA /* AnimeView.m */; };
+		957285D31416BD1800F9E370 /* AnimeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 957285D21416BD1800F9E370 /* AnimeView.xib */; };
+		957286241417627900F9E370 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 957286221417627900F9E370 /* MainView.m */; };
+		957286251417627900F9E370 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 957286231417627900F9E370 /* MainView.xib */; };
+		9579AC72141533C00021CB01 /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 9579AC71141533C00021CB01 /* test.html */; };
+		95FA331E1415249B00A18C3A /* AnimeDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FA331D1415249B00A18C3A /* AnimeDatasource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,13 +53,20 @@
 		9514E0961414BCAE0022461A /* Anime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Anime.m; sourceTree = "<group>"; };
 		9514E0971414BCAE0022461A /* AnimeCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimeCategory.h; sourceTree = "<group>"; };
 		9514E0981414BCAE0022461A /* AnimeCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimeCategory.m; sourceTree = "<group>"; };
-		9514E09B1414BCAE0022461A /* CommonData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonData.h; sourceTree = "<group>"; };
-		9514E09C1414BCAE0022461A /* CommonData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonData.m; sourceTree = "<group>"; };
 		9514E09D1414BCAE0022461A /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
 		9514E09E1414BCAE0022461A /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 		9514E0A01414BCAE0022461A /* KageData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KageData.xcdatamodel; sourceTree = "<group>"; };
 		9514E0A31414BCAE0022461A /* Subtitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subtitle.h; sourceTree = "<group>"; };
 		9514E0A41414BCAE0022461A /* Subtitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subtitle.m; sourceTree = "<group>"; };
+		95657D641416B4B4008441CA /* AnimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimeView.h; path = KageOSX/Views/AnimeView.h; sourceTree = "<group>"; };
+		95657D651416B4B4008441CA /* AnimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimeView.m; path = KageOSX/Views/AnimeView.m; sourceTree = "<group>"; };
+		957285D21416BD1800F9E370 /* AnimeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AnimeView.xib; path = KageOSX/Views/AnimeView.xib; sourceTree = "<group>"; };
+		957286211417627900F9E370 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainView.h; path = KageOSX/ViewControllers/MainView.h; sourceTree = "<group>"; };
+		957286221417627900F9E370 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainView.m; path = KageOSX/ViewControllers/MainView.m; sourceTree = "<group>"; };
+		957286231417627900F9E370 /* MainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainView.xib; path = KageOSX/ViewControllers/MainView.xib; sourceTree = "<group>"; };
+		9579AC71141533C00021CB01 /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = test.html; path = ../../../test.html; sourceTree = "<group>"; };
+		95FA331C1415249B00A18C3A /* AnimeDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimeDatasource.h; path = KageOSX/Models/AnimeDatasource.h; sourceTree = SOURCE_ROOT; };
+		95FA331D1415249B00A18C3A /* AnimeDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimeDatasource.m; path = KageOSX/Models/AnimeDatasource.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +84,8 @@
 		9514E02F1414BB3B0022461A = {
 			isa = PBXGroup;
 			children = (
+				95EBFC8E1417F3C20056E87E /* Views */,
+				957286201417625000F9E370 /* ViewControllers */,
 				9514E0941414BCAE0022461A /* Models */,
 				9514E08A1414BC980022461A /* Common */,
 				9514E0441414BB3C0022461A /* KageOSX */,
@@ -121,6 +135,7 @@
 		9514E0451414BB3C0022461A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9579AC71141533C00021CB01 /* test.html */,
 				9514E0461414BB3C0022461A /* KageOSX-Info.plist */,
 				9514E0471414BB3C0022461A /* InfoPlist.strings */,
 				9514E04A1414BB3C0022461A /* main.m */,
@@ -151,16 +166,36 @@
 				9514E0961414BCAE0022461A /* Anime.m */,
 				9514E0971414BCAE0022461A /* AnimeCategory.h */,
 				9514E0981414BCAE0022461A /* AnimeCategory.m */,
-				9514E09B1414BCAE0022461A /* CommonData.h */,
-				9514E09C1414BCAE0022461A /* CommonData.m */,
 				9514E09D1414BCAE0022461A /* Group.h */,
 				9514E09E1414BCAE0022461A /* Group.m */,
 				9514E09F1414BCAE0022461A /* KageData.xcdatamodeld */,
 				9514E0A31414BCAE0022461A /* Subtitle.h */,
 				9514E0A41414BCAE0022461A /* Subtitle.m */,
+				95FA331C1415249B00A18C3A /* AnimeDatasource.h */,
+				95FA331D1415249B00A18C3A /* AnimeDatasource.m */,
 			);
 			name = Models;
 			path = ../KageClient/KageClient/Models;
+			sourceTree = "<group>";
+		};
+		957286201417625000F9E370 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				957286211417627900F9E370 /* MainView.h */,
+				957286221417627900F9E370 /* MainView.m */,
+				957286231417627900F9E370 /* MainView.xib */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		95EBFC8E1417F3C20056E87E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				95657D641416B4B4008441CA /* AnimeView.h */,
+				95657D651416B4B4008441CA /* AnimeView.m */,
+				957285D21416BD1800F9E370 /* AnimeView.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +248,9 @@
 				9514E0491414BB3C0022461A /* InfoPlist.strings in Resources */,
 				9514E04F1414BB3C0022461A /* Credits.rtf in Resources */,
 				9514E0551414BB3C0022461A /* MainMenu.xib in Resources */,
+				9579AC72141533C00021CB01 /* test.html in Resources */,
+				957285D31416BD1800F9E370 /* AnimeView.xib in Resources */,
+				957286251417627900F9E370 /* MainView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,10 +268,12 @@
 				9514E0931414BC980022461A /* RegexHelper.m in Sources */,
 				9514E0A51414BCAE0022461A /* Anime.m in Sources */,
 				9514E0A61414BCAE0022461A /* AnimeCategory.m in Sources */,
-				9514E0A81414BCAE0022461A /* CommonData.m in Sources */,
 				9514E0A91414BCAF0022461A /* Group.m in Sources */,
 				9514E0AA1414BCAF0022461A /* KageData.xcdatamodeld in Sources */,
 				9514E0AC1414BCAF0022461A /* Subtitle.m in Sources */,
+				95FA331E1415249B00A18C3A /* AnimeDatasource.m in Sources */,
+				95657D661416B4B4008441CA /* AnimeView.m in Sources */,
+				957286241417627900F9E370 /* MainView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +393,7 @@
 				9514E05A1414BB3C0022461A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

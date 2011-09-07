@@ -27,6 +27,6 @@
 - (void)addSubtitles:(NSSet *)values;
 - (void)removeSubtitles:(NSSet *)values;
 
-- (NSArray*)allAnime;
+- (id)initWithmanagedObjectContext:(NSManagedObjectContext*)managedObjectContext;
 
 @end

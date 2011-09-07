@@ -10,10 +10,10 @@
 
 @interface Anime (AnimeCategory)
 
-+ (NSArray*)allAnime;
-+ (Anime*)getAnime:(NSNumber*)baseId;
-+ (BOOL)addAnime:(NSNumber*)baseId;
-+ (BOOL)removeAnime:(Anime*)anime;
++ (NSArray*)allAnime:(NSManagedObjectContext*)managedObjectContext;
++ (Anime*)getAnime:(NSNumber*)baseId managedObjectContext:(NSManagedObjectContext*)managedObjectContext;
++ (BOOL)addAnime:(NSNumber*)baseId managedObjectContext:(NSManagedObjectContext*)managedObjectContext;
++ (BOOL)removeAnime:(Anime*)anime managedObjectContext:(NSManagedObjectContext*)managedObjectContext ;
 
 - (Subtitle*)subtitleWithSrtId:(NSNumber*)srtId;
 - (NSArray *)subtitlesBySeriesCount;

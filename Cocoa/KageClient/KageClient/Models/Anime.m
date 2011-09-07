@@ -16,12 +16,14 @@
 @dynamic name;
 @dynamic subtitles;
 
-- (NSArray*)allAnime {
-    NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Anime" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
-    [fetchRequest setEntity:entity];    
+- (id)initWithmanagedObjectContext:(NSManagedObjectContext*)managedObjectContext  {
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Anime" inManagedObjectContext:managedObjectContext];
     
-    return [CoreDataHelper requestResult:fetchRequest];
+    self = [super initWithEntity:entity insertIntoManagedObjectContext:managedObjectContext];
+    if (self) {
+        
+    }
+    return self;
 }
 
 @end

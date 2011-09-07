@@ -7,14 +7,24 @@
 //
 
 #import "KageOSXAppDelegate.h"
+#import "MainView.h"
 
 @implementation KageOSXAppDelegate
 
-@synthesize window;
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-    // Insert code here to initialize your application
+{    
+    MainView* _mainViewController = [[MainView alloc] initWithNibName:@"MainView" bundle:nil];
+    [hudWindow.contentView addSubview:_mainViewController.view];    
 }
 
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
+    if (flag) {
+        return NO;
+    } else {
+        if (hudWindow) {
+            [hudWindow orderFront:self];   
+        }        
+        return YES;
+    }	
+}
 @end

@@ -9,6 +9,7 @@
 #import "AnimeDetailViewController.h"
 #import "AnimeDetailsDataSource.h"
 #import "AnimeCategory.h"
+#import "CoreDataHelper.h"
 
 @implementation AnimeDetailViewController
 
@@ -32,7 +33,7 @@
 - (id)initWithAnimeId:(int)baseId {
     self = [super init];
     if (self) {         
-        _anime = [Anime getAnime:[NSNumber numberWithInt:baseId]];
+        _anime = [Anime getAnime:[NSNumber numberWithInt:baseId] managedObjectContext:[CoreDataHelper managedObjectContext]];
         self.variableHeightRows = YES;
         self.title = _anime.name;
     }

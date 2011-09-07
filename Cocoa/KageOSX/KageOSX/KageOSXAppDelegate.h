@@ -8,10 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface KageOSXAppDelegate : NSObject <NSApplicationDelegate> {
-    NSWindow *window;
+@interface KageOSXAppDelegate : NSObject <NSApplicationDelegate> {  
+    IBOutlet NSWindow *hudWindow;    
 }
-
-@property (assign) IBOutlet NSWindow *window;
 
 @end
