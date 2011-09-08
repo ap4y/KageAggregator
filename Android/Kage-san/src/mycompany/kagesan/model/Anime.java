@@ -9,15 +9,19 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Anime {
 
 	@DatabaseField(id = true)
-	int baseId;
+	public int baseId;
 	@DatabaseField
-	String name;
+	public String name;
 	@DatabaseField
-	byte[] imageData;
+	public byte[] imageData;
 	@ForeignCollectionField(eager = false, columnName = "subtitles")
-    ForeignCollection<Subtitle> subtitles;
+	public ForeignCollection<Subtitle> subtitles;
 	
 	Anime() { 
 		
+	}
+	
+	public void addSubtitle (Subtitle subtitle) {
+		subtitles.add(subtitle);
 	}
 }

@@ -1,77 +1,106 @@
 package mycompany.kagesan.common;
 
-public class KageParser {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import mycompany.kagesan.model.Anime;
+import mycompany.kagesan.model.DatabaseHelper;
+import mycompany.kagesan.model.Group;
+import mycompany.kagesan.model.Subtitle;
+
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+
+import android.util.Log;
+
+public class KageParser extends OrmLiteBaseActivity<DatabaseHelper> {
 	
+	private final String LOG_TAG = getClass().getSimpleName();
 	
+	private static final String HOST_NAME = "http://fansubs.ru/";
+	
+	private Anime _anime = null;
+	private String _htmlBody = null;
+	
+	public KageParser(Anime anime) throws Exception {
+		if (anime == null || anime.baseId == 0) {
+			throw new Exception("Error creating parser");
+		}
+		
+		_anime = anime;
+		this.requestHtmlBody();
+		
+		if (_anime.name == null || _anime.name.length() == 0) {
+			this.parseHtmlHeader();
+		}
+	}
+	
+	private void parseHtmlString(String htmlString, String groupString) {
+		//get srtId
+	    String srtIdString = RegexHelper.stringWithHtmlMatchesPattern(htmlString, "<input type=\"hidden\" name=\"srt\".*?>"); 
+	    String srtId = RegexHelper.stringWithHtmlMatchesPattern(srtIdString, "value=\"[0-9]*\"");
+	    srtId = srtId.replace("value=", "");
+	    srtId = srtId.replace("\"", "");
+	    Log.i(LOG_TAG, "srtId:" + srtId);
+	    	    	 
+	    //split table to cell
+	    String count = "0";
+	    ArrayList<String> cellArray = RegexHelper.arrayWithHtmlMatchesPattern(htmlString, "<td.*?>.*?</td>");
+
+	    if (cellArray.size() > 4) {
+	    	String countDescriptionCell = RegexHelper.stringWithHtmlMatchesPattern(cellArray.get(2), "ТВ [0-9]*-[0-9]*");
+	    	count = RegexHelper.stringWithHtmlMatchesPattern(countDescriptionCell, "-[0-9]*");
+	    	count = count.replace("-", "");
+		}
+	    
+	    int countNum = Integer.parseInt(count);
+	    int srtIdNum = Integer.parseInt(srtId);
+	    try {
+			Subtitle curSub = getHelper().subtitleWithSrtId(_anime, srtIdNum);
+			if (curSub != null) {
+				//new subtitle group
+				Subtitle newSub = new Subtitle(srtIdNum, countNum, true, _anime);
+				
+				ArrayList<String> groupTables = RegexHelper.arrayWithHtmlMatchesPattern(groupString, "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"row1\">.*?</table>");
+				String fansubGroupName = "";
+				
+				for (String nameStr : groupTables) {
+					String memberName = RegexHelper.stringWithHtmlTagContent(nameStr, "b");
+					String groupName = RegexHelper.stringWithHtmlMatchesPattern(nameStr, "web>.*?</a>]</td>");
+					groupName = groupName.replace("web>", "");
+					groupName = groupName.replace("</a>]</td>", "");
+					if (groupName != null && groupName.length() != 0)
+						groupName = "[" + groupName + "]";					
+					else
+						groupName = "";	
+					
+					fansubGroupName = fansubGroupName + memberName + groupName + "\r\n";									
+				}
+				
+				Log.i(LOG_TAG, "fansubbers " + fansubGroupName);
+				
+				Group fansubGroup = new Group(fansubGroupName, newSub);
+				newSub.fansubgroup = fansubGroup;
+				_anime.addSubtitle(newSub);
+			}
+			else if (countNum > curSub.seriesCount) {
+				curSub.seriesCount = countNum;				
+				curSub.updated = true;				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	    
+	}
+	
+	private void parseHtmlBody() {
+		this.parseHtmlString("", "");
+	}
 /*
- static NSString* hostName = @"http://fansubs.ru/";
-
-- (void)parseHtmlString:(NSString*)htmlString groupString:(NSString*)groupString {
-    //get srt objId
-    NSString* srtIdString = [RegexHelper stringWithHtmlMatchesPattern:htmlString pattern:@"<input type=\"hidden\" name=\"srt\".*?>"];
-    NSString* srtId = [RegexHelper stringWithHtmlMatchesPattern:srtIdString pattern:@"value=\"[0-9]*\""];
-    srtId = [srtId stringByReplacingOccurrencesOfString:@"value=" withString:@""];
-    srtId = [srtId stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-    NSLog(@"srtId:%@", srtId);
-    
-    //split table to cell
-    NSString* count = @"0";
-    NSArray* cellArray = [RegexHelper arrayWithHtmlMatchesPattern:htmlString pattern:@"<td.*?>.*?</td>"];
-    
-    if (cellArray.count > 4 ) {
-        
-        NSString* countDescriptionCell = [RegexHelper stringWithHtmlMatchesPattern:[cellArray objectAtIndex:2] pattern:@"ТВ [0-9]*-[0-9]*"];
-        count = [RegexHelper stringWithHtmlMatchesPattern:countDescriptionCell pattern:@"-[0-9]*"];
-        count = [count stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        //NSLog(@"series translated %@", [count stringByReplacingOccurrencesOfString:@"-" withString:@""]);
-        
-        //NSString* formatCell = [cellArray objectAtIndex:3];
-        //NSLog(@"%@", formatCell);
-    }
-
-    NSNumberFormatter* numFormat = [[[NSNumberFormatter alloc] init] autorelease];
-    NSNumber* countNum = [numFormat numberFromString:count];
-    NSLog(@"series count %@", countNum.stringValue);
-    NSNumber* srtIdNum = [numFormat numberFromString:srtId];
-    
-    Subtitle* curSub = [_anime subtitleWithSrtId:srtIdNum];
-    if (!curSub) {
-        //new subtitle group
-        Subtitle* newSub = [[[Subtitle alloc] initWithmanagedObjectContext:_anime.managedObjectContext] autorelease];        
-        newSub.srtId = srtIdNum;
-        newSub.seriesCount = countNum;    
-        newSub.updated = [NSNumber numberWithBool:YES];
-        
-        //parse group information
-        Group* fansubGroup = [[[Group alloc] initWithmanagedObjectContext:_anime.managedObjectContext] autorelease];
-        
-        NSArray* groupTables = [RegexHelper arrayWithHtmlMatchesPattern:groupString pattern:@"<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"row1\">.*?</table>"];
-        
-        fansubGroup.name = @"";
-        for (NSString* nameStr in groupTables) {
-            NSString* memberName = [RegexHelper stringWithHtmlTagContent:nameStr tag:@"b"];
-            NSString* groupName = [RegexHelper stringWithHtmlMatchesPattern:nameStr pattern:@"web>.*?</a>]</td>"];
-            groupName = [groupName stringByReplacingOccurrencesOfString:@"web>" withString:@""];
-            groupName = [groupName stringByReplacingOccurrencesOfString:@"</a>]</td>" withString:@""];
-            if (groupName && groupName.length > 0)
-                groupName = [NSString stringWithFormat:@"[%@]", groupName];
-            else
-                groupName = @"";
-            fansubGroup.name = [fansubGroup.name stringByAppendingString:[NSString stringWithFormat:@"%@%@\r\n", memberName, groupName]];
-        }                    
-        
-        NSLog(@"fansubbers %@", fansubGroup.name);
-        newSub.fansubGroup = fansubGroup;        
-        [_anime addSubtitlesObject:newSub];
-    }
-    else {
-        if (countNum.integerValue > curSub.seriesCount.integerValue) {
-            curSub.seriesCount = countNum;
-            curSub.updated = [NSNumber numberWithBool:YES];
-        }
-    }
-}
-
+ 
 - (void)parseHtmlBody {
     if (_htmlBody) {
         NSArray* htmlArray = [RegexHelper arrayWithRangesMatchesPattern:_htmlBody pattern:@"<table width=\"750\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">.*?</table>"];    
@@ -110,43 +139,42 @@ public class KageParser {
         _anime.image = [NSData dataWithContentsOfURL:imageUrl];
     }           
 }
-
-- (void)requestHtmlBody {
-    _htmlBody = nil;
-    NSError* err = nil;    
-    NSString* html = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fansubs.ru/base.php?id=%i", _anime.baseId.integerValue]] encoding:NSWindowsCP1251StringEncoding error:&err];
-    //NSString* fileUrl = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"test.html"];
-    //NSString* html = [NSString stringWithContentsOfFile:fileUrl encoding:NSWindowsCP1251StringEncoding error:&err];
-    
-    if (err) {
-        NSLog(@"getting string error %@", err.localizedDescription);     
-        return;
-    }
-    else
-        _htmlBody = [html stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
-}
-
-- (void)reloadData {
-    [self parseHtmlBody];
-}
-
-- (id)initWithAnime:(Anime*)anime {
-    self = [super init];
-    if (self) {
-                
-        if (!anime || _anime.baseId) {
-            return nil;
-        }
-        
-        _anime = anime;
-        [self requestHtmlBody];
-        
-        if (_anime.name == nil || anime.name.length == 0)                                      
-            [self parseHtmlHeader];
-    }
-    return self;
-}
-
  */
+	private void parseHtmlHeader() {
+		if (_htmlBody != null) {
+			
+		}
+	}
 	
+	private String getHtmlContent(URL url) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+		String inputLine;
+
+		while ((inputLine = in.readLine()) != null) {
+		}
+		in.close();
+		
+		return inputLine;
+	}
+	
+	private void requestHtmlBody() {
+		_htmlBody = null;
+		URL url;
+		try {
+			url = new URL(HOST_NAME + "base.php?id=" + _anime.baseId);
+			String html = this.getHtmlContent(url);
+			//NSString* fileUrl = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"test.html"];
+		    //NSString* html = [NSString stringWithContentsOfFile:fileUrl encoding:NSWindowsCP1251StringEncoding error:&err];
+			
+			_htmlBody = html.replace("\r\n", "");
+		} catch (MalformedURLException e) {
+			Log.i(LOG_TAG, "getting string error " + e.getLocalizedMessage());
+		} catch (IOException e) {
+			Log.i(LOG_TAG, "getting string error " + e.getLocalizedMessage());
+		}				
+	}
+	
+	public void reloadData() {
+		this.parseHtmlBody();
+	}		
 }

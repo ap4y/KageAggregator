@@ -7,15 +7,22 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Subtitle {
 
 	@DatabaseField(id = true)
-	int srtId;
+	public int srtId;
 	@DatabaseField
-	int seriesCount;
+	public int seriesCount;
 	@DatabaseField
-	boolean updated;
+	public boolean updated;
 	@DatabaseField(foreign = true, columnName = "anime")
-	Anime anime;
+	public Anime anime;
 	@DatabaseField(foreign = true)
-	Group fansubgroup;
+	public Group fansubgroup;
 	
 	Subtitle() {}
+	
+	public Subtitle(int srtId, int seriesCount, boolean updated, Anime anime) {
+		this.srtId =  srtId;
+		this.seriesCount = seriesCount;
+		this.updated = updated;
+		this.anime = anime;
+	}
 }

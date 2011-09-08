@@ -7,9 +7,14 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Group {
 	
 	@DatabaseField(id = true)
-	String name;
+	public String name;
 	@DatabaseField(foreign = true)
-	Subtitle subtitle;
+	public Subtitle subtitle;
 
 	Group() {}
+	
+	public Group(String name, Subtitle subtitle) {
+		this.name = name;
+		this.subtitle = subtitle;
+	}
 }
