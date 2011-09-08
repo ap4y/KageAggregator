@@ -47,4 +47,11 @@
 - (BOOL)haveNew {
     return !_new.isHidden;
 }
+
+- (void)updateNewItems {
+    NSArray* updatedSubtitles = [_anime subtitlesUpdated];
+    NSLog(@"new subs count: %lu", updatedSubtitles.count);
+    [_new setHidden:(updatedSubtitles.count == 0)];
+}
+
 @end

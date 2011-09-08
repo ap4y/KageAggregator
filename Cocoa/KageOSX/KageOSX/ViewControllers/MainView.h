@@ -20,6 +20,7 @@
     IBOutlet NSTableView *_tableView;
     IBOutlet NSArrayController *_animeArrayController;
     IBOutlet NSCollectionView *_animeCollectionView;
+    IBOutlet NSScrollView *_tableScrollView;
 }
 
 @property(nonatomic, retain) AnimeDatasource* dataSource;

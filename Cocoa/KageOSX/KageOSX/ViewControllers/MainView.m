@@ -16,23 +16,41 @@
 @synthesize dataSource = _dataSource;
 
 - (void)animeAtIndex:(int)itemNum {
+    if (_dataSource.items.count == 0)
+        [_tableScrollView setHidden:YES];
+    else
+        [_tableScrollView setHidden:NO];
+
     if (itemNum >= _dataSource.items.count) {
         return;
     }
     
-    _curAnime = (Anime*)[_dataSource.items objectAtIndex:itemNum];
-    NSArray* subtitles = [_curAnime subtitlesBySeriesCount];
-    [subtitlesController setContent: subtitles];
+    if (![_curAnime isEqual:[_dataSource.items objectAtIndex:itemNum]]) {
+
+        if (_curAnime && _dataSource.items.count > 1) {
+            [_curAnime setIsWatched];
+        }  
+        
+        NSUInteger prevIndex = [_dataSource.items indexOfObject:_curAnime];
+        if (prevIndex != NSNotFound && prevIndex < _dataSource.items.count) {
+            AnimeView* prevView = (AnimeView*)[_animeCollectionView itemAtIndex:prevIndex];
+            [prevView updateNewItems];
+        }                              
+
+        _curAnime = (Anime*)[_dataSource.items objectAtIndex:itemNum];
+        NSArray* subtitles = [_curAnime subtitlesBySeriesCount];
+        [subtitlesController setContent: subtitles];
     
-    NSMutableIndexSet* indexSet = [[[NSMutableIndexSet alloc] init] autorelease];
-    for (int i = 0; i < subtitles.count; i++) {
-        Subtitle* subtitle = [subtitles objectAtIndex:i];
-        if (subtitle.updated.boolValue) {
-            [indexSet addIndex:i];
+        NSMutableIndexSet* indexSet = [[[NSMutableIndexSet alloc] init] autorelease];
+        for (int i = 0; i < subtitles.count; i++) {
+            Subtitle* subtitle = [subtitles objectAtIndex:i];
+            if (subtitle.updated.boolValue) {
+                [indexSet addIndex:i];
+            }
         }
-    }
     
-    [_tableView selectRowIndexes:indexSet byExtendingSelection:NO];
+        [_tableView selectRowIndexes:indexSet byExtendingSelection:NO];
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -53,6 +71,11 @@
     [self animeAtIndex:0];
 }
 
+- (void)dealloc {
+    [_dataSource release];
+    [super dealloc];
+}
+
 - (void)didScrolled:(NSNotification*)scrollNotification {    
     int itemNum = _scrollView.documentVisibleRect.origin.y / 235;
     
@@ -66,11 +89,6 @@
         return nil;
     
     return [_curAnime subtitlesBySeriesCount];
-}
-
-- (void)dealloc {
-    [_dataSource release];
-    [super dealloc];
 }
 
 - (IBAction)addAnime:(id)sender {
@@ -93,7 +111,7 @@
 }
 
 - (IBAction)removeAnime:(id)sender {
-    if (_curAnime)
+    if (_curAnime)        
         [_dataSource removeAnime:_curAnime];        
 }
 
@@ -107,6 +125,8 @@
     int itemNum = _scrollView.documentVisibleRect.origin.y / 235;
     if (itemNum >= 0 && itemNum < _dataSource.items.count)
         [self animeAtIndex: itemNum];
+    else
+        [_tableScrollView setHidden:YES];
     
     //check for new items
     int newCount = 0;
@@ -117,9 +137,11 @@
         }
     }
     
-    if (newCount > 0) {
+    if (newCount > 0) {        
         [[NSApplication sharedApplication].dockTile setBadgeLabel:[NSString stringWithFormat:@"%i", newCount]];
     }
+    else
+        [[NSApplication sharedApplication].dockTile setBadgeLabel:@""];
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {

@@ -58,7 +58,7 @@
 }
 
 - (void)removeAnime:(Anime*)anime {
-    if ([Anime removeAnime: anime managedObjectContext:[CoreDataHelper managedObjectContext]]) {
+    if ([Anime removeAnime: anime managedObjectContext:anime.managedObjectContext]) {
         [_items removeObject:anime];
         [_delegate datasourceDidChanged:self];
     } 

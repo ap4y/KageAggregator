@@ -20,4 +20,7 @@
 @property(nonatomic, retain) Anime* anime;
 @property(nonatomic, readonly)BOOL haveNew;
 
+- (void)updateNewItems;
+
 @end
+
