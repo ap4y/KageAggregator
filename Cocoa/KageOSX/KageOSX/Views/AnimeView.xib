@@ -94,7 +94,7 @@
 					<object class="NSTextField" id="980521749">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 166}, {144, 24}}</string>
+						<string key="NSFrame">{{17, 135}, {144, 24}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="345936571"/>
@@ -166,7 +166,7 @@
 					<object class="NSTextField" id="768796185">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 191}, {144, 24}}</string>
+						<string key="NSFrame">{{17, 167}, {144, 48}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="980521749"/>
@@ -277,9 +277,9 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="772899279"/>
-							<reference ref="768796185"/>
 							<reference ref="980521749"/>
 							<reference ref="345936571"/>
+							<reference ref="768796185"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -401,7 +401,7 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
 					<string key="className">AnimeView</string>
-					<string key="superclassName">NSViewController</string>
+					<string key="superclassName">NSCollectionViewItem</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">

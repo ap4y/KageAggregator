@@ -10,7 +10,7 @@
 #import "AnimeView.h"
 #import "Subtitle.h"
 #import "Group.h"
-#import "CoreDataHelper.h"
+#import "GrowlNotificator.h"
 
 @implementation MainView
 @synthesize dataSource = _dataSource;
@@ -133,12 +133,15 @@
     for (int i = 0; i < _animeCollectionView.content.count; i++) {
         AnimeView* animeView = (AnimeView*)[_animeCollectionView itemAtIndex:i];
         if (animeView.haveNew) {
+            for (Subtitle* subtitle in animeView.anime.subtitlesUpdated) {
+                [[GrowlNotificator sharedNotifier] growlAlert:[NSString stringWithFormat:@"%@ - %i", animeView.anime.name, subtitle.seriesCount.integerValue] title:@"Новая серия" iconData: animeView.anime.image];
+            }            
             newCount++;
         }
     }
     
     if (newCount > 0) {        
-        [[NSApplication sharedApplication].dockTile setBadgeLabel:[NSString stringWithFormat:@"%i", newCount]];
+        [[NSApplication sharedApplication].dockTile setBadgeLabel:[NSString stringWithFormat:@"%i", newCount]];        
     }
     else
         [[NSApplication sharedApplication].dockTile setBadgeLabel:@""];

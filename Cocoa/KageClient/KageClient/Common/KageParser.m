@@ -125,9 +125,9 @@ static NSString* hostName = @"http://fansubs.ru/";
 - (void)requestHtmlBody {
     _htmlBody = nil;
     NSError* err = nil;    
-    //NSString* html = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fansubs.ru/base.php?id=%i", _anime.baseId.integerValue]] encoding:NSWindowsCP1251StringEncoding error:&err];
-    NSString* fileUrl = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"test.html"];
-    NSString* html = [NSString stringWithContentsOfFile:fileUrl encoding:NSWindowsCP1251StringEncoding error:&err];
+    NSString* html = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fansubs.ru/base.php?id=%i", _anime.baseId.integerValue]] encoding:NSWindowsCP1251StringEncoding error:&err];
+    //NSString* fileUrl = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"test.html"];
+    //NSString* html = [NSString stringWithContentsOfFile:fileUrl encoding:NSWindowsCP1251StringEncoding error:&err];
     
     if (err) {
         NSLog(@"getting string error %@", err.localizedDescription);     
