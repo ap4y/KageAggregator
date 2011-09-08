@@ -8,11 +8,12 @@
 
 #import "KageParserUnitTest.h"
 #import "Anime.h"
+#import "CoreDataHelper.h"
 
 @implementation KageParserUnitTest
 
 - (void)testKageParserWithNewAnime {
-    Anime* anime = [[Anime alloc] init];    
+    Anime* anime = [[Anime alloc] initWithmanagedObjectContext:[CoreDataHelper managedObjectContext]];    
     _kageParser = [[[KageParser alloc] initWithAnime:anime] autorelease];    
     STAssertNotNil(_kageParser, @"Kage parser can`t be initialized from anime without baseId");
     

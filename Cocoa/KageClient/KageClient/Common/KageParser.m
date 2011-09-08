@@ -145,7 +145,7 @@ static NSString* hostName = @"http://fansubs.ru/";
     self = [super init];
     if (self) {
                 
-        if (!anime.baseId) {
+        if (!anime || _anime.baseId) {
             return nil;
         }
         

@@ -62,6 +62,8 @@
         
         [_scrollView setPostsBoundsChangedNotifications:YES];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didScrolled:) name:NSViewBoundsDidChangeNotification object:_scrollView];        
+        
+        [NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(refreshAnime:) userInfo:nil repeats:YES];
     }
     
     return self;

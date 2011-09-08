@@ -28,7 +28,7 @@
 		9579AC72141533C00021CB01 /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 9579AC71141533C00021CB01 /* test.html */; };
 		95C30D981418C23E00D4A458 /* Growl-WithInstaller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95C30D971418C23D00D4A458 /* Growl-WithInstaller.framework */; };
 		95C30D9A1418C25200D4A458 /* Growl-WithInstaller.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 95C30D971418C23D00D4A458 /* Growl-WithInstaller.framework */; };
-		95C30DA01418C2DD00D4A458 /* GrowlNotificator.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C30D9F1418C2DD00D4A458 /* GrowlNotificator.m */; };
+		95C30E0A1418E00F00D4A458 /* GrowlNotificator.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C30E091418E00F00D4A458 /* GrowlNotificator.m */; };
 		95FA331E1415249B00A18C3A /* AnimeDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FA331D1415249B00A18C3A /* AnimeDatasource.m */; };
 /* End PBXBuildFile section */
 
@@ -82,8 +82,8 @@
 		957286231417627900F9E370 /* MainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainView.xib; path = KageOSX/ViewControllers/MainView.xib; sourceTree = "<group>"; };
 		9579AC71141533C00021CB01 /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = test.html; path = ../../../test.html; sourceTree = "<group>"; };
 		95C30D971418C23D00D4A458 /* Growl-WithInstaller.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "Growl-WithInstaller.framework"; sourceTree = "<group>"; };
-		95C30D9E1418C2DD00D4A458 /* GrowlNotificator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowlNotificator.h; sourceTree = "<group>"; };
-		95C30D9F1418C2DD00D4A458 /* GrowlNotificator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowlNotificator.m; sourceTree = "<group>"; };
+		95C30E081418E00F00D4A458 /* GrowlNotificator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GrowlNotificator.h; path = KageOSX/Common/GrowlNotificator.h; sourceTree = SOURCE_ROOT; };
+		95C30E091418E00F00D4A458 /* GrowlNotificator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GrowlNotificator.m; path = KageOSX/Common/GrowlNotificator.m; sourceTree = SOURCE_ROOT; };
 		95FA331C1415249B00A18C3A /* AnimeDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimeDatasource.h; path = KageOSX/Models/AnimeDatasource.h; sourceTree = SOURCE_ROOT; };
 		95FA331D1415249B00A18C3A /* AnimeDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimeDatasource.m; path = KageOSX/Models/AnimeDatasource.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -169,14 +169,14 @@
 		9514E08A1414BC980022461A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				95C30E081418E00F00D4A458 /* GrowlNotificator.h */,
+				95C30E091418E00F00D4A458 /* GrowlNotificator.m */,
 				9514E08B1414BC980022461A /* CoreDataHelper.h */,
 				9514E08C1414BC980022461A /* CoreDataHelper.m */,
 				9514E08D1414BC980022461A /* KageParser.h */,
 				9514E08E1414BC980022461A /* KageParser.m */,
 				9514E08F1414BC980022461A /* RegexHelper.h */,
 				9514E0901414BC980022461A /* RegexHelper.m */,
-				95C30D9E1418C2DD00D4A458 /* GrowlNotificator.h */,
-				95C30D9F1418C2DD00D4A458 /* GrowlNotificator.m */,
 			);
 			name = Common;
 			path = ../KageClient/KageClient/Common;
@@ -298,7 +298,7 @@
 				95FA331E1415249B00A18C3A /* AnimeDatasource.m in Sources */,
 				95657D661416B4B4008441CA /* AnimeView.m in Sources */,
 				957286241417627900F9E370 /* MainView.m in Sources */,
-				95C30DA01418C2DD00D4A458 /* GrowlNotificator.m in Sources */,
+				95C30E0A1418E00F00D4A458 /* GrowlNotificator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
