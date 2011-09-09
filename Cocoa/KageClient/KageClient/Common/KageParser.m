@@ -73,14 +73,14 @@ static NSString* hostName = @"http://fansubs.ru/";
         
         NSLog(@"fansubbers %@", fansubGroup.name);
         newSub.fansubGroup = fansubGroup;        
-        [_anime addSubtitlesObject:newSub];
+        [_anime addSubtitlesObject:newSub];                
     }
     else {
         if (countNum.integerValue > curSub.seriesCount.integerValue) {
             curSub.seriesCount = countNum;
-            curSub.updated = [NSNumber numberWithBool:YES];
+            curSub.updated = [NSNumber numberWithBool:YES];    
         }
-    }
+    }    
 }
 
 - (void)parseHtmlBody {

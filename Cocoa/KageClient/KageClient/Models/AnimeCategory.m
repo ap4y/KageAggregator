@@ -60,12 +60,12 @@
 
     [kageParser reloadData];
 
-    return [CoreDataHelper save: self.managedObjectContext];
+    return [CoreDataHelper save: kageParser.anime.managedObjectContext];
 }
 
 - (void)setIsWatched {
     for (Subtitle* subtitle in self.subtitles.allObjects) {
-        subtitle.updated = [NSNumber numberWithBool:NO];
+        [subtitle setUpdated:[NSNumber numberWithBool:NO]];        
     }        
     
     [CoreDataHelper save:self.managedObjectContext];

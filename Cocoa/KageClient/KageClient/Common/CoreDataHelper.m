@@ -146,13 +146,27 @@ static NSString* scheme = @"KageData";
     return [result objectAtIndex:0];
 }
 
-+ (BOOL)save:(NSManagedObjectContext*)managedObjectContext {
-    NSError *error = nil;
-    if (![managedObjectContext save:&error]) {
-        NSLog(@"Unresolved error %@", error.localizedDescription);
-        return NO;
++ (void)managedObjectContextDidSave:(NSNotification*)notification {
+    if ([CoreDataHelper managedObjectContext]) {
+        [[CoreDataHelper managedObjectContext] performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:NO];
     }
-    
-    return YES;
+}
+
++ (BOOL)save:(NSManagedObjectContext*)managedObjectContext {
+
+    if (managedObjectContext.hasChanges) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:managedObjectContext];
+        
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            NSLog(@"Unresolved error %@", error.localizedDescription);
+            return NO;
+        }        
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:managedObjectContext];
+        return YES;
+    }
+        
+    return NO;
 }
 @end

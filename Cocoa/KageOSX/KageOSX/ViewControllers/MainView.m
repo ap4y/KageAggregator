@@ -20,22 +20,21 @@
         [_tableScrollView setHidden:YES];
     else
         [_tableScrollView setHidden:NO];
-
+       
+    if (_curAnime)
+        [_curAnime setIsWatched];
+    
+    NSUInteger prevIndex = [_dataSource.items indexOfObject:_curAnime];
+    if (prevIndex != NSNotFound && prevIndex < _dataSource.items.count) {
+        AnimeView* prevView = (AnimeView*)[_animeCollectionView itemAtIndex:prevIndex];
+        [prevView updateNewItems];
+    }   
+    
     if (itemNum >= _dataSource.items.count) {
         return;
     }
     
-    if (![_curAnime isEqual:[_dataSource.items objectAtIndex:itemNum]]) {
-
-        if (_curAnime && _dataSource.items.count > 1) {
-            [_curAnime setIsWatched];
-        }  
-        
-        NSUInteger prevIndex = [_dataSource.items indexOfObject:_curAnime];
-        if (prevIndex != NSNotFound && prevIndex < _dataSource.items.count) {
-            AnimeView* prevView = (AnimeView*)[_animeCollectionView itemAtIndex:prevIndex];
-            [prevView updateNewItems];
-        }                              
+    //if (![_curAnime isEqual:[_dataSource.items objectAtIndex:itemNum]]) {                                
 
         _curAnime = (Anime*)[_dataSource.items objectAtIndex:itemNum];
         NSArray* subtitles = [_curAnime subtitlesBySeriesCount];
@@ -50,7 +49,7 @@
         }
     
         [_tableView selectRowIndexes:indexSet byExtendingSelection:NO];
-    }
+    //}
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -79,9 +78,11 @@
 }
 
 - (void)didScrolled:(NSNotification*)scrollNotification {    
-    int itemNum = _scrollView.documentVisibleRect.origin.y / 235;
+    float itemFloat = _scrollView.documentVisibleRect.origin.y / 235.0;
+    int itemNum = roundf(itemFloat);
+    //NSLog(@"item num %f - %i", itemFloat, itemNum);
     
-    if (itemNum >= 0 && itemNum < _dataSource.items.count) {        
+    if (itemNum >= 0 && itemNum != [_dataSource.items indexOfObject:_curAnime]) {        
         [self animeAtIndex:itemNum];
     }
 }
@@ -113,8 +114,11 @@
 }
 
 - (IBAction)removeAnime:(id)sender {
-    if (_curAnime)        
-        [_dataSource removeAnime:_curAnime];        
+    if (_curAnime) {
+        Anime* animeToRemove = _curAnime;
+        _curAnime = nil;
+        [_dataSource removeAnime:animeToRemove];                
+    }
 }
 
 - (IBAction)refreshAnime:(id)sender {
@@ -123,10 +127,12 @@
 
 - (void)datasourceDidChanged:(AnimeDatasource *)dataSource {        
     [_animeArrayController setContent:_dataSource.items];
-
-    int itemNum = _scrollView.documentVisibleRect.origin.y / 235;
-    if (itemNum >= 0 && itemNum < _dataSource.items.count)
-        [self animeAtIndex: itemNum];
+    
+    int itemNum = roundf(_scrollView.documentVisibleRect.origin.y / 235.0);
+    if (itemNum >= 0 && itemNum < _dataSource.items.count) {
+        if (itemNum != [_dataSource.items indexOfObject:_curAnime])
+            [self animeAtIndex: itemNum];
+    }
     else
         [_tableScrollView setHidden:YES];
     

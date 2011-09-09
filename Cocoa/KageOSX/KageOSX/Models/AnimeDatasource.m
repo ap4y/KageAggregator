@@ -22,9 +22,9 @@
     Anime* threadAnime = [Anime getAnime:baseId managedObjectContext:moc];
     [threadAnime reloadAnime];
     
-    [_loadedFlags setObject:[NSNumber numberWithBool:YES] forKey:threadAnime.name];
+    [_loadedFlags setObject:[NSNumber numberWithBool:YES] forKey:threadAnime.baseId];
     
-    //NSLog(@"%@, %@", anime.name, _loadedFlags.allValues);
+    NSLog(@"%@, %@", threadAnime.name, _loadedFlags.allValues);
     
     BOOL isLoadingCheck = NO;
     for (NSNumber* num in _loadedFlags.allValues) {
@@ -32,7 +32,9 @@
             isLoadingCheck = YES;
             break;
         }
-    }
+    }    
+    
+    NSLog(@"is loading %@", isLoadingCheck ? @"YES" : @"NO");
     
     _loading = isLoadingCheck;       
     if (!_loading) {
@@ -46,10 +48,21 @@
     _loading = YES;
     
     [_items removeAllObjects];
-    [_items addObjectsFromArray:[Anime allAnime:[CoreDataHelper managedObjectContext]]];     
+    
+    NSMutableArray* viewsWithNew = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray* viewsWithOutNew = [[[NSMutableArray alloc] init] autorelease];
+    for (Anime* anime in [Anime allAnime:[CoreDataHelper managedObjectContext]]) {
+        if (anime.subtitlesUpdated.count > 0) 
+            [viewsWithNew addObject:anime];
+        else
+            [viewsWithOutNew addObject:anime];
+    }
+    
+    [_items addObjectsFromArray:viewsWithNew];
+    [_items addObjectsFromArray:viewsWithOutNew];   
     
     for (Anime* anime in _items) {
-        [_loadedFlags setObject:[NSNumber numberWithBool:NO] forKey:anime.name];
+        [_loadedFlags setObject:[NSNumber numberWithBool:NO] forKey:anime.baseId];
     }
     
     for (Anime* anime in _items) {
@@ -87,10 +100,17 @@
     self = [super init];
     if (self) {
         _items = [[NSMutableArray alloc] init];
+        _loadedFlags = [[NSMutableDictionary alloc] init];
         [self loadItems];
     }
     
     return self;
+}
+
+- (void)dealloc {
+    [_items release];
+    [_loadedFlags release];
+    [super dealloc];
 }
 
 @end
