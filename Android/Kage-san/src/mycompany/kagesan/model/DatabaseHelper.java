@@ -1,8 +1,12 @@
 package mycompany.kagesan.model;
 
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import mycompany.kagesan.common.KageParser;
+
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -25,7 +29,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private Dao<Subtitle, Integer> _subtitleDao = null;
 
 	public DatabaseHelper(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);	
 	}
 
 	@Override
@@ -33,6 +37,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			Log.i(DatabaseHelper.class.getName(), "onCreate");
 			TableUtils.createTable(connectionSource, Anime.class);
+			TableUtils.createTable(connectionSource, Group.class);
+			TableUtils.createTable(connectionSource, Subtitle.class);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
 			throw new RuntimeException(e);
@@ -44,6 +50,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			Log.i(DatabaseHelper.class.getName(), "onUpgrade");
 			TableUtils.dropTable(connectionSource, Anime.class, true);
+			TableUtils.dropTable(connectionSource, Subtitle.class, true);
+			TableUtils.dropTable(connectionSource, Group.class, true);
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);
@@ -73,15 +81,15 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 	
 	public ArrayList<Anime> allAnime() throws SQLException {
-		return (ArrayList<Anime>) _animeDao.queryForAll();
+		return (ArrayList<Anime>) getAnimeDao().queryForAll();
 	}
 	
 	public Anime getAnime(int baseId) throws SQLException {
-		return _animeDao.queryForId(baseId);
+		return getAnimeDao().queryForId(baseId);
 	}
 	
 	public boolean removeAnime(Anime animeToRemove) throws SQLException {
-		return (_animeDao.delete(animeToRemove) == 1 ? true : false);
+		return (getAnimeDao().delete(animeToRemove) == 1 ? true : false);
 	}
 	
 	public void setIsWatched(Anime anime) {
@@ -92,7 +100,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 	
 	public List<Subtitle> subtitlesBySeriesCount(Anime anime) throws SQLException {
-		QueryBuilder<Subtitle, Integer> subtitleQuery = _subtitleDao.queryBuilder();
+		QueryBuilder<Subtitle, Integer> subtitleQuery = getSubtitleDao().queryBuilder();
 		subtitleQuery.where().eq("anime", anime);
 		subtitleQuery.orderBy("seriesCount", true);
 		PreparedQuery<Subtitle> prepQuery = subtitleQuery.prepare();
@@ -101,7 +109,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 	
 	public Subtitle subtitleWithSrtId(Anime anime, int srtId) throws SQLException {
-		QueryBuilder<Subtitle, Integer> subtitleQuery = _subtitleDao.queryBuilder();
+		QueryBuilder<Subtitle, Integer> subtitleQuery = getSubtitleDao().queryBuilder();
 		subtitleQuery.where().eq("anime", anime).and().eq("srtId", srtId);
 		PreparedQuery<Subtitle> prepQuery = subtitleQuery.prepare();
 		List<Subtitle> result = _subtitleDao.query(prepQuery);
@@ -110,35 +118,38 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 	
 	public List<Subtitle> subtitlesUpdated(Anime anime) throws SQLException {
-		QueryBuilder<Subtitle, Integer> subtitleQuery = _subtitleDao.queryBuilder();
+		QueryBuilder<Subtitle, Integer> subtitleQuery = getSubtitleDao().queryBuilder();
 		subtitleQuery.where().eq("anime", anime).and().eq("updated", true);
 		PreparedQuery<Subtitle> prepQuery = subtitleQuery.prepare();
 		
 		return _subtitleDao.query(prepQuery);
 	}
 	
-	/*	
-	+ (BOOL)addAnime:(NSNumber*)baseId managedObjectContext:(NSManagedObjectContext*)managedObjectContext {
-	    
-	    if ([self getAnime:baseId managedObjectContext:managedObjectContext]) {
-	        return NO;
-	    }            
-	    
-	    Anime* newAnime = [[Anime alloc] initWithmanagedObjectContext:managedObjectContext];  
-	    newAnime.baseId = baseId;
-	            
-	    return [newAnime reloadAnime];
+	public void addSubtitle (Anime anime, Subtitle subtitle) throws SQLException {	
+		if (anime.subtitles == null)
+			anime.subtitles = getAnimeDao().getEmptyForeignCollection("subtitles"); 
+		anime.subtitles.add(subtitle);
 	}
-
-	- (BOOL)reloadAnime {
-	    KageParser* kageParser = [[[KageParser alloc] initWithAnime:self] autorelease];
-	    
-	    if (!kageParser)
-	        return NO;
-
-	    [kageParser reloadData];
-
-	    return [CoreDataHelper save: self.managedObjectContext];
+	
+	public boolean reloadAnime(Anime anime, InputStream inputStream) {
+		try {
+			KageParser kageParser = new KageParser(anime, inputStream);
+			kageParser.reloadData();
+			return true;
+		} catch (Exception e) {
+			Log.i("DatabaseHelper", "Unable to reload anime");
+			e.printStackTrace();
+			return false;
+		}
 	}
-*/
+	
+	public boolean addAnime(int baseId, InputStream inputStream) throws SQLException {
+		if (getAnime(baseId) != null) 
+			return false;
+		
+		Anime newAnime = new Anime();
+		newAnime.baseId = baseId;
+		
+		return reloadAnime(newAnime, inputStream);
+	}
 }

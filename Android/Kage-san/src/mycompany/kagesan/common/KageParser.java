@@ -1,23 +1,24 @@
 package mycompany.kagesan.common;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 
 import mycompany.kagesan.model.Anime;
 import mycompany.kagesan.model.DatabaseHelper;
 import mycompany.kagesan.model.Group;
 import mycompany.kagesan.model.Subtitle;
 
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-
 import android.util.Log;
 
-public class KageParser extends OrmLiteBaseActivity<DatabaseHelper> {
+public class KageParser {
 	
 	private final String LOG_TAG = getClass().getSimpleName();
 	
@@ -26,7 +27,24 @@ public class KageParser extends OrmLiteBaseActivity<DatabaseHelper> {
 	private Anime _anime = null;
 	private String _htmlBody = null;
 	
-	public KageParser(Anime anime) throws Exception {
+	public DatabaseHelper helper;
+	public InputStream tempStream;
+	
+	/*public KageParser(Anime anime) throws Exception {
+		if (anime == null || anime.baseId == 0) {
+			throw new Exception("Error creating parser");
+		}
+		
+		_anime = anime;
+		this.requestHtmlBody();
+		
+		if (_anime.name == null || _anime.name.length() == 0) {
+			this.parseHtmlHeader();
+		}
+	}*/
+	
+	public KageParser(Anime anime, InputStream inputStream) throws Exception {
+		tempStream = inputStream;
 		if (anime == null || anime.baseId == 0) {
 			throw new Exception("Error creating parser");
 		}
@@ -53,15 +71,15 @@ public class KageParser extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	    if (cellArray.size() > 4) {
 	    	String countDescriptionCell = RegexHelper.stringWithHtmlMatchesPattern(cellArray.get(2), "ТВ [0-9]*-[0-9]*");
-	    	count = RegexHelper.stringWithHtmlMatchesPattern(countDescriptionCell, "-[0-9]*");
+	    	count = RegexHelper.stringWithHtmlMatchesPattern(countDescriptionCell, "-[0-9]*");	    	
 	    	count = count.replace("-", "");
 		}
 	    
 	    int countNum = Integer.parseInt(count);
 	    int srtIdNum = Integer.parseInt(srtId);
 	    try {
-			Subtitle curSub = getHelper().subtitleWithSrtId(_anime, srtIdNum);
-			if (curSub != null) {
+			Subtitle curSub = helper.subtitleWithSrtId(_anime, srtIdNum);
+			if (curSub == null) {
 				//new subtitle group
 				Subtitle newSub = new Subtitle(srtIdNum, countNum, true, _anime);
 				
@@ -70,7 +88,8 @@ public class KageParser extends OrmLiteBaseActivity<DatabaseHelper> {
 				
 				for (String nameStr : groupTables) {
 					String memberName = RegexHelper.stringWithHtmlTagContent(nameStr, "b");
-					String groupName = RegexHelper.stringWithHtmlMatchesPattern(nameStr, "web>.*?</a>]</td>");
+					String groupName = ""; 
+					groupName = RegexHelper.stringWithHtmlMatchesPattern(nameStr, "web>.*?</a>]</td>");
 					groupName = groupName.replace("web>", "");
 					groupName = groupName.replace("</a>]</td>", "");
 					if (groupName != null && groupName.length() != 0)
@@ -85,7 +104,7 @@ public class KageParser extends OrmLiteBaseActivity<DatabaseHelper> {
 				
 				Group fansubGroup = new Group(fansubGroupName, newSub);
 				newSub.fansubgroup = fansubGroup;
-				_anime.addSubtitle(newSub);
+				helper.addSubtitle(_anime, newSub);
 			}
 			else if (countNum > curSub.seriesCount) {
 				curSub.seriesCount = countNum;				
@@ -97,74 +116,98 @@ public class KageParser extends OrmLiteBaseActivity<DatabaseHelper> {
 	}
 	
 	private void parseHtmlBody() {
-		this.parseHtmlString("", "");
+		if (_htmlBody != null) {
+			Matcher htmlMatcher = RegexHelper.arrayWithRangesMatchesPattern(_htmlBody, "<table width=\"750\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">.*?</table>");
+			
+			String prevGroup = null;
+			String curGroup = null;
+			int prevEnd = 0; 
+			while(htmlMatcher.find()) {
+				curGroup = htmlMatcher.group();
+				
+				if (prevGroup != null) {
+					String groupHtml = _htmlBody.substring(prevEnd, htmlMatcher.start());
+					
+					this.parseHtmlString(prevGroup, groupHtml);
+				}
+				
+				prevEnd = htmlMatcher.end();
+				prevGroup = curGroup;
+			}
+		}
 	}
-/*
- 
-- (void)parseHtmlBody {
-    if (_htmlBody) {
-        NSArray* htmlArray = [RegexHelper arrayWithRangesMatchesPattern:_htmlBody pattern:@"<table width=\"750\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">.*?</table>"];    
-    
-        for (int i = 0; i < htmlArray.count; i++) {
-            NSTextCheckingResult* curResult = [htmlArray objectAtIndex:i];
-            NSTextCheckingResult* nextResult = nil;
-            if (i < htmlArray.count - 1) {
-                nextResult = [htmlArray objectAtIndex:i + 1];
-            }
-            NSString* mainHtml = [_htmlBody substringWithRange: curResult.range];
-            NSString* groupHtml = @"";
-            
-            if (nextResult) {
-                groupHtml = [_htmlBody substringWithRange: NSMakeRange(curResult.range.location + curResult.range.length, nextResult.range.location - curResult.range.location - curResult.range.length)];
-            }
-            else {
-                groupHtml = [_htmlBody substringWithRange: NSMakeRange(curResult.range.location + curResult.range.length, _htmlBody.length - curResult.range.location - curResult.range.length)];
-            }        
-            
-            [self parseHtmlString:mainHtml groupString:groupHtml];
-        }
-    }
-}
 
-- (void)parseHtmlHeader {    
-    if (_htmlBody) {
-        _anime.name = [RegexHelper stringWithHtmlTagContent:_htmlBody tag:@"title"];
-        NSLog(@"anime name %@", _anime.name);
-        NSString* imageTag = [RegexHelper stringWithHtmlMatchesPattern:_htmlBody pattern:@"<img.*?width=140.*?>"];
-        NSString* imagePath = [RegexHelper stringWithHtmlMatchesPattern:imageTag pattern:@"src=.*width"];
-        imagePath = [imagePath stringByReplacingOccurrencesOfString:@"src=" withString:@""];
-        imagePath = [imagePath stringByReplacingOccurrencesOfString:@" width" withString:@""];    
-        
-        NSURL* imageUrl = [NSURL URLWithString:[hostName stringByAppendingPathComponent:imagePath]];
-        _anime.image = [NSData dataWithContentsOfURL:imageUrl];
-    }           
-}
- */
 	private void parseHtmlHeader() {
 		if (_htmlBody != null) {
+			_anime.name = RegexHelper.stringWithHtmlTagContent(_htmlBody, "title");
+			Log.i(LOG_TAG, "anime name " + _anime.name);
+			String imageTag = RegexHelper.stringWithHtmlMatchesPattern(_htmlBody, "<img.*?width=140.*?>");
+			String imagePath = RegexHelper.stringWithHtmlMatchesPattern(imageTag, "src=.*width");
+			imagePath = imagePath.replace("src=", "");
+			imagePath = imagePath.replace(" width", "");
 			
+			URL imageUrl;
+			try {
+				imageUrl = new URL(HOST_NAME + imagePath);
+				_anime.imageData = this.getImageBytes(imageUrl);
+			} catch (MalformedURLException e) {
+				Log.i(LOG_TAG, "incorrect url string");
+				e.printStackTrace();
+			} catch (IOException e) {
+				Log.i(LOG_TAG, "unable to get image bytes");
+				e.printStackTrace();
+			}			
 		}
 	}
 	
-	private String getHtmlContent(URL url) throws IOException {
-		BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-		String inputLine;
+	private byte[] getImageBytes(URL url) throws IOException {
+		ByteArrayOutputStream bais = new ByteArrayOutputStream();
+		InputStream is = null;
+		try {
+		  is = url.openStream();
+		  byte[] byteChunk = new byte[4096];
+		  int n;
 
-		while ((inputLine = in.readLine()) != null) {
+		  while ( (n = is.read(byteChunk)) > 0 ) {
+		    bais.write(byteChunk, 0, n);
+		  }
+		}
+		catch (IOException e) {
+			Log.i(LOG_TAG, "Failed while reading bytes from");
+		  e.printStackTrace ();
+		}
+		finally {
+		  if (is != null) { is.close(); }
+		}
+		
+		return bais.toByteArray();
+	}
+	
+	private String getHtmlContent(InputStream inputStream) throws IOException {			
+		InputStreamReader streamReader = new InputStreamReader(inputStream, "Cp1251");
+		BufferedReader in = new BufferedReader(streamReader);
+		
+		StringBuilder inputLine = new StringBuilder();	
+		
+		int numRead = 0;
+		char[] buf = new char[1024];
+		while ((numRead = in.read(buf)) != -1) {
+			inputLine.append(String.valueOf(buf, 0, numRead));		
+			buf = new char[1024];
 		}
 		in.close();
 		
-		return inputLine;
+		return inputLine.toString();
 	}
 	
 	private void requestHtmlBody() {
 		_htmlBody = null;
-		URL url;
+		
 		try {
-			url = new URL(HOST_NAME + "base.php?id=" + _anime.baseId);
-			String html = this.getHtmlContent(url);
-			//NSString* fileUrl = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"test.html"];
-		    //NSString* html = [NSString stringWithContentsOfFile:fileUrl encoding:NSWindowsCP1251StringEncoding error:&err];
+			//URL url = new URL(HOST_NAME + "base.php?id=" + _anime.baseId);
+			//String html = this.getHtmlContent(url.openStream());
+			String html = this.getHtmlContent(tempStream);
+			//Log.i(LOG_TAG, html);			
 			
 			_htmlBody = html.replace("\r\n", "");
 		} catch (MalformedURLException e) {

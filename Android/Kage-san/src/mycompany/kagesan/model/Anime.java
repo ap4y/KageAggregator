@@ -1,6 +1,8 @@
 package mycompany.kagesan.model;
 
+
 import com.j256.ormlite.dao.ForeignCollection;
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -12,16 +14,12 @@ public class Anime {
 	public int baseId;
 	@DatabaseField
 	public String name;
-	@DatabaseField
+	@DatabaseField(dataType = DataType.BYTE_ARRAY)
 	public byte[] imageData;
 	@ForeignCollectionField(eager = false, columnName = "subtitles")
 	public ForeignCollection<Subtitle> subtitles;
 	
-	Anime() { 
+	public Anime() { 
 		
-	}
-	
-	public void addSubtitle (Subtitle subtitle) {
-		subtitles.add(subtitle);
 	}
 }

@@ -6,6 +6,17 @@ import java.util.regex.Pattern;
 
 public class RegexHelper {
 
+	public static Matcher arrayWithRangesMatchesPattern(String html, String pattern) {
+		if (html == null || pattern == null) {
+			return null;
+		}
+		
+		Pattern regexPattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE & Pattern.MULTILINE);
+		Matcher matcher = regexPattern.matcher(html);
+		
+		return matcher;
+	}
+	
 	public static ArrayList<String> arrayWithHtmlMatchesPattern(String html, String pattern) {
 		if (html == null || pattern == null) {
 			return null;
@@ -24,7 +35,7 @@ public class RegexHelper {
 
 	public static String stringWithHtmlMatchesPattern(String html, String pattern) {
 		if (html == null || pattern == null) {
-			return null;
+			return "";
 		}
 		
 		Pattern regexPattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE & Pattern.MULTILINE);
@@ -34,12 +45,12 @@ public class RegexHelper {
 			return matcher.group();
 		}		
 		else
-			return null;
+			return "";
 	}
 	
 	public static String stringWithHtmlTagContent(String html, String tag) {
 		if (html == null || tag == null) {
-			return null;
+			return "";
 		}
 		
 		String pattern = "<" + tag + ">.*?</" + tag + ">"; 
@@ -53,6 +64,6 @@ public class RegexHelper {
 			return result;					
 		}		
 		else
-			return null;
+			return "";
 	}
 }
