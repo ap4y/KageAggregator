@@ -22,23 +22,24 @@
     Anime* threadAnime = [Anime getAnime:baseId managedObjectContext:moc];
     [threadAnime reloadAnime];
     
-    [_loadedFlags setObject:[NSNumber numberWithBool:YES] forKey:threadAnime.baseId];
+    @synchronized(_loadedFlags) {
+        [_loadedFlags setObject:[NSNumber numberWithBool:YES] forKey:threadAnime.baseId];
+        NSLog(@"%@, %@", threadAnime.name, _loadedFlags.allValues);
     
-    NSLog(@"%@, %@", threadAnime.name, _loadedFlags.allValues);
+        BOOL isLoadingCheck = NO;
+        for (NSNumber* num in _loadedFlags.allValues) {
+            if (!num.boolValue) {
+                isLoadingCheck = YES;
+                break;
+            }
+        }    
     
-    BOOL isLoadingCheck = NO;
-    for (NSNumber* num in _loadedFlags.allValues) {
-        if (!num.boolValue) {
-            isLoadingCheck = YES;
-            break;
+        NSLog(@"is loading %@", isLoadingCheck ? @"YES" : @"NO");
+        
+        _loading = isLoadingCheck;       
+        if (!_loading) {
+            [self performSelectorOnMainThread:@selector(postDidChangedNotification) withObject:nil waitUntilDone:NO];
         }
-    }    
-    
-    NSLog(@"is loading %@", isLoadingCheck ? @"YES" : @"NO");
-    
-    _loading = isLoadingCheck;       
-    if (!_loading) {
-        [self performSelectorOnMainThread:@selector(postDidChangedNotification) withObject:nil waitUntilDone:NO];
     }
     
     [pool release];        

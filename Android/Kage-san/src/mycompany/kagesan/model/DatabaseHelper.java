@@ -80,7 +80,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		_subtitleDao = null;
 	}
 	
-	public ArrayList<Anime> allAnime() throws SQLException {
+	public ArrayList<Anime> allAnime() throws SQLException {		
 		return (ArrayList<Anime>) getAnimeDao().queryForAll();
 	}
 	

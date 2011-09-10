@@ -15,20 +15,31 @@
 @implementation MainView
 @synthesize dataSource = _dataSource;
 
+- (void)updateNotifications {
+    //check for new items
+    int newCount = 0;
+    for (int i = 0; i < _animeCollectionView.content.count; i++) {
+        AnimeView* animeView = (AnimeView*)[_animeCollectionView itemAtIndex:i];
+        if (animeView.haveNew) {
+            for (Subtitle* subtitle in animeView.anime.subtitlesUpdated) {
+                [[GrowlNotificator sharedNotifier] growlAlert:[NSString stringWithFormat:@"%%i серия от %@", subtitle.seriesCount.integerValue, subtitle.fansubGroup.name] title:animeView.anime.name iconData: animeView.anime.image];
+            }            
+            newCount++;
+        }
+    }
+    
+    if (newCount > 0) {        
+        [[NSApplication sharedApplication].dockTile setBadgeLabel:[NSString stringWithFormat:@"%i", newCount]];        
+    }
+    else
+        [[NSApplication sharedApplication].dockTile setBadgeLabel:@""];
+}
+
 - (void)animeAtIndex:(int)itemNum {
     if (_dataSource.items.count == 0)
         [_tableScrollView setHidden:YES];
     else
-        [_tableScrollView setHidden:NO];
-       
-    if (_curAnime)
-        [_curAnime setIsWatched];
-    
-    NSUInteger prevIndex = [_dataSource.items indexOfObject:_curAnime];
-    if (prevIndex != NSNotFound && prevIndex < _dataSource.items.count) {
-        AnimeView* prevView = (AnimeView*)[_animeCollectionView itemAtIndex:prevIndex];
-        [prevView updateNewItems];
-    }   
+        [_tableScrollView setHidden:NO];             
     
     if (itemNum >= _dataSource.items.count) {
         return;
@@ -82,8 +93,18 @@
     int itemNum = roundf(itemFloat);
     //NSLog(@"item num %f - %i", itemFloat, itemNum);
     
-    if (itemNum >= 0 && itemNum != [_dataSource.items indexOfObject:_curAnime]) {        
+    if (itemNum >= 0 && itemNum != [_dataSource.items indexOfObject:_curAnime]) {    
+        if (_curAnime)
+            [_curAnime setIsWatched];
+        
+        NSUInteger prevIndex = [_dataSource.items indexOfObject:_curAnime];
+        if (prevIndex != NSNotFound && prevIndex < _dataSource.items.count) {
+            AnimeView* prevView = (AnimeView*)[_animeCollectionView itemAtIndex:prevIndex];
+            [prevView updateNewItems];
+        } 
+        
         [self animeAtIndex:itemNum];
+        [self updateNotifications];
     }
 }
 
@@ -134,25 +155,9 @@
             [self animeAtIndex: itemNum];
     }
     else
-        [_tableScrollView setHidden:YES];
+        [_tableScrollView setHidden:YES];      
     
-    //check for new items
-    int newCount = 0;
-    for (int i = 0; i < _animeCollectionView.content.count; i++) {
-        AnimeView* animeView = (AnimeView*)[_animeCollectionView itemAtIndex:i];
-        if (animeView.haveNew) {
-            for (Subtitle* subtitle in animeView.anime.subtitlesUpdated) {
-                [[GrowlNotificator sharedNotifier] growlAlert:[NSString stringWithFormat:@"%@ - %i", animeView.anime.name, subtitle.seriesCount.integerValue] title:@"Новая серия" iconData: animeView.anime.image];
-            }            
-            newCount++;
-        }
-    }
-    
-    if (newCount > 0) {        
-        [[NSApplication sharedApplication].dockTile setBadgeLabel:[NSString stringWithFormat:@"%i", newCount]];        
-    }
-    else
-        [[NSApplication sharedApplication].dockTile setBadgeLabel:@""];
+    [self updateNotifications];
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {

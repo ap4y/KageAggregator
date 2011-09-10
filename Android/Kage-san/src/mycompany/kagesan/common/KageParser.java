@@ -28,7 +28,6 @@ public class KageParser {
 	private String _htmlBody = null;
 	
 	public DatabaseHelper helper;
-	public InputStream tempStream;
 	
 	/*public KageParser(Anime anime) throws Exception {
 		if (anime == null || anime.baseId == 0) {
@@ -44,13 +43,13 @@ public class KageParser {
 	}*/
 	
 	public KageParser(Anime anime, InputStream inputStream) throws Exception {
-		tempStream = inputStream;
+		
 		if (anime == null || anime.baseId == 0) {
 			throw new Exception("Error creating parser");
 		}
 		
 		_anime = anime;
-		this.requestHtmlBody();
+		this.requestHtmlBody(inputStream);
 		
 		if (_anime.name == null || _anime.name.length() == 0) {
 			this.parseHtmlHeader();
@@ -200,13 +199,13 @@ public class KageParser {
 		return inputLine.toString();
 	}
 	
-	private void requestHtmlBody() {
+	private void requestHtmlBody(InputStream iStream) {
 		_htmlBody = null;
 		
 		try {
 			//URL url = new URL(HOST_NAME + "base.php?id=" + _anime.baseId);
 			//String html = this.getHtmlContent(url.openStream());
-			String html = this.getHtmlContent(tempStream);
+			String html = this.getHtmlContent(iStream);
 			//Log.i(LOG_TAG, html);			
 			
 			_htmlBody = html.replace("\r\n", "");
