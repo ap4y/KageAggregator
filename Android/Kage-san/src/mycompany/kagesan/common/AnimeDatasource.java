@@ -1,34 +1,44 @@
 package mycompany.kagesan.common;
 
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import mycompany.kagesan.R;
 import mycompany.kagesan.model.Anime;
 import mycompany.kagesan.model.DatabaseHelper;
+import mycompany.kagesan.model.Subtitle;
 
+import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TextView;
 
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-
-public class AnimeDatasource extends OrmLiteBaseActivity<DatabaseHelper> {
+public class AnimeDatasource {
 	private final String LOG_TAG = getClass().getSimpleName();
-	private final InputStream _iStream = getResources().openRawResource(R.raw.test); 
 	
 	private Hashtable<Integer, Boolean> _loadedFlags;
 	private ArrayList<Anime> _items;
 	private boolean _loading;
 	private Handler _handler;
+	private DatabaseHelper _helper; 
+	private Context _context;
 	
 	private final AnimeDatasourceDelegate _delegate;	
 	
-	public AnimeDatasource(AnimeDatasourceDelegate delegate) {
+	public AnimeDatasource(AnimeDatasourceDelegate delegate, Context context) {		
 		_delegate = delegate;
 		_items = new ArrayList<Anime>();
 		_loadedFlags = new Hashtable<Integer, Boolean>();
+		_helper = new DatabaseHelper(context);
+		_context = context;		
+		_handler = new Handler();
 		this.loadItems();
 	}
 	
@@ -44,8 +54,8 @@ public class AnimeDatasource extends OrmLiteBaseActivity<DatabaseHelper> {
 		ArrayList<Anime> viewsWithNew = new ArrayList<Anime>();
 		ArrayList<Anime> viewsWithOutNew = new ArrayList<Anime>();
 		try {
-			for (Anime anime : getHelper().allAnime()) {
-				if (getHelper().subtitlesUpdated(anime).size() > 0)
+			for (Anime anime : _helper.allAnime()) {
+				if (_helper.subtitlesUpdated(anime).size() > 0)
 					viewsWithNew.add(anime);
 				else
 					viewsWithOutNew.add(anime);
@@ -63,15 +73,15 @@ public class AnimeDatasource extends OrmLiteBaseActivity<DatabaseHelper> {
 					
 					public void run() {
 						try {
-							Anime threadAnime = getHelper().getAnime(anime.baseId);
-							getHelper().reloadAnime(threadAnime, _iStream);
+							Anime threadAnime = _helper.getAnime(anime.baseId);
+							_helper.reloadAnime(threadAnime, _context.getResources().openRawResource(R.raw.test));
 							
-							synchronized (_loadedFlags) {
+							//synchronized (_loadedFlags) {							
 								_loadedFlags.put(anime.baseId, true);
 								
 								boolean isLoadingCheck = false;
 								for (boolean value : _loadedFlags.values()) {
-									if (value) {
+									if (!value) {
 										isLoadingCheck = true;
 										break;
 									}
@@ -86,7 +96,7 @@ public class AnimeDatasource extends OrmLiteBaseActivity<DatabaseHelper> {
 										}
 									});									
 								}
-							}
+							//}
 						} catch (SQLException e) {
 							Log.i(LOG_TAG, "unabled to reload anime data: " + anime.baseId);
 							e.printStackTrace();
@@ -104,7 +114,7 @@ public class AnimeDatasource extends OrmLiteBaseActivity<DatabaseHelper> {
 	
 	public void removeAnime(Anime anime) {
 		try {
-			if (getHelper().removeAnime(anime)) {
+			if (_helper.removeAnime(anime)) {
 				_items.remove(anime);
 				_delegate.animeDatasourceDidChanged();
 			}
@@ -119,8 +129,8 @@ public class AnimeDatasource extends OrmLiteBaseActivity<DatabaseHelper> {
 			
 			public void run() {
 				try {
-					if (getHelper().addAnime(objId, _iStream)) {
-						Anime anime = getHelper().getAnime(objId);
+					if (_helper.addAnime(objId, _context.getResources().openRawResource(R.raw.test))) {
+						Anime anime = _helper.getAnime(objId);
 						_items.add(anime);
 						_delegate.animeDatasourceDidChanged();
 					}
@@ -130,5 +140,34 @@ public class AnimeDatasource extends OrmLiteBaseActivity<DatabaseHelper> {
 				}				
 			}
 		}).run();
-	}	
+	}
+	
+	public void infiltrateAnimeView(TableLayout animeTable) {
+		for (Anime anime : _items) {    
+			try {
+	    		LayoutInflater inflater = (LayoutInflater)_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	        	View animeView = inflater.inflate(R.layout.animeview, animeTable);
+	        	        	
+	        	TextView animeName = (TextView) animeView.findViewById(R.id.animeNameText);
+	        	animeName.setText(anime.name);
+	        	
+	        	ImageView animeImage = (ImageView) animeView.findViewById(R.id.animeImageView);
+	        	animeImage.setImageBitmap(BitmapFactory.decodeByteArray(anime.imageData, 0, anime.imageData.length));	
+	        	
+	        	TextView subCountText = (TextView) animeView.findViewById(R.id.subCountText);
+	        	Subtitle maxSub = _helper.subtitlesWithMaxCount(anime);	        	
+	        	int maxSeries = maxSub == null ? 0 : maxSub.seriesCount;
+	        	subCountText.setText("переведено " + maxSeries);
+	        	
+	        	List<Subtitle> updatedSubtitles = _helper.subtitlesUpdated(anime);
+	        	TextView newCountText = (TextView) animeView.findViewById(R.id.newCountText);
+	        	if (updatedSubtitles.size() == 1) 
+	        		newCountText.setText("" + updatedSubtitles.size() + " новая");
+	        	else
+	        		newCountText.setText("" + updatedSubtitles.size() + " новых");	        	
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 		
+	}
 }

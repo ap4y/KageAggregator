@@ -15,6 +15,7 @@ import android.util.Log;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.ForeignCollection;
+import com.j256.ormlite.dao.Dao.CreateOrUpdateStatus;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
@@ -27,6 +28,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 	private Dao<Anime, Integer> _animeDao = null;
 	private Dao<Subtitle, Integer> _subtitleDao = null;
+	private Dao<Group, Integer> _groupDao = null;
 
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);	
@@ -73,6 +75,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		return _subtitleDao;
 	}
 	
+	public Dao<Group, Integer> getGroupDao() throws SQLException {
+		if (_groupDao == null) {
+			_groupDao = getDao(Group.class);
+		}
+		return _groupDao;
+	}
+	
 	@Override
 	public void close() {
 		super.close();
@@ -84,7 +93,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		return (ArrayList<Anime>) getAnimeDao().queryForAll();
 	}
 	
-	public Anime getAnime(int baseId) throws SQLException {
+	public Anime getAnime(int baseId) throws SQLException {		
 		return getAnimeDao().queryForId(baseId);
 	}
 	
@@ -125,15 +134,29 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		return _subtitleDao.query(prepQuery);
 	}
 	
+	public Subtitle subtitlesWithMaxCount(Anime anime) throws SQLException {
+		QueryBuilder<Subtitle, Integer> subtitleQuery = getSubtitleDao().queryBuilder();		
+		subtitleQuery.where().eq("anime", anime);
+		subtitleQuery.orderBy("seriesCount", false);
+		PreparedQuery<Subtitle> prepQuery = subtitleQuery.prepare();
+		
+		List<Subtitle> result =_subtitleDao.query(prepQuery); 
+		if (result == null || result.size() == 0)
+			return null;
+		
+		return result.get(0); 
+	}
+	
 	public void addSubtitle (Anime anime, Subtitle subtitle) throws SQLException {	
 		if (anime.subtitles == null)
 			anime.subtitles = getAnimeDao().getEmptyForeignCollection("subtitles"); 
 		anime.subtitles.add(subtitle);
+		getAnimeDao().update(anime);
 	}
 	
 	public boolean reloadAnime(Anime anime, InputStream inputStream) {
 		try {
-			KageParser kageParser = new KageParser(anime, inputStream);
+			KageParser kageParser = new KageParser(anime, inputStream, this);			
 			kageParser.reloadData();
 			return true;
 		} catch (Exception e) {
@@ -149,7 +172,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		
 		Anime newAnime = new Anime();
 		newAnime.baseId = baseId;
-		
-		return reloadAnime(newAnime, inputStream);
+		if (reloadAnime(newAnime, inputStream))
+			return getAnimeDao().create(newAnime) == 1;
+		else
+			return false;
+	}
+	
+	public CreateOrUpdateStatus createSubtitle(Subtitle subtitle) throws SQLException {		
+		return getSubtitleDao().createOrUpdate(subtitle);
+	}
+	
+	public Group createGroup(Group group) throws SQLException {
+		return getGroupDao().createIfNotExists(group);
 	}
 }

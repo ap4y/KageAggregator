@@ -4,9 +4,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
+    <TableLayout android:layout_width="fill_parent" android:id="@+id/tableLayout1" android:layout_height="wrap_content">
+        <TableRow android:layout_width="wrap_content" android:id="@+id/trAdd" android:layout_height="wrap_content">
+            <EditText android:id="@+id/baseIdText" android:layout_height="wrap_content" android:inputType="number" android:layout_width="wrap_content" android:hint="New fansubs.ru/base.php?id=..."></EditText>
+            <Button android:layout_height="wrap_content" android:id="@+id/btnAdd" android:text="Ok" android:layout_width="wrap_content"></Button>
+        </TableRow>
+    </TableLayout>
+    <TableLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/animeTable">
+    </TableLayout>
 </LinearLayout>

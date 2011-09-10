@@ -27,7 +27,7 @@ public class KageParser {
 	private Anime _anime = null;
 	private String _htmlBody = null;
 	
-	public DatabaseHelper helper;
+	public DatabaseHelper _helper;
 	
 	/*public KageParser(Anime anime) throws Exception {
 		if (anime == null || anime.baseId == 0) {
@@ -42,12 +42,13 @@ public class KageParser {
 		}
 	}*/
 	
-	public KageParser(Anime anime, InputStream inputStream) throws Exception {
+	public KageParser(Anime anime, InputStream inputStream, DatabaseHelper helper) throws Exception {
 		
-		if (anime == null || anime.baseId == 0) {
+		if (anime == null || anime.baseId == 0 || helper == null || inputStream == null) {
 			throw new Exception("Error creating parser");
-		}
+		}				
 		
+		_helper = helper;
 		_anime = anime;
 		this.requestHtmlBody(inputStream);
 		
@@ -77,10 +78,10 @@ public class KageParser {
 	    int countNum = Integer.parseInt(count);
 	    int srtIdNum = Integer.parseInt(srtId);
 	    try {
-			Subtitle curSub = helper.subtitleWithSrtId(_anime, srtIdNum);
+			Subtitle curSub = _helper.subtitleWithSrtId(_anime, srtIdNum);
 			if (curSub == null) {
 				//new subtitle group
-				Subtitle newSub = new Subtitle(srtIdNum, countNum, true, _anime);
+				Subtitle newSub = new Subtitle(srtIdNum, countNum, true, _anime);								
 				
 				ArrayList<String> groupTables = RegexHelper.arrayWithHtmlMatchesPattern(groupString, "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"row1\">.*?</table>");
 				String fansubGroupName = "";
@@ -101,13 +102,18 @@ public class KageParser {
 				
 				Log.i(LOG_TAG, "fansubbers " + fansubGroupName);
 				
-				Group fansubGroup = new Group(fansubGroupName, newSub);
+				Group fansubGroup = new Group(fansubGroupName);
+				fansubGroup = _helper.createGroup(fansubGroup);
+				
 				newSub.fansubgroup = fansubGroup;
-				helper.addSubtitle(_anime, newSub);
+				//_helper.createSubtitle(newSub);
+				
+				_helper.addSubtitle(_anime, newSub);
 			}
 			else if (countNum > curSub.seriesCount) {
 				curSub.seriesCount = countNum;				
-				curSub.updated = true;				
+				curSub.updated = true;			
+				_helper.getSubtitleDao().update(curSub);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -155,7 +161,14 @@ public class KageParser {
 			} catch (IOException e) {
 				Log.i(LOG_TAG, "unable to get image bytes");
 				e.printStackTrace();
-			}			
+			}	
+			
+			try {
+				_helper.getAnimeDao().update(_anime);
+			} catch (SQLException e) {
+				Log.i(LOG_TAG, "unable to save anime");
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -178,23 +191,29 @@ public class KageParser {
 		finally {
 		  if (is != null) { is.close(); }
 		}
-		
+				
 		return bais.toByteArray();
 	}
 	
 	private String getHtmlContent(InputStream inputStream) throws IOException {			
 		InputStreamReader streamReader = new InputStreamReader(inputStream, "Cp1251");
-		BufferedReader in = new BufferedReader(streamReader);
-		
+		BufferedReader in = new BufferedReader(streamReader);		
 		StringBuilder inputLine = new StringBuilder();	
 		
-		int numRead = 0;
-		char[] buf = new char[1024];
-		while ((numRead = in.read(buf)) != -1) {
-			inputLine.append(String.valueOf(buf, 0, numRead));		
-			buf = new char[1024];
+		try {
+			int numRead = 0;
+			char[] buf = new char[1024];
+			while ((numRead = in.read(buf)) != -1) {
+				inputLine.append(String.valueOf(buf, 0, numRead));		
+				buf = new char[1024];
+			}
 		}
-		in.close();
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (inputStream != null) { in.close(); streamReader.close(); inputStream.close(); }
+		}		
 		
 		return inputLine.toString();
 	}
@@ -205,10 +224,9 @@ public class KageParser {
 		try {
 			//URL url = new URL(HOST_NAME + "base.php?id=" + _anime.baseId);
 			//String html = this.getHtmlContent(url.openStream());
-			String html = this.getHtmlContent(iStream);
-			//Log.i(LOG_TAG, html);			
-			
+			String html = this.getHtmlContent(iStream);						
 			_htmlBody = html.replace("\r\n", "");
+			
 		} catch (MalformedURLException e) {
 			Log.i(LOG_TAG, "getting string error " + e.getLocalizedMessage());
 		} catch (IOException e) {
