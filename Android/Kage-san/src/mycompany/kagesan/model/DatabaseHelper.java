@@ -98,13 +98,23 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 	
 	public boolean removeAnime(Anime animeToRemove) throws SQLException {
-		return (getAnimeDao().delete(animeToRemove) == 1 ? true : false);
+		for (Subtitle subtitle : animeToRemove.subtitles) {
+			getGroupDao().delete(subtitle.fansubgroup);
+			getSubtitleDao().delete(subtitle);
+		}
+		return getAnimeDao().delete(animeToRemove) == 1;
 	}
 	
 	public void setIsWatched(Anime anime) {
 		ForeignCollection<Subtitle> subtitles =  anime.subtitles;
 		for (Subtitle subtitle : subtitles) {
 			subtitle.updated = false;
+			try {
+				getSubtitleDao().update(subtitle);
+			} catch (SQLException e) {
+				Log.i("DatabaseHelper", "Unable to set isWatched");
+				e.printStackTrace();
+			}
 		}		
 	}
 	

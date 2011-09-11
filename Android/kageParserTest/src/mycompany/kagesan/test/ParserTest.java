@@ -15,9 +15,10 @@ public class ParserTest extends AndroidTestCase {
 		anime.baseId = 3302;
 		try {			
 			InputStream inputStream = mContext.getResources().openRawResource(123);
-			KageParser kageParser = new KageParser(anime, inputStream);	
-			DatabaseHelper newHelper = new DatabaseHelper(mContext);
-			kageParser.helper = newHelper;
+				
+			DatabaseHelper newHelper = new DatabaseHelper(mContext);			
+						
+			KageParser kageParser = new KageParser(anime, inputStream, newHelper);
 			kageParser.reloadData();
 			
 			assertFalse("Incorrect name of the anime or error during parsing", anime.name.equals("Ao no Exorcist"));

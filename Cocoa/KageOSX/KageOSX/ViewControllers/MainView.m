@@ -22,7 +22,7 @@
         AnimeView* animeView = (AnimeView*)[_animeCollectionView itemAtIndex:i];
         if (animeView.haveNew) {
             for (Subtitle* subtitle in animeView.anime.subtitlesUpdated) {
-                [[GrowlNotificator sharedNotifier] growlAlert:[NSString stringWithFormat:@"%%i серия от %@", subtitle.seriesCount.integerValue, subtitle.fansubGroup.name] title:animeView.anime.name iconData: animeView.anime.image];
+                [[GrowlNotificator sharedNotifier] growlAlert:[NSString stringWithFormat:@"%i серия от %@", subtitle.seriesCount.integerValue, subtitle.fansubGroup.name] title:animeView.anime.name iconData: animeView.anime.image];
             }            
             newCount++;
         }
@@ -80,7 +80,7 @@
 }
 
 - (void)awakeFromNib {
-    [self animeAtIndex:0];
+    [self animeAtIndex:0];    
 }
 
 - (void)dealloc {
@@ -143,10 +143,13 @@
 }
 
 - (IBAction)refreshAnime:(id)sender {
+    [[_scrollView contentView] scrollToPoint:NSMakePoint(0, 0)];
+    [_scrollView reflectScrolledClipView: [_scrollView contentView]];
     [_dataSource loadItems];
 }
 
-- (void)datasourceDidChanged:(AnimeDatasource *)dataSource {        
+- (void)datasourceDidChanged:(AnimeDatasource *)dataSource {   
+    [_tableView selectRowIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
     [_animeArrayController setContent:_dataSource.items];
     
     int itemNum = roundf(_scrollView.documentVisibleRect.origin.y / 235.0);

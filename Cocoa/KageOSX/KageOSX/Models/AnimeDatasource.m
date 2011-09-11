@@ -38,6 +38,19 @@
         
         _loading = isLoadingCheck;       
         if (!_loading) {
+            [_items removeAllObjects];
+            
+            NSMutableArray* viewsWithNew = [[[NSMutableArray alloc] init] autorelease];
+            NSMutableArray* viewsWithOutNew = [[[NSMutableArray alloc] init] autorelease];
+            for (Anime* anime in [Anime allAnime:[CoreDataHelper managedObjectContext]]) {
+                if (anime.subtitlesUpdated.count > 0) 
+                    [viewsWithNew addObject:anime];
+                else
+                    [viewsWithOutNew addObject:anime];
+            }
+            
+            [_items addObjectsFromArray:viewsWithNew];
+            [_items addObjectsFromArray:viewsWithOutNew];  
             [self performSelectorOnMainThread:@selector(postDidChangedNotification) withObject:nil waitUntilDone:NO];
         }
     }
@@ -48,19 +61,8 @@
 - (void)loadItems {
     _loading = YES;
     
-    [_items removeAllObjects];
-    
-    NSMutableArray* viewsWithNew = [[[NSMutableArray alloc] init] autorelease];
-    NSMutableArray* viewsWithOutNew = [[[NSMutableArray alloc] init] autorelease];
-    for (Anime* anime in [Anime allAnime:[CoreDataHelper managedObjectContext]]) {
-        if (anime.subtitlesUpdated.count > 0) 
-            [viewsWithNew addObject:anime];
-        else
-            [viewsWithOutNew addObject:anime];
-    }
-    
-    [_items addObjectsFromArray:viewsWithNew];
-    [_items addObjectsFromArray:viewsWithOutNew];   
+    [_items removeAllObjects];         
+    [_items addObjectsFromArray:[Anime allAnime:[CoreDataHelper managedObjectContext]]];
     
     for (Anime* anime in _items) {
         [_loadedFlags setObject:[NSNumber numberWithBool:NO] forKey:anime.baseId];

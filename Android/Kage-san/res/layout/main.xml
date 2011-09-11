@@ -3,13 +3,14 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    >
+    android:background="#e6e6e6">
     <TableLayout android:layout_width="fill_parent" android:id="@+id/tableLayout1" android:layout_height="wrap_content">
         <TableRow android:layout_width="wrap_content" android:id="@+id/trAdd" android:layout_height="wrap_content">
             <EditText android:id="@+id/baseIdText" android:layout_height="wrap_content" android:inputType="number" android:layout_width="wrap_content" android:hint="New fansubs.ru/base.php?id=..."></EditText>
             <Button android:layout_height="wrap_content" android:id="@+id/btnAdd" android:text="Ok" android:layout_width="wrap_content"></Button>
         </TableRow>
     </TableLayout>
-    <TableLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/animeTable">
-    </TableLayout>
+    <ScrollView android:id="@+id/scrollView1" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TableLayout android:layout_width="fill_parent" android:id="@+id/animeTable" android:layout_height="fill_parent"></TableLayout>
+    </ScrollView>
 </LinearLayout>
