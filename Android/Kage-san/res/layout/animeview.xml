@@ -7,8 +7,8 @@
         <TableRow android:id="@+id/tableRow2" android:layout_height="wrap_content" android:gravity="center_horizontal" android:layout_width="wrap_content">
             <TextView android:layout_span="3" android:id="@+id/animeNameText" android:layout_height="wrap_content" android:textStyle="bold" android:padding="5dip" android:textColor="#91b900" android:text="TextView" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:width="300dip" android:gravity="center_horizontal"></TextView>
         </TableRow>
-        <TableRow android:id="@+id/tableRow3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="left">
-            <TableLayout android:orientation="horizontal" android:layout_width="wrap_content" android:id="@+id/tableLayout4" android:layout_height="wrap_content">
+        <TableRow android:id="@+id/tableRow3" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_width="fill_parent" android:gravity="center_horizontal">
+            <TableLayout android:orientation="horizontal" android:id="@+id/tableLayout4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="fill">
                 <TableRow android:layout_height="wrap_content" android:id="@+id/tableRow4" android:layout_width="fill_parent">
                     <TextView android:layout_span="2" android:id="@+id/subCountText" android:layout_height="wrap_content" android:padding="5dip" android:textColor="#000000" android:text="TextView" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_width="fill_parent"></TextView>
                 </TableRow>
