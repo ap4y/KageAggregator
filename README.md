@@ -10,6 +10,11 @@ Consists of the fansubs.ru clients for:
 
 2. MacOS - 10.6+ required
 3. Android - 2.1+
+
+[![](http://ap4y.github.com/kage_android_1.png)](http://ap4y.github.com/kage_android_1.png)
+[![](http://ap4y.github.com/kage_android_3.png)](http://ap4y.github.com/kage_android_3.png)
+[![](http://ap4y.github.com/kage_android_4.png)](http://ap4y.github.com/kage_android_4.png)
+
 4. Cappucino - coming soon :)
 
 Credits
