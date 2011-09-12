@@ -1,5 +1,6 @@
 Kage-san
 =============
+
 Consists of the fansubs.ru clients for:
 
 - iOS - 4.0+ firmware required
@@ -16,6 +17,14 @@ Consists of the fansubs.ru clients for:
 [![](http://ap4y.github.com/kage_android_4.png)](http://ap4y.github.com/kage_android_4.png)
 
 - Cappucino - coming soon :)
+
+Main features
+-------
+
+- Allows to track you favorites anime subtitles
+- Easy to use, simplistic interface
+- Notification (via Growl for MacOs and android default notifications)
+- Automaticaly refreshes data in MacOs and Android versions in background
 
 Credits
 -------
