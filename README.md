@@ -2,20 +2,20 @@ Kage-san
 =============
 Consists of the fansubs.ru clients for:
 
-1. iOS - 4.0+ firmware required
+- iOS - 4.0+ firmware required
 
 [![](http://ap4y.github.com/IMG_0028.PNG)](http://ap4y.github.com/IMG_0028.PNG)
 [![](http://ap4y.github.com/IMG_0029.PNG)](http://ap4y.github.com/IMG_0029.PNG)
 [![](http://ap4y.github.com/IMG_0031.PNG)](http://ap4y.github.com/IMG_0031.PNG)
 
-2. MacOS - 10.6+ required
-3. Android - 2.1+
+- MacOS - 10.6+ required
+- Android - 2.1+
 
 [![](http://ap4y.github.com/kage_android_1.png)](http://ap4y.github.com/kage_android_1.png)
 [![](http://ap4y.github.com/kage_android_3.png)](http://ap4y.github.com/kage_android_3.png)
 [![](http://ap4y.github.com/kage_android_4.png)](http://ap4y.github.com/kage_android_4.png)
 
-4. Cappucino - coming soon :)
+- Cappucino - coming soon :)
 
 Credits
 -------
