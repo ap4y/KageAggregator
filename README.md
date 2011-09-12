@@ -3,11 +3,6 @@ Kage-san
 Consists of the fansubs.ru clients for:
 
 1. iOS - 4.0+ firmware required
-
-[![](http://ap4y.github.com/IMG_0028.PNG)](http://ap4y.github.com/IMG_0028.PNG)
-[![](http://ap4y.github.com/IMG_0029.PNG)](http://ap4y.github.com/IMG_0029.PNG)
-[![](http://ap4y.github.com/IMG_0031.PNG)](http://ap4y.github.com/IMG_0031.PNG)
-
 2. MacOS - 10.6+ required
 3. Android - 2.1+
 4. Cappucino - coming soon :)
