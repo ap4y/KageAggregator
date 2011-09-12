@@ -9,12 +9,15 @@ Consists of the fansubs.ru clients for:
 [![](http://ap4y.github.com/IMG_0029.PNG)](http://ap4y.github.com/IMG_0029.PNG)
 [![](http://ap4y.github.com/IMG_0031.PNG)](http://ap4y.github.com/IMG_0031.PNG)
 
-- MacOS - 10.6+ required
 - Android - 2.1+
 
 [![](http://ap4y.github.com/kage_android_1.png)](http://ap4y.github.com/kage_android_1.png)
 [![](http://ap4y.github.com/kage_android_3.png)](http://ap4y.github.com/kage_android_3.png)
 [![](http://ap4y.github.com/kage_android_4.png)](http://ap4y.github.com/kage_android_4.png)
+
+- MacOS - 10.6+ required
+
+[![](http://ap4y.github.com/kage_macos_1.png)](http://ap4y.github.com/kage_macos_1.png)
 
 - Cappucino - coming soon :)
 
