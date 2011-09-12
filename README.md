@@ -1,6 +1,7 @@
 Kage-san
 =============
 Consists of the fansubs.ru clients for:
+
 1. iOS - 4.0+ firmware required
 2. MacOS - 10.6+ required
 3. Android - 2.1+
@@ -8,9 +9,10 @@ Consists of the fansubs.ru clients for:
 
 Credits
 -------
-http://fansubs.ru/ - for such good project
-http://three20.info/ - for UI components of the iOS version
-http://ormlite.com/ - for ORM of the android version
+
+- http://fansubs.ru/ - for such good project
+- http://three20.info/ - for UI components of the iOS version
+- http://ormlite.com/ - for ORM of the android version
 
 License
 -------
