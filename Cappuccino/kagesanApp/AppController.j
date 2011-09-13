@@ -7,7 +7,8 @@
  */
 
 @import <Foundation/CPObject.j>
-
+@import "Model/Anime.j"
+@import "Common/KageParser.j"
 
 @implementation AppController : CPObject
 {
@@ -16,7 +17,14 @@
 
 - (void)applicationDidFinishLaunching:(CPNotification)aNotification
 {
-    // This is called when the application is done loading.
+    CPLog("Creating anime");
+    var anime = [[Anime alloc] init];
+    anime.baseId = 123;
+    CPLog("Anime created " + anime.baseId);
+    
+    CPLog("Creating parser");
+    var kageParser = [[KageParser alloc] initWithAnime: anime];
+    [kageParser reloadData];
 }
 
 - (void)awakeFromCib
