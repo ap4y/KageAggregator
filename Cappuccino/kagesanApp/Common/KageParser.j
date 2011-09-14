@@ -36,19 +36,19 @@
     if (!curSub) {
         //new subtitle group
         var newSub = [[Subtitle alloc] init];        
-        newSub.anime = _anime;
+        //newSub.anime = _anime;
         newSub.srtId = srtIdNum;
         newSub.seriesCount = countNum;    
         newSub.updated = [CPNumber numberWithBool:YES];
         
         CPLog("newSub: " + newSub.srtId + "," + newSub.seriesCount + "," + newSub.updated);
         //parse group information
-        var fansubGroup = [[Group alloc] init];
-        fansubGroup.subtitle = newSub;
+        //var fansubGroup = [[Group alloc] init];
+        //fansubGroup.subtitle = newSub;
         
         var groupTables = [RegexHelper arrayWithHtmlMatchesPattern:groupString pattern:"<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"row1\">.*?</table>"];        
         
-        fansubGroup.name = @"";
+        newSub.name = @"";
         for (var i = 0; i < [groupTables count]; i++) {
             var nameStr = [groupTables objectAtIndex: i];
             
@@ -60,18 +60,18 @@
                 groupName = [CPString stringWithFormat:"[%@]", groupName];
             else
                 groupName = @"";
-            fansubGroup.name = [fansubGroup.name stringByAppendingString:[CPString stringWithFormat:@"%@%@\r\n", memberName, groupName]];
+            newSub.name = [newSub.name stringByAppendingString:[CPString stringWithFormat:@"%@%@\r\n", memberName, groupName]];
         }                    
         
-        CPLog(@"fansubbers " + fansubGroup.name);
-        newSub.fansubGroup = fansubGroup;  
+        CPLog(@"fansubbers " + newSub.name);
+        //newSub.fansubGroup = fansubGroup;  
         
         [_anime.subtitles addObject:newSub];            
     }
     else {
         if (countNum.integerValue > curSub.seriesCount.integerValue) {
             curSub.seriesCount = countNum;
-            curSub.updated = [NSNumber numberWithBool:YES];    
+            curSub.updated = [CPNumber numberWithBool:YES];    
         }
     }    
 
@@ -108,9 +108,8 @@
         
         imagePath = hostName + imagePath;
         CPLog("image path " + imagePath);
-        var imageUrl = [CPURL URLWithString:imagePath];
-        _anime.image = [CPURLConnection sendSynchronousRequest:[CPURLRequest requestWithURL:imageUrl] returningResponse:nil];
-        CPLog("anime image size " + [_anime.image length]);
+        _anime.image = imagePath;
+        //CPLog("anime image size " + [_anime.image length]);
     }           
 }
 

@@ -2,7 +2,7 @@
 
 @implementation Group : CPObject {
     CPString name @accessors;
-    Subtitle subtitle @accessors;
+    //Subtitle subtitle @accessors;
 }
 
 @end

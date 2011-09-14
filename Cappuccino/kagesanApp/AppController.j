@@ -7,24 +7,17 @@
  */
 
 @import <Foundation/CPObject.j>
-@import "Model/Anime.j"
-@import "Common/KageParser.j"
+@import "ViewControllers/MainView.j"
 
 @implementation AppController : CPObject
 {
-    CPWindow    theWindow; //this "outlet" is connected automatically by the Cib
+    @outlet CPWindow    theWindow; //this "outlet" is connected automatically by the Cib
 }
 
 - (void)applicationDidFinishLaunching:(CPNotification)aNotification
 {
-    CPLog("Creating anime");
-    var anime = [[Anime alloc] init];
-    anime.baseId = 123;
-    CPLog("Anime created " + anime.baseId);
-    
-    CPLog("Creating parser");
-    var kageParser = [[KageParser alloc] initWithAnime: anime];
-    [kageParser reloadData];
+    var _mainViewController = [[MainView alloc] initWithCibName:"MainView" bundle:nil];
+    [[theWindow contentView] addSubview: [_mainViewController view]];       
 }
 
 - (void)awakeFromCib
