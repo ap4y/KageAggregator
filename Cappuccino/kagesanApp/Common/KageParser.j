@@ -75,8 +75,8 @@
         }
     }    
 
-    CPLog("anime " + _anime.name + " subtitle count " + [_anime.subtitles count]);
-    CPLog("Should call save!!!");
+    //CPLog("anime " + _anime.name + " subtitle count " + [_anime.subtitles count]);
+    //CPLog("Should call save!!!");
 }
 
 - (void)parseHtmlBody {

@@ -1,16 +1,70 @@
+@import "../Common/RLOfflineLocalStorage.j"
+@import "../Common/KageParser.j"
+
 @implementation Anime : CPObject {
     CPNumber baseId    @accessors;
     CPData   image     @accessors;
     CPString name      @accessors;
     CPMutableArray  subtitles @accessors;
+    
+    RLOfflineLocalStorage _localStorage;
 }
 
 - (id)init {
     self = [super init];
     if (self) {
         subtitles = [[CPMutableArray alloc] init];
+        _localStorage = [[RLOfflineLocalStorage alloc] initWithName:@"kagesSanStorage" delegate:self];
     }
     return self;
+}
+
+- (void)dataStoreIsNotSupported
+{
+    alert("Your browser doesn\'t support offline localStorage.");
+}
+
++ (CPArray)allAnime {
+    var animeKeysString = [_localStorage getValueForKey:"animeKeys"];
+    var animeKeys = [animeKeysString objectFromJSON];
+    
+    return [CPArray arrayWithArray: animeKeys];
+}
+
++ (Anime)getAnime:(CPNumber)baseId {
+    var animeString = [_localStorage getValueForKey:[baseId stringValue]];
+    return [animeString objectFromJSON];
+}
+
++ (BOOL)addAnime:(CPNumber)baseId {
+    
+    if ([self getAnime:baseId]) {
+        return NO;
+    }            
+    
+    var newAnime = [[Anime alloc] init];  
+    newAnime.baseId = baseId;
+    
+    return [newAnime reloadAnime];
+}
+
++ (void)removeAnime:(Anime)anime {
+    [_localStorage removeValueForKey:[anime.baseId stringValue]];
+}
+
+- (void) saveAnime {
+    [_localStorage setValue:[CPString JSONFromObject:self] forKey:[self.baseId stringValue]];
+}
+
+- (void)reloadAnime {
+    var kageParser = [[KageParser alloc] initWithAnime:self];
+    
+    if (!kageParser)
+        return NO;
+    
+    [kageParser reloadData];
+    
+    [self saveAnime];
 }
 
 - (Subtitle)subtitleWithSrtId:(CPNumber)srtId {    
@@ -24,86 +78,27 @@
         return nil;
 }
 
-@end
+- (void)setIsWatched {
+    for (var subtitle in self.subtitles) {
+        [subtitle setUpdated:[CPNumber numberWithBool:NO]];        
+    }        
+    
+    [self saveAnime];
+}
 
-/*
- @implementation Anime (AnimeCategory)
- 
- + (NSArray*)allAnime:(NSManagedObjectContext*)managedObjectContext {
- NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
- NSEntityDescription *entity = [NSEntityDescription entityForName:@"Anime" inManagedObjectContext:managedObjectContext];
- [fetchRequest setEntity:entity];    
- 
- return [CoreDataHelper requestResult:fetchRequest managedObjectContext:managedObjectContext];
- }
- 
- + (Anime*)getAnime:(NSNumber*)baseId managedObjectContext:(NSManagedObjectContext*)managedObjectContext {
- NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
- NSEntityDescription *entity = [NSEntityDescription entityForName:@"Anime" inManagedObjectContext: managedObjectContext];
- [fetchRequest setEntity:entity];    
- //[fetchRequest setFetchBatchSize:20];
- 
- NSPredicate* libraryPredicate = [NSPredicate predicateWithFormat:@"baseId == %i", baseId.integerValue];
- [fetchRequest setPredicate:libraryPredicate];
- 
- return [CoreDataHelper requestFirstResult:fetchRequest managedObjectContext:managedObjectContext];
- }
- 
- + (BOOL)addAnime:(NSNumber*)baseId managedObjectContext:(NSManagedObjectContext*)managedObjectContext {
- 
- if ([self getAnime:baseId managedObjectContext:managedObjectContext]) {
- return NO;
- }            
- 
- Anime* newAnime = [[Anime alloc] initWithmanagedObjectContext:managedObjectContext];  
- newAnime.baseId = baseId;
- 
- return [newAnime reloadAnime];
- }
- 
- + (BOOL)removeAnime:(Anime*)anime managedObjectContext:(NSManagedObjectContext*)managedObjectContext {
- [managedObjectContext deleteObject:anime];
- 
- return [CoreDataHelper save:managedObjectContext];
- }
- 
- - (BOOL)reloadAnime {
- KageParser* kageParser = [[[KageParser alloc] initWithAnime:self] autorelease];
- 
- if (!kageParser)
- return NO;
- 
- [kageParser reloadData];
- 
- return [CoreDataHelper save: kageParser.anime.managedObjectContext];
- }
- 
- - (void)setIsWatched {
- for (Subtitle* subtitle in self.subtitles.allObjects) {
- [subtitle setUpdated:[NSNumber numberWithBool:NO]];        
- }        
- 
- [CoreDataHelper save:self.managedObjectContext];
- }
- 
- - (NSArray *)subtitlesBySeriesCount {
- NSSortDescriptor *sortDescriptorCount = [[[NSSortDescriptor alloc] initWithKey:@"seriesCount" ascending:YES] autorelease];
- 
- NSArray* subtitles = [self.subtitles sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptorCount]];
- 
- return subtitles;
- }
- 
- - (NSArray*)subtitlesUpdated {
- NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
- NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subtitle" inManagedObjectContext:self.managedObjectContext];
- [fetchRequest setEntity:entity];    
- 
- NSPredicate* libraryPredicate = [NSPredicate predicateWithFormat:@"anime == %@ and updated = YES", self];
- [fetchRequest setPredicate:libraryPredicate];
- 
- return [CoreDataHelper requestResult:fetchRequest managedObjectContext:self.managedObjectContext];
- }
- 
- @end
-*/
+- (CPArray)subtitlesBySeriesCount {
+    var sortDescriptorCount = [[CPSortDescriptor alloc] initWithKey:@"seriesCount" ascending:YES]; 
+    var subtitles = [self.subtitles sortedArrayUsingDescriptors:[CPArray arrayWithObject:sortDescriptorCount]];
+    
+    return subtitles;
+}
+
+- (CPArray)subtitlesUpdated {
+    CPLog("Check when will be values!!!");
+    var srtIdPredicate = [CPPredicate predicateWithFormat: "updated = YES"];
+    var result = [subtitles filteredArrayUsingPredicate: srtIdPredicate];
+    
+    return result;
+}
+
+@end
