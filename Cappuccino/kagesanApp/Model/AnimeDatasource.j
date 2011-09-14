@@ -19,7 +19,7 @@
     var threadAnime = [Anime getAnime:baseId];
     [threadAnime reloadAnime];
     
-    [_loadedFlags setObject:[CPNumber numberWithBool:YES] forKey:threadAnime.baseId];
+    /*[_loadedFlags setObject:[CPNumber numberWithBool:YES] forKey:threadAnime.baseId];
     CPLog(@"%@, %@", threadAnime.name, _loadedFlags.allValues);
 
     var isLoadingCheck = NO;
@@ -34,23 +34,8 @@
     
     _loading = isLoadingCheck;       
     if (!_loading) {
-        [_items removeAllObjects];
         
-        var viewsWithNew = [[CPMutableArray alloc] init];
-        var viewsWithOutNew = [[CPMutableArray alloc] init];
-        var allAnime = [Anime allAnime];
-        for (var i = 0; i < [allAnime count]; i++) {
-            var anime = [allAnime objectAtIndex:i];
-            if ([[anime subtitlesUpdated] count] > 0) 
-                [viewsWithNew addObject:anime];
-            else
-                [viewsWithOutNew addObject:anime];
-        }
-        
-        [_items addObjectsFromArray:viewsWithNew];
-        [_items addObjectsFromArray:viewsWithOutNew];  
-        [_delegate datasourceDidChanged];
-    }
+    }*/
 }
 
 - (void)loadItems {
@@ -59,12 +44,12 @@
     [_items removeAllObjects];         
     [_items addObjectsFromArray:[Anime allAnime]];
     
-    CPLog("items count %i", [_items count]);
+    /*CPLog("items count %i", [_items count]);
     for (var i = 0; i < [_items count]; i++) {
         var anime = [_items objectAtIndex: i];
         CPLog("anime %i", anime.baseId.intValue);
         [_loadedFlags setObject:[CPNumber numberWithBool:NO] forKey:[anime baseId]];
-    }
+    }*/
     
     CPLog("loadedFlags %@", _loadedFlags);
     
@@ -72,6 +57,23 @@
         var anime = [_items objectAtIndex: i];
         [self loadData:anime.baseId];
     }
+    
+    [_items removeAllObjects];
+    
+    var viewsWithNew = [[CPMutableArray alloc] init];
+    var viewsWithOutNew = [[CPMutableArray alloc] init];
+    var allAnime = [Anime allAnime];
+    for (var i = 0; i < [allAnime count]; i++) {
+        var anime = [allAnime objectAtIndex:i];
+        if ([[anime subtitlesUpdated] count] > 0) 
+            [viewsWithNew addObject:anime];
+        else
+            [viewsWithOutNew addObject:anime];
+    }
+    
+    [_items addObjectsFromArray:viewsWithNew];
+    [_items addObjectsFromArray:viewsWithOutNew];  
+    [_delegate datasourceDidChanged];
 }
 
 - (void)removeAnime:(Anime)anime {

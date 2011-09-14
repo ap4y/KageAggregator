@@ -139,15 +139,31 @@
 + (BOOL)removeAnime:(Anime)anime {
     var _localStorage = [[RLOfflineLocalStorage alloc] initWithName:[Anime kagesSanStorageName] delegate:self];
     [_localStorage removeValueForKey:[anime.baseId stringValue]];
-    return true;
+
+    var animeKeys = [Anime allAnimeKeys];
+    CPLog("animeKeys count %@", [animeKeys count]);
+    
+    if (animeKeys == nil) {
+        return NO;
+    }
+    
+    if ([animeKeys containsObject: anime.baseId]) {
+        [animeKeys removeObject: anime.baseId];
+        [_localStorage setValue:[CPString JSONFromObject: animeKeys] forKey:"animeKeys"];
+        CPLog("animeKey saved %@", [[anime baseId] stringValue]);    
+    } 
+    
+    return YES;
 }
 
 - (void)saveAnime {
     var _localStorage = [[RLOfflineLocalStorage alloc] initWithName:[Anime kagesSanStorageName] delegate:self];
-
-    var argumentJSObject = [CP2JSCoder encodeRootObjectToJS:self]; // also works for primitives
-    argumentValue = JSON.stringify(argumentJSObject);
+    CPLog("Recieved local storage: %@", self);
     
+    var argumentJSObject = [CP2JSCoder encodeRootObjectToJS:self]; // also works for primitives
+    CPLog("json object:", argumentJSObject);
+    
+    argumentValue = JSON.stringify(argumentJSObject);    
     [_localStorage setValue: argumentValue forKey:[self.baseId stringValue]];
     CPLog("anime saved %@", argumentValue);
     
@@ -175,6 +191,8 @@
 
     CPLog("kageParser is done");
     [self saveAnime];
+    
+    return YES;
 }
 
 - (Subtitle)subtitleWithSrtId:(CPNumber)srtId {    
@@ -189,9 +207,13 @@
 }
 
 - (void)setIsWatched {
-    for (var subtitle in self.subtitles) {
-        [subtitle setUpdated:[CPNumber numberWithBool:NO]];        
+    /*var updSubs = [self subtitlesUpdated];
+    for (var i = 0; i < [updSubs count]; i++) {
+        var subtitle = [updSubs objectAtIndex:i];        
+        subtitle.updated = NO;
     }        
+    
+    CPLog("anime will be saved");*/
     
     [self saveAnime];
 }

@@ -6,11 +6,9 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-//#import "AnimeView.h"
-//#import "Subtitle.h"
-//#import "Group.h"
 @import "../Views/AnimeView.j"
 @import "../Model/Anime.j"
+@import "../Model/Subtitle.j"
 @import "../Model/AnimeDatasource.j"
 
 @implementation MainView : CPViewController {
@@ -24,10 +22,12 @@
     @outlet CPCollectionView _animeCollectionView;
     @outlet CPScrollView _tableScrollView;
 
-    CPArray selectedSubtitles @accessors;
+    CPArray selectedSubtitles;
 }
 
-/*- (void)updateNotifications {
+
+ - (void)updateNotifications {
+/*    
     //check for new items
     int newCount = 0;
     for (int i = 0; i < _animeCollectionView.content.count; i++) {
@@ -45,35 +45,37 @@
     }
     else
         [[NSApplication sharedApplication].dockTile setBadgeLabel:@""];
+*/
 }
 
 - (void)animeAtIndex:(int)itemNum {
-    if (_dataSource.items.count == 0)
+    if ([[_dataSource items] count] == 0)
         [_tableScrollView setHidden:YES];
     else
         [_tableScrollView setHidden:NO];             
     
-    if (itemNum >= _dataSource.items.count) {
+    if (itemNum >= [[_dataSource items] count]) {
         return;
     }
     
     //if (![_curAnime isEqual:[_dataSource.items objectAtIndex:itemNum]]) {                                
 
-        _curAnime = (Anime*)[_dataSource.items objectAtIndex:itemNum];
-        NSArray* subtitles = [_curAnime subtitlesBySeriesCount];
+        _curAnime = [[_dataSource items] objectAtIndex:itemNum];
+        var subtitles = [_curAnime subtitlesBySeriesCount];
         [subtitlesController setContent: subtitles];
     
-        NSMutableIndexSet* indexSet = [[[NSMutableIndexSet alloc] init] autorelease];
-        for (int i = 0; i < subtitles.count; i++) {
-            Subtitle* subtitle = [subtitles objectAtIndex:i];
-            if (subtitle.updated.boolValue) {
+        var indexSet = [CPMutableIndexSet indexSet];
+        for (var i = 0; i < [subtitles count]; i++) {
+            var subtitle = [subtitles objectAtIndex:i];
+            if ([subtitle.updated boolValue]) {
+                CPLog("index added");
                 [indexSet addIndex:i];
             }
         }
     
         [_tableView selectRowIndexes:indexSet byExtendingSelection:NO];
     //}
-}*/
+}
 
 - (id)initWithCibName:(CPString)aCibNameOrNil bundle:(CPBundle)aCibBundleOrNil
 {
@@ -81,55 +83,71 @@
     if (self) {
         _dataSource = [[AnimeDatasource alloc] initWithDelegate: self];
 
-        //[_scrollView setPostsBoundsChangedNotifications:YES];
-        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didScrolled:) name:NSViewBoundsDidChangeNotification object:_scrollView];        
-        
         //[NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(refreshAnime:) userInfo:nil repeats:YES];
     }
     
     return self;
 }
 
-/*- (void)awakeFromNib {
+- (void)viewDidLoad {
+    [super viewDidLoad];        
+}
+
+- (void)awakeFromCib {    
+    CPLog("awakeFromCib");
+    [_animeArrayController setContent: [_dataSource items]];
+    
+    [[_scrollView contentView] setPostsBoundsChangedNotifications: YES];
+    [[CPNotificationCenter defaultCenter] addObserver:self selector:@selector(didScrolled:) name:CPViewBoundsDidChangeNotification object:[_scrollView contentView]];
+        
     [self animeAtIndex:0];    
 }
 
-- (void)dealloc {
-    [_dataSource release];
-    [super dealloc];
+- (int)round:(float)floatVal {
+    return Math.round(floatVal);
 }
 
-- (void)didScrolled:(NSNotification*)scrollNotification {    
-    float itemFloat = _scrollView.documentVisibleRect.origin.y / 235.0;
-    int itemNum = roundf(itemFloat);
-    //NSLog(@"item num %f - %i", itemFloat, itemNum);
+- (void)didScrolled:(CPNotification)scrollNotification {    
+    //CPLog("didScrolled");    
     
-    if (itemNum >= 0 && itemNum != [_dataSource.items indexOfObject:_curAnime]) {    
-        if (_curAnime)
-            [_curAnime setIsWatched];
+    if ([[_scrollView contentView] visibleRect] != nil) {
+        var itemFloat = [[_scrollView contentView] visibleRect].origin.y / 235.0;
+        var itemNum = [self round: itemFloat];
+        //CPLog(@"item num %f - %i; %@", itemFloat, itemNum, [[_dataSource items] indexOfObject:_curAnime] == itemNum ? "YES" : "NO" );
         
-        NSUInteger prevIndex = [_dataSource.items indexOfObject:_curAnime];
-        if (prevIndex != NSNotFound && prevIndex < _dataSource.items.count) {
-            AnimeView* prevView = (AnimeView*)[_animeCollectionView itemAtIndex:prevIndex];
-            [prevView updateNewItems];
-        } 
-        
-        [self animeAtIndex:itemNum];
-        [self updateNotifications];
+        if (itemNum >= 0 && itemNum != [[_dataSource items] indexOfObject:_curAnime]) {    
+            CPLog("new item");
+            if (_curAnime != nil)
+                //[_curAnime setIsWatched];
+            
+            CPLog("marked as watched");
+            var prevIndex = [[_dataSource items] indexOfObject:_curAnime];
+            CPLog("prevItem item %i", prevIndex);
+            
+            if (prevIndex != CPNotFound && prevIndex < [[_dataSource items] count]) {
+                CPLog("should update");
+                var prevView = [_animeCollectionView itemAtIndex:prevIndex];
+                [prevView updateNewItems];
+                CPLog("updated");
+            } 
+            
+            [self animeAtIndex:itemNum];
+            [self updateNotifications];
+        }
+
     }
 }
 
-- (NSArray*)selectedSubtitles {
-    if (!_curAnime)
+- (CPArray)selectedSubtitles {
+    if (_curAnime == nil)
         return nil;
     
     return [_curAnime subtitlesBySeriesCount];
 }
-*/
+
 - (IBAction)addAnime:(id)sender {
     [_idTextField setHidden:NO];
-    [_idTextField becomeFirstResponder];
-    
+    [_idTextField becomeFirstResponder];    
 }
 
 - (void)controlTextDidEndEditing:(CPNotification)note {
@@ -147,41 +165,45 @@
 }
 
 - (IBAction)removeAnime:(id)sender {
-    //if (_curAnime) {
-    //    Anime* animeToRemove = _curAnime;
-    //    _curAnime = nil;
-    //    [_dataSource removeAnime:animeToRemove];                
-    //}
+    if (_curAnime) {
+        var animeToRemove = _curAnime;
+        _curAnime = nil;
+        [_dataSource removeAnime:animeToRemove];                
+    }
 }
 
 - (IBAction)refreshAnime:(id)sender {
-    //[[_scrollView contentView] scrollToPoint:NSMakePoint(0, 0)];
-    //[_scrollView reflectScrolledClipView: [_scrollView contentView]];
-    //[_dataSource loadItems];
+    [[_scrollView contentView] scrollToPoint:CPMakePoint(0, 0)];
+    [_scrollView reflectScrolledClipView: [_scrollView contentView]];
+    [_dataSource loadItems];
 }
-
 
 - (void)datasourceDidChanged {   
-    /*[_tableView selectRowIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
-    [_animeArrayController setContent:_dataSource.items];
+    CPLog("datasourceDidChanged");
+    [_tableView selectRowIndexes:[CPIndexSet indexSet] byExtendingSelection:NO];
+    [_animeArrayController setContent:[_dataSource items]];
     
-    int itemNum = roundf(_scrollView.documentVisibleRect.origin.y / 235.0);
-    if (itemNum >= 0 && itemNum < _dataSource.items.count) {
-        if (itemNum != [_dataSource.items indexOfObject:_curAnime])
-            [self animeAtIndex: itemNum];
+    if ([_scrollView visibleRect] != nil) {
+        CPLog("y value: %@", [_scrollView visibleRect].origin.y);
+        var itemNum = 0;
+        if (itemNum >= 0 && itemNum < [[_dataSource items] count]) {
+            if (itemNum != [[_dataSource items] indexOfObject:_curAnime])
+                [self animeAtIndex: itemNum];
+        }
+        else
+            [_tableScrollView setHidden:YES];      
+        
+        [self updateNotifications];
     }
-    else
-        [_tableScrollView setHidden:YES];      
-    
-    [self updateNotifications];*/
 }
-/*
-- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-    Subtitle* _curSub = (Subtitle*)[subtitlesController.arrangedObjects objectAtIndex:row];    
-    NSArray* split = [_curSub.fansubGroup.name componentsSeparatedByString:@"\n"];
-    NSUInteger rowCnt = split.count;        
+
+- (float)tableView:(CPTableView)tableView heightOfRow:(int)row {
+    var _curSub = [[subtitlesController arrangedObjects] objectAtIndex:row];    
+    var split = [_curSub.fansubGroup componentsSeparatedByString:@"\n"];
+    var rowCnt = [split count];        
+    //CPLog("Setting row height for %@", _curSub.fansubGroup);
     
     return 17*(rowCnt-1);
-}*/
+}
 
 @end

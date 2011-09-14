@@ -48,7 +48,7 @@
         
         var groupTables = [RegexHelper arrayWithHtmlMatchesPattern:groupString pattern:"<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"row1\">.*?</table>"];        
         
-        newSub.name = @"";
+        newSub.fansubGroup = @"";
         for (var i = 0; i < [groupTables count]; i++) {
             var nameStr = [groupTables objectAtIndex: i];
             
@@ -60,10 +60,10 @@
                 groupName = [CPString stringWithFormat:"[%@]", groupName];
             else
                 groupName = @"";
-            newSub.name = [newSub.name stringByAppendingString:[CPString stringWithFormat:@"%@%@\r\n", memberName, groupName]];
+            newSub.fansubGroup = [newSub.fansubGroup stringByAppendingString:[CPString stringWithFormat:@"%@%@\r\n", memberName, groupName]];
         }                    
         
-        CPLog(@"fansubbers " + newSub.name);
+        CPLog(@"fansubbers " + newSub.fansubGroup);
         //newSub.fansubGroup = fansubGroup;  
         
         [_anime.subtitles addObject:newSub];            
