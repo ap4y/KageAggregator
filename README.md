@@ -19,7 +19,7 @@ Consists of the fansubs.ru clients for:
 
 [![](http://ap4y.github.com/kage_macos_1.png)](http://ap4y.github.com/kage_macos_1.png)
 
-- Cappucino [Try it!][]
+- Cappucino
 
 supported browsers:
 
