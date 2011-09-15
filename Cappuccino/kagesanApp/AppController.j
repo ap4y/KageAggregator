@@ -12,12 +12,20 @@
 @implementation AppController : CPObject
 {
     @outlet CPWindow    theWindow; //this "outlet" is connected automatically by the Cib
+    @outlet CPView _content;
 }
 
 - (void)applicationDidFinishLaunching:(CPNotification)aNotification
 {
     var _mainViewController = [[MainView alloc] initWithCibName:"MainView" bundle:nil];
-    [[theWindow contentView] addSubview: [_mainViewController view]];       
+    [_content addSubview: [_mainViewController view]]
+    
+    var path = [[CPBundle mainBundle] pathForResource:"bg.jpg"];
+	backImg = [[CPImage alloc] initWithContentsOfFile:path size:CGSizeMake(200, 200)];
+    CPLog("image length %@", [backImg size]);
+    [[_mainViewController view] setBackgroundColor:[CPColor colorWithCSSString:"rgb(246,246,246)"]] 
+    [[theWindow contentView] setBackgroundColor:[CPColor colorWithPatternImage:backImg]] 
+    //[[theWindow contentView] addSubview: [_mainViewController view]];       
 }
 
 - (void)awakeFromCib

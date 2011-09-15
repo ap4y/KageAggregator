@@ -112,7 +112,7 @@
         CPLog("animeString: %@", animeString);
         var result = [CP2JSDecoder decodeRootJSObject:animeString];
         CPLog("decoded object is %@", result);
-        
+                        
         return result;
     }
     
@@ -206,16 +206,25 @@
         return nil;
 }
 
-- (void)setIsWatched {
-    /*var updSubs = [self subtitlesUpdated];
+- (void)setIsWatched {    
+    var _animeToSave = [Anime getAnime: self.baseId];
+    
+    var updSubs = [self subtitlesUpdated];
     for (var i = 0; i < [updSubs count]; i++) {
         var subtitle = [updSubs objectAtIndex:i];        
         subtitle.updated = NO;
     }        
+
+    var updSubs = [_animeToSave subtitlesUpdated];
+    for (var i = 0; i < [updSubs count]; i++) {
+        var subtitle = [updSubs objectAtIndex:i];        
+        subtitle.updated = NO;
+    }        
+
     
-    CPLog("anime will be saved");*/
+    CPLog("anime will be saved");
     
-    [self saveAnime];
+    [_animeToSave saveAnime];
 }
 
 - (CPArray)subtitlesBySeriesCount {

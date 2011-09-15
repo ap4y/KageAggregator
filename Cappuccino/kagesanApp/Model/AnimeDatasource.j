@@ -84,7 +84,7 @@
 }
 
 - (void)addAnime:(CPNumber)objId {
-    CPLog("adding anime %@", [objId stringValue]);
+    CPLog("adding anime %@", objId);
     if ([Anime addAnime:objId]) {        
         var anime = [Anime getAnime:objId];
         [_items insertObject:anime atIndex:0];

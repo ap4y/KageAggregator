@@ -28,6 +28,9 @@
         CPLog("series translated " + count);
     }
     
+    if (count == nil)
+        count = "0";
+        
     var numberFormatter = [[CPNumberFormatter alloc] init];
     var srtIdNum = [numberFormatter numberFromString: srtId];
     var countNum = [numberFormatter numberFromString: count];
@@ -69,7 +72,8 @@
         [_anime.subtitles addObject:newSub];            
     }
     else {
-        if (countNum.integerValue > curSub.seriesCount.integerValue) {
+        debugger;
+        if (countNum != nil && [countNum integerValue] > [curSub.seriesCount integerValue]) {
             curSub.seriesCount = countNum;
             curSub.updated = [CPNumber numberWithBool:YES];    
         }
@@ -115,8 +119,9 @@
 
 - (void)requestHtmlBody {
     _htmlBody = nil;
-    //NSString* html = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://fansubs.ru/base.php?id=%i", _anime.baseId.integerValue]] encoding:NSWindowsCP1251StringEncoding error:&err];
-    var request = [CPURLRequest requestWithURL: [CPURL URLWithString: "file:///Users/ap4y/github/KageAggregator/test.html"]];
+    //NSString* html = [NSString stringWithContentsOfURL:[NSURL URLWithString: encoding:NSWindowsCP1251StringEncoding error:&err];
+    var request = [CPURLRequest requestWithURL: [CPURL URLWithString: [CPString stringWithFormat:@"http://fansubs.ru/base.php?id=%i", [_anime.baseId intValue]]]];
+    //var request = [CPURLRequest requestWithURL: [CPURL URLWithString: "file:///Users/ap4y/github/KageAggregator/test.html"]];
     var result = [CPURLConnection sendSynchronousRequest:request returningResponse:nil]; 
     var html = [result rawString];
     

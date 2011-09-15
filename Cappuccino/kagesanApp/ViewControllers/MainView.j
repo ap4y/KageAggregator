@@ -21,7 +21,7 @@
     @outlet CPArrayController _animeArrayController;
     @outlet CPCollectionView _animeCollectionView;
     @outlet CPScrollView _tableScrollView;
-
+    @outlet CPButton _btnRefresh;
     CPArray selectedSubtitles;
 }
 
@@ -38,17 +38,13 @@
             }            
             newCount++;
         }
-    }
-    
-    if (newCount > 0) {        
-        [[NSApplication sharedApplication].dockTile setBadgeLabel:[NSString stringWithFormat:@"%i", newCount]];        
-    }
-    else
-        [[NSApplication sharedApplication].dockTile setBadgeLabel:@""];
+    }    
 */
 }
 
 - (void)animeAtIndex:(int)itemNum {
+    CPLog("_dataSource items count %i", [[_dataSource items] count]);
+    
     if ([[_dataSource items] count] == 0)
         [_tableScrollView setHidden:YES];
     else
@@ -58,23 +54,23 @@
         return;
     }
     
-    //if (![_curAnime isEqual:[_dataSource.items objectAtIndex:itemNum]]) {                                
+    _curAnime = [[_dataSource items] objectAtIndex:itemNum];
+    var subtitles = [_curAnime subtitlesBySeriesCount];
+    [subtitlesController setContent: subtitles];
 
-        _curAnime = [[_dataSource items] objectAtIndex:itemNum];
-        var subtitles = [_curAnime subtitlesBySeriesCount];
-        [subtitlesController setContent: subtitles];
-    
-        var indexSet = [CPMutableIndexSet indexSet];
-        for (var i = 0; i < [subtitles count]; i++) {
-            var subtitle = [subtitles objectAtIndex:i];
-            if ([subtitle.updated boolValue]) {
-                CPLog("index added");
-                [indexSet addIndex:i];
-            }
+    var indexSet = [CPMutableIndexSet indexSet];
+    for (var i = 0; i < [subtitles count]; i++) {
+        var subtitle = [subtitles objectAtIndex:i];
+        if ([subtitle.updated boolValue]) {
+            //CPLog("index added");
+            [indexSet addIndex:i];
         }
-    
+    }
+
+    if ([indexSet isEqual: [CPMutableIndexSet indexSet]])
+        [_tableView deselectAll];
+    else
         [_tableView selectRowIndexes:indexSet byExtendingSelection:NO];
-    //}
 }
 
 - (id)initWithCibName:(CPString)aCibNameOrNil bundle:(CPBundle)aCibBundleOrNil
@@ -101,6 +97,9 @@
     [[CPNotificationCenter defaultCenter] addObserver:self selector:@selector(didScrolled:) name:CPViewBoundsDidChangeNotification object:[_scrollView contentView]];
         
     [self animeAtIndex:0];    
+    
+    var imgRefresh = [[CPImage alloc] initWithContentsOfFile:"Resources/NSRefreshTemplate.png" size:CGSizeMake(13, 13)];
+    [_btnRefresh setImage: imgRefresh];
 }
 
 - (int)round:(float)floatVal {
@@ -117,8 +116,10 @@
         
         if (itemNum >= 0 && itemNum != [[_dataSource items] indexOfObject:_curAnime]) {    
             CPLog("new item");
-            if (_curAnime != nil)
-                //[_curAnime setIsWatched];
+            
+            if (_curAnime != nil) {                
+                [_curAnime setIsWatched];                    
+            }
             
             CPLog("marked as watched");
             var prevIndex = [[_dataSource items] indexOfObject:_curAnime];
@@ -183,15 +184,20 @@
     [_tableView selectRowIndexes:[CPIndexSet indexSet] byExtendingSelection:NO];
     [_animeArrayController setContent:[_dataSource items]];
     
-    if ([_scrollView visibleRect] != nil) {
+    if ([[_scrollView contentView] visibleRect] != nil) {
         CPLog("y value: %@", [_scrollView visibleRect].origin.y);
-        var itemNum = 0;
+        var itemFloat = [[_scrollView contentView] visibleRect].origin.y / 235.0;
+        var itemNum = [self round: itemFloat];
+        
         if (itemNum >= 0 && itemNum < [[_dataSource items] count]) {
-            if (itemNum != [[_dataSource items] indexOfObject:_curAnime])
+            if (itemNum != [[_dataSource items] indexOfObject:_curAnime]) {
                 [self animeAtIndex: itemNum];
+            }
         }
-        else
+        else {
+            CPLog("_dataSource items count %i, %i", [[_dataSource items] count], itemNum);
             [_tableScrollView setHidden:YES];      
+        }
         
         [self updateNotifications];
     }

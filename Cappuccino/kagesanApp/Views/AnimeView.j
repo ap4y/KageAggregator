@@ -25,7 +25,7 @@
     [_image setImage:img];
     
     var maxSeries = [_anime.subtitles valueForKeyPath:@"@max.seriesCount"];
-    [_count setStringValue:[CPString stringWithFormat:@"переведено %@", [maxSeries stringValue]]];
+    [_count setStringValue:[CPString stringWithFormat:@"переведено %@", maxSeries]];
     
     var updatedSubtitles = [_anime subtitlesUpdated];
     [_new setTitle:[CPString stringWithFormat:@"%i %@", [updatedSubtitles count], [updatedSubtitles count] == 1 ? @"новая" : @"новых"]];

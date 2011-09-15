@@ -42,7 +42,7 @@
 			</object>
 			<object class="NSCustomView" id="1005">
 				<reference key="NSNextResponder"/>
-				<int key="NSvFlags">268</int>
+				<int key="NSvFlags">301</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSScrollView" id="1008241350">
 						<reference key="NSNextResponder" ref="1005"/>
@@ -352,7 +352,7 @@
 					</object>
 					<object class="NSButton" id="599577233">
 						<reference key="NSNextResponder" ref="1005"/>
-						<int key="NSvFlags">268</int>
+						<int key="NSvFlags">301</int>
 						<string key="NSFrame">{{86, 18}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
@@ -367,7 +367,7 @@
 							<string key="NSCellIdentifier">_NS:1491</string>
 							<reference key="NSControlView" ref="599577233"/>
 							<int key="NSButtonFlags">-2030812929</int>
-							<int key="NSButtonFlags2">134</int>
+							<int key="NSButtonFlags2">6</int>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">400</int>
@@ -653,6 +653,22 @@
 					</object>
 					<int key="connectionID">136</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_btnRefresh</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="599577233"/>
+					</object>
+					<int key="connectionID">137</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_tableScrollView</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="165748475"/>
+					</object>
+					<int key="connectionID">138</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -886,7 +902,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">136</int>
+			<int key="maxID">138</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -947,6 +963,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="_animeArrayController">NSArrayController</string>
 						<string key="_animeCollectionView">NSCollectionView</string>
+						<string key="_btnRefresh">NSButton</string>
 						<string key="_idTextField">NSTextField</string>
 						<string key="_scrollView">NSScrollView</string>
 						<string key="_tableScrollView">NSScrollView</string>
@@ -961,6 +978,10 @@
 						<object class="IBToOneOutletInfo" key="_animeCollectionView">
 							<string key="name">_animeCollectionView</string>
 							<string key="candidateClassName">NSCollectionView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_btnRefresh">
+							<string key="name">_btnRefresh</string>
+							<string key="candidateClassName">NSButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="_idTextField">
 							<string key="name">_idTextField</string>
