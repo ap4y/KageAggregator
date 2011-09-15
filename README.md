@@ -19,7 +19,17 @@ Consists of the fansubs.ru clients for:
 
 [![](http://ap4y.github.com/kage_macos_1.png)](http://ap4y.github.com/kage_macos_1.png)
 
-- Cappucino - coming soon :)
+- Cappucino [Try it!][]
+
+supported browsers:
+
+- Internet Explorer 7+
+- Firefox 2+
+- Safari 3+
+- Google Chrome
+- Opera 9+
+
+[![](http://ap4y.github.com/kage_capp_1.png)](http://ap4y.github.com/kage_capp_1.png)
 
 Main features
 -------
@@ -39,3 +49,5 @@ Credits
 License
 -------
 Licensed under the Apache License, Version 2.0
+
+[Try it!]: http://ap4y.github.com
