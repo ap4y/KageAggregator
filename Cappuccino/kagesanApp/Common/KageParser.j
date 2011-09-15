@@ -72,7 +72,6 @@
         [_anime.subtitles addObject:newSub];            
     }
     else {
-        debugger;
         if (countNum != nil && [countNum intValue] > [curSub.seriesCount intValue]) {
             curSub.seriesCount = countNum;
             curSub.updated = [CPNumber numberWithBool:YES];    
