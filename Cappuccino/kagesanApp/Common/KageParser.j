@@ -73,7 +73,7 @@
     }
     else {
         debugger;
-        if (countNum != nil && [countNum integerValue] > [curSub.seriesCount integerValue]) {
+        if (countNum != nil && [countNum intValue] > [curSub.seriesCount intValue]) {
             curSub.seriesCount = countNum;
             curSub.updated = [CPNumber numberWithBool:YES];    
         }
