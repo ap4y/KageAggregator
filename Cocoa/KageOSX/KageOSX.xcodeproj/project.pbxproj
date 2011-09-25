@@ -21,6 +21,8 @@
 		9514E0A91414BCAF0022461A /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E09E1414BCAE0022461A /* Group.m */; };
 		9514E0AA1414BCAF0022461A /* KageData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9514E09F1414BCAE0022461A /* KageData.xcdatamodeld */; };
 		9514E0AC1414BCAF0022461A /* Subtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9514E0A41414BCAE0022461A /* Subtitle.m */; };
+		954C3802142F3259009B8CA2 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C3801142F3259009B8CA2 /* RegexKitLite.m */; };
+		954C3804142F367D009B8CA2 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 954C3803142F367D009B8CA2 /* libicucore.dylib */; };
 		95657D661416B4B4008441CA /* AnimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95657D651416B4B4008441CA /* AnimeView.m */; };
 		957285D31416BD1800F9E370 /* AnimeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 957285D21416BD1800F9E370 /* AnimeView.xib */; };
 		957286241417627900F9E370 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 957286221417627900F9E370 /* MainView.m */; };
@@ -74,6 +76,9 @@
 		9514E0A01414BCAE0022461A /* KageData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KageData.xcdatamodel; sourceTree = "<group>"; };
 		9514E0A31414BCAE0022461A /* Subtitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subtitle.h; sourceTree = "<group>"; };
 		9514E0A41414BCAE0022461A /* Subtitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subtitle.m; sourceTree = "<group>"; };
+		954C3800142F3259009B8CA2 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = KageOSX/Common/RegexKitLite.h; sourceTree = SOURCE_ROOT; };
+		954C3801142F3259009B8CA2 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = KageOSX/Common/RegexKitLite.m; sourceTree = SOURCE_ROOT; };
+		954C3803142F367D009B8CA2 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		95657D641416B4B4008441CA /* AnimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimeView.h; path = KageOSX/Views/AnimeView.h; sourceTree = "<group>"; };
 		95657D651416B4B4008441CA /* AnimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimeView.m; path = KageOSX/Views/AnimeView.m; sourceTree = "<group>"; };
 		957285D21416BD1800F9E370 /* AnimeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AnimeView.xib; path = KageOSX/Views/AnimeView.xib; sourceTree = "<group>"; };
@@ -93,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				954C3804142F367D009B8CA2 /* libicucore.dylib in Frameworks */,
 				9514E03F1414BB3C0022461A /* Cocoa.framework in Frameworks */,
 				95C30D981418C23E00D4A458 /* Growl-WithInstaller.framework in Frameworks */,
 			);
@@ -125,6 +131,7 @@
 		9514E03D1414BB3C0022461A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				954C3803142F367D009B8CA2 /* libicucore.dylib */,
 				95C30D971418C23D00D4A458 /* Growl-WithInstaller.framework */,
 				9514E03E1414BB3C0022461A /* Cocoa.framework */,
 				9514E0401414BB3C0022461A /* Other Frameworks */,
@@ -177,6 +184,8 @@
 				9514E08E1414BC980022461A /* KageParser.m */,
 				9514E08F1414BC980022461A /* RegexHelper.h */,
 				9514E0901414BC980022461A /* RegexHelper.m */,
+				954C3800142F3259009B8CA2 /* RegexKitLite.h */,
+				954C3801142F3259009B8CA2 /* RegexKitLite.m */,
 			);
 			name = Common;
 			path = ../KageClient/KageClient/Common;
@@ -299,6 +308,7 @@
 				95657D661416B4B4008441CA /* AnimeView.m in Sources */,
 				957286241417627900F9E370 /* MainView.m in Sources */,
 				95C30E0A1418E00F00D4A458 /* GrowlNotificator.m in Sources */,
+				954C3802142F3259009B8CA2 /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,7 +364,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 			};
 			name = Debug;
 		};
@@ -373,7 +383,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 			};
 			name = Release;
 		};

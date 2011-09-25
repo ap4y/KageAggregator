@@ -88,19 +88,19 @@ static NSString* hostName = @"http://fansubs.ru/";
         NSArray* htmlArray = [RegexHelper arrayWithRangesMatchesPattern:_htmlBody pattern:@"<table width=\"750\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">.*?</table>"];    
     
         for (int i = 0; i < htmlArray.count; i++) {
-            NSTextCheckingResult* curResult = [htmlArray objectAtIndex:i];
-            NSTextCheckingResult* nextResult = nil;
+            NSValue* curResult = [htmlArray objectAtIndex:i];
+            NSValue* nextResult = nil;
             if (i < htmlArray.count - 1) {
                 nextResult = [htmlArray objectAtIndex:i + 1];
             }
-            NSString* mainHtml = [_htmlBody substringWithRange: curResult.range];
+            NSString* mainHtml = [_htmlBody substringWithRange: [curResult rangeValue]];
             NSString* groupHtml = @"";
             
             if (nextResult) {
-                groupHtml = [_htmlBody substringWithRange: NSMakeRange(curResult.range.location + curResult.range.length, nextResult.range.location - curResult.range.location - curResult.range.length)];
+                groupHtml = [_htmlBody substringWithRange: NSMakeRange([curResult rangeValue].location + [curResult rangeValue].length, [nextResult rangeValue].location - [curResult rangeValue].location - [curResult rangeValue].length)];
             }
             else {
-                groupHtml = [_htmlBody substringWithRange: NSMakeRange(curResult.range.location + curResult.range.length, _htmlBody.length - curResult.range.location - curResult.range.length)];
+                groupHtml = [_htmlBody substringWithRange: NSMakeRange([curResult rangeValue].location + [curResult rangeValue].length, _htmlBody.length - [curResult rangeValue].location - [curResult rangeValue].length)];
             }        
             
             [self parseHtmlString:mainHtml groupString:groupHtml];

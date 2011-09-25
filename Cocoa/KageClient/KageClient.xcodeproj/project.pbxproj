@@ -17,6 +17,8 @@
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		953A32A4140F79AE0072549D /* KageParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 953A32A3140F79AE0072549D /* KageParser.m */; };
+		954C3842142F40ED009B8CA2 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C3841142F40ED009B8CA2 /* RegexKitLite.m */; };
+		954C3844142F4100009B8CA2 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 954C3843142F4100009B8CA2 /* libicucore.dylib */; };
 		954C6CF4141269660082EBAD /* TableAnimeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF3141269660082EBAD /* TableAnimeItem.m */; };
 		954C6CF7141272350082EBAD /* Subtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF6141272350082EBAD /* Subtitle.m */; };
 		954C6CFA141272370082EBAD /* Anime.m in Sources */ = {isa = PBXBuildFile; fileRef = 954C6CF9141272360082EBAD /* Anime.m */; };
@@ -244,6 +246,9 @@
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../../../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
 		953A32A2140F79AE0072549D /* KageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KageParser.h; path = Common/KageParser.h; sourceTree = "<group>"; };
 		953A32A3140F79AE0072549D /* KageParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KageParser.m; path = Common/KageParser.m; sourceTree = "<group>"; };
+		954C3840142F40ED009B8CA2 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = ../../KageOSX/KageOSX/Common/RegexKitLite.h; sourceTree = "<group>"; };
+		954C3841142F40ED009B8CA2 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = ../../KageOSX/KageOSX/Common/RegexKitLite.m; sourceTree = "<group>"; };
+		954C3843142F4100009B8CA2 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		954C6CF2141269660082EBAD /* TableAnimeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableAnimeItem.h; path = Views/TableAnimeItem.h; sourceTree = "<group>"; };
 		954C6CF3141269660082EBAD /* TableAnimeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableAnimeItem.m; path = Views/TableAnimeItem.m; sourceTree = "<group>"; };
 		954C6CF5141272350082EBAD /* Subtitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Subtitle.h; path = Models/Subtitle.h; sourceTree = "<group>"; };
@@ -317,6 +322,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				954C3844142F4100009B8CA2 /* libicucore.dylib in Frameworks */,
 				95C660E2141149DB00A02855 /* CoreData.framework in Frameworks */,
 				3201088596B4756681693705 /* libThree20UICommon.a in Frameworks */,
 				320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */,
@@ -411,6 +417,8 @@
 				95C6601B1411387900A02855 /* RegexHelper.m */,
 				95C6611E14114ACC00A02855 /* CoreDataHelper.h */,
 				95C6611F14114ACC00A02855 /* CoreDataHelper.m */,
+				954C3840142F40ED009B8CA2 /* RegexKitLite.h */,
+				954C3841142F40ED009B8CA2 /* RegexKitLite.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -473,6 +481,7 @@
 		956CC3DC140F73A4002510D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				954C3843142F4100009B8CA2 /* libicucore.dylib */,
 				3201088596B4756681693700 /* Three20UICommon.xcodeproj */,
 				320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */,
 				320A737074758E53BA54BE90 /* Three20UINavigator.xcodeproj */,
@@ -845,6 +854,7 @@
 				95910B991413B53D002C9362 /* AnimeCategory.m in Sources */,
 				958EEADD1413C4540042D54D /* AnimeView.m in Sources */,
 				95C30E491418E03A00D4A458 /* CustomTableFlushViewCell.m in Sources */,
+				954C3842142F40ED009B8CA2 /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
